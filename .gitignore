@@ -1,0 +1,11 @@
+# Settings + Auth
+.env
+
+# VS Code
+.vscode
+
+# NPM Modules
+node_modules
+
+# Dev file
+dev.js
