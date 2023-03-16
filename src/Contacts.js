@@ -31,14 +31,14 @@ class ContactsAPI {
      * @param {number} options.offset - The number of contacts to skip.
      * @param {string} options.search_terms - The search terms to use.
      * @param {boolean} options.show_all - Whether to show all contacts or not.
-     * @param {number} options.updated_since - The timestamp of the last update.
+     * @param {date} options.updated_since - The timestamp of the last update. Ex: 2021-06-01 00:00:00
      * @param {number[]} options.ids - An array of contact IDs to get.
      * @param {string[]} options.fields - An array of fields to get.
      * @param {string[]} options.filter - An array of filters to use.
-     * @returns {object} - An array of contact objects.
+     * @returns {object[]} - An array of contact objects.
      */
     async getContacts(options) {
-        let optionalParametersString = makeURLParameters(["limit", "offset", "search_terms", "show_all", "updated_since", "ids", "fields", "filter"], options)
+        let optionalParametersString = makeURLParameters(["limit", "offset", "search_terms", "show_all", "updated_since", "ids[]", "fields[]", "filter[[]]"], options)
 
         // make get request and wait for response before returning
         let contacts = [];
@@ -51,11 +51,11 @@ class ContactsAPI {
     }
 
     /**
-     * @description This function is used to get a specific contact from TidyHQ.
+     * @description This function is used to get a single contact from TidyHQ.
      * @param {number} contactID [0] - The ID of the contact to get (0 / default returns the contact of the user who authorized the application)
      * @returns {object} - A contact object.
      **/
-    async getSingleContact(contactID=0) {
+    async getContact(contactID=0) {
         if (contactID == 0) contactID = "me";
 
         let contact = {};

@@ -5,7 +5,8 @@
  * @license GPL-3.0
  */
 
-const { ContactsAPI } = require("./src/Contacts")
+const { ContactsAPI } = require("./src/Contacts");
+const { CustomFieldsAPI } = require("./src/CustomFields");
 
 class TidyHQ {
     constructor(clientID, clientSecret, redirectURI, accessToken) {
@@ -15,6 +16,7 @@ class TidyHQ {
         this.accessToken = accessToken;
 
         this.Contacts = new ContactsAPI(accessToken);
+        this.CustomFields = new CustomFieldsAPI(accessToken);
     }
 
 }
