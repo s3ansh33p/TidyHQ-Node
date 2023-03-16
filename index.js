@@ -7,6 +7,7 @@
 
 const { ContactsAPI } = require("./src/Contacts");
 const { CustomFieldsAPI } = require("./src/CustomFields");
+const { GroupsAPI } = require("./src/Groups");
 
 class TidyHQ {
     constructor(clientID, clientSecret, redirectURI, accessToken) {
@@ -17,6 +18,7 @@ class TidyHQ {
 
         this.Contacts = new ContactsAPI(accessToken);
         this.CustomFields = new CustomFieldsAPI(accessToken);
+        this.Groups = new GroupsAPI(accessToken, this.Contacts);
     }
 
 }

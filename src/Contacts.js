@@ -37,10 +37,9 @@ class ContactsAPI {
      * @param {string[]} options.filter - An array of filters to use.
      * @returns {object[]} - An array of contact objects.
      */
-    async getContacts(options) {
+    async getContacts(options = {}) {
         let optionalParametersString = makeURLParameters(["limit", "offset", "search_terms", "show_all", "updated_since", "ids[]", "fields[]", "filter[[]]"], options)
 
-        // make get request and wait for response before returning
         let contacts = [];
         await axios.get(`https://api.tidyhq.com/v1/contacts?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             contacts = response.data;

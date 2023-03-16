@@ -73,7 +73,6 @@ class CustomFieldsAPI {
      * @returns {object} - The newly created custom field object.
      */
     async createCustomField(name, type) {
-        // ensure type is valid
         if (!["string", "text", "dropdown", "boolean", "date"].includes(type)) throw new Error(`CustomFields.createCustomField: Invalid type ${type}.`);
         let customField = {};
         await axios.post(`https://api.tidyhq.com/v1/custom_fields?access_token=${this.access_token}`, {
@@ -96,12 +95,13 @@ class CustomFieldsAPI {
      * @returns {object} - The updated custom field object.
      */
     async updateCustomField(customFieldID, options) {
-        // check options.type
         if (options.type != undefined) {
             if (!["string", "text", "dropdown", "boolean", "date"].includes(options.type)) throw new Error(`CustomFields.updateCustomField: Invalid type ${options.type}.`);
         }
-        // if options.name is defined, change to options.title
-        if (options.name != undefined) options.title = options.name;
+        if (options.name != undefined) {
+            options.title = options.name
+            delete options.name
+        }
         let optionalParametersString = makeURLParameters(["title", "type"], options)
         if (optionalParametersString == "") throw new Error("CustomFields.updateCustomField: No valid options provided.");
 
@@ -124,7 +124,6 @@ class CustomFieldsAPI {
         await axios.delete(`https://api.tidyhq.com/v1/custom_fields/${customFieldID}?access_token=${this.access_token}`).then((response) => {
             success = true;
         }).catch((error) => {
-            // check for 404
             if (error.response.status == 404) {
                 throw new Error(`CustomFields.deleteCustomField: Custom field with ID ${customFieldID} does not exist.`);
             } else {
@@ -212,7 +211,6 @@ class CustomFieldsAPI {
         await axios.delete(`https://api.tidyhq.com/v1/custom_fields/${customFieldID}/choices/${choiceID}?access_token=${this.access_token}`).then((response) => {
             success = true;
         }).catch((error) => {
-            // check for 404
             if (error.response.status == 404) {
                 throw new Error(`CustomFields.deleteCustomFieldChoice: Choice with ID ${choiceID} does not exist.`);
             } else {
