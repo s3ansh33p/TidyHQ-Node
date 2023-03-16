@@ -17,13 +17,11 @@ class GroupsAPI {
     /**
      * @description This function is used to create a new instance of the GroupsAPI class.
      * @param {string} access_token - The access token of the application.
-     * @param {object} ContactsAPI - The ContactsAPI class.
      * @returns {object} - A new instance of the GroupsAPI class.
      * @constructor
      */
     constructor(access_token, ContactsAPI) {
         this.access_token = access_token;
-        this.Contacts = ContactsAPI;
     }
 
     /**
@@ -193,23 +191,27 @@ class GroupsAPI {
     /**
      * @description This function is used to get all contacts in a group in TidyHQ.
      * @param {number} group_id - The ID of the group.
+     * @param {object} options - The options to use.
+     * @param {number} options.limit - The maximum number of contacts to return.
+     * @param {number} options.offset - The number of contacts to skip.
+     * @param {string} options.search_terms - The search terms to use.
+     * @param {boolean} options.show_all - Whether to show all contacts or not.
+     * @param {date} options.updated_since - The timestamp of the last update. Ex: 2021-06-01 00:00:00
+     * @param {number[]} options.ids - An array of contact IDs to get.
+     * @param {string[]} options.fields - An array of fields to get.
+     * @param {string[]} options.filter - An array of filters to use.
      * @returns {object[]} - An array of contact objects.
      */
-    async getGroupContacts(group_id) {
-        let contacts = await this.Contacts.getContacts();
+    async getGroupContacts(group_id, options={}) {
+        let optionalParametersString = makeURLParameters(["limit", "offset", "search_terms", "show_all", "updated_since", "ids[]", "fields[]", "filter[[]]"], options)
 
-        let groupContacts = [];
-        for (let i=0; i<contacts.length; i++) {
-            let contact = contacts[i];
-            for (let j=0; j<contact.groups.length; j++) {
-                let group = contact.groups[j];
-                if (group.id == group_id) {
-                    groupContacts.push(contact);
-                    break;
-                }
-            }
-        }
-        return groupContacts;
+        let contacts = [];
+        await axios.get(`https://api.tidyhq.com/v1/groups/${group_id}/contacts?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+            contacts = response.data;
+        }).catch((error) => {
+            throw new Error(`Groups.getGroupContacts: ${error}`);
+        });
+        return contacts;
     }
 }
 

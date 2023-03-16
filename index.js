@@ -18,7 +18,7 @@ class TidyHQ {
 
         this.Contacts = new ContactsAPI(accessToken);
         this.CustomFields = new CustomFieldsAPI(accessToken);
-        this.Groups = new GroupsAPI(accessToken, this.Contacts);
+        this.Groups = new GroupsAPI(accessToken);
     }
 
 }
