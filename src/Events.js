@@ -30,8 +30,8 @@ class EventsAPI {
      * @param {object} options - The options to use.
      * @param {number} options.limit - The maximum number of contacts to return.
      * @param {number} options.offset - The number of contacts to skip.
-     * @param {string} options.start_at - The start date of the events to return in ISO 8601 format.
-     * @param {string} options.end_at - The end date of the events to return in ISO 8601 format.
+     * @param {date} options.start_at - The start date of the events to return in ISO 8601 format.
+     * @param {date} options.end_at - The end date of the events to return in ISO 8601 format.
      * @param {boolean} options.public - Whether to return only public events or not.
      * @returns {object} - The list of events.
      * @private
@@ -52,8 +52,8 @@ class EventsAPI {
      * @param {object} options - The options to use.
      * @param {number} options.limit - The maximum number of contacts to return.
      * @param {number} options.offset - The number of contacts to skip.
-     * @param {string} options.start_at - The start date of the events to return in ISO 8601 format.
-     * @param {string} options.end_at - The end date of the events to return in ISO 8601 format.
+     * @param {date} options.start_at - The start date of the events to return in ISO 8601 format.
+     * @param {date} options.end_at - The end date of the events to return in ISO 8601 format.
      * @param {boolean} options.public - Whether to return only public events or not.
      * @returns {object} - The list of events.
      */
@@ -67,8 +67,8 @@ class EventsAPI {
      * @param {object} options - The options to use.
      * @param {number} options.limit - The maximum number of contacts to return.
      * @param {number} options.offset - The number of contacts to skip.
-     * @param {string} options.start_at - The start date of the events to return in ISO 8601 format.
-     * @param {string} options.end_at - The end date of the events to return in ISO 8601 format.
+     * @param {date} options.start_at - The start date of the events to return in ISO 8601 format.
+     * @param {date} options.end_at - The end date of the events to return in ISO 8601 format.
      * @param {boolean} options.public - Whether to return only public events or not.
      * @returns {object} - The list of events.
      */
@@ -115,9 +115,9 @@ class EventsAPI {
     /**
      * @description This function is used to create a new event.
      * @param {string} name - The name of the event.
-     * @param {string} start_at - The start date of the event in ISO 8601 format.
+     * @param {date} start_at - The start date of the event in ISO 8601 format.
      * @param {object} options - The options to use.
-     * @param {string} options.end_at - The end date of the event in ISO 8601 format.
+     * @param {date} options.end_at - The end date of the event in ISO 8601 format.
      * @param {string} options.body - The description of the event.
      * {string} options.location - The location of the event. ERROR IN TIDYHQ DOCUMENTATION/API
      * @param {boolean} options.archived - Whether the event is archived or not (showing on public events page).
@@ -144,8 +144,8 @@ class EventsAPI {
      * @param {number} event_id - The ID of the event.
      * @param {object} options - The options to use.
      * @param {string} options.name - The name of the event.
-     * @param {string} options.start_at - The start date of the event in ISO 8601 format.
-     * @param {string} options.end_at - The end date of the event in ISO 8601 format.
+     * @param {date} options.start_at - The start date of the event in ISO 8601 format.
+     * @param {date} options.end_at - The end date of the event in ISO 8601 format.
      * @param {string} options.body - The description of the event.
      * {string} options.location - The location of the event. ERROR IN TIDYHQ DOCUMENTATION/API
      * @param {boolean} options.archived - Whether the event is archived or not (showing on public events page).

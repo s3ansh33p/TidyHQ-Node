@@ -32,7 +32,7 @@ class ContactsAPI {
      * @param {number} options.offset - The number of contacts to skip.
      * @param {string} options.search_terms - The search terms to use.
      * @param {boolean} options.show_all - Whether to show all contacts or not.
-     * @param {date} options.updated_since - The timestamp of the last update. Ex: 2021-06-01 00:00:00
+     * @param {date} options.updated_since - The timestamp of the last update in ISO 8601 format.
      * @param {number[]} options.ids - An array of contact IDs to get.
      * @param {string[]} options.fields - An array of fields to get.
      * @param {string[]} options.filter - An array of filters to use.
@@ -58,7 +58,7 @@ class ContactsAPI {
      * @param {number} options.offset - The number of contacts to skip.
      * @param {string} options.search_terms - The search terms to use.
      * @param {boolean} options.show_all - Whether to show all contacts or not.
-     * @param {date} options.updated_since - The timestamp of the last update. Ex: 2021-06-01 00:00:00
+     * @param {date} options.updated_since - The timestamp of the last update in ISO 8601 format.
      * @param {number[]} options.ids - An array of contact IDs to get.
      * @param {string[]} options.fields - An array of fields to get.
      * @param {string[]} options.filter - An array of filters to use.
@@ -76,7 +76,7 @@ class ContactsAPI {
      * @param {number} options.offset - The number of contacts to skip.
      * @param {string} options.search_terms - The search terms to use.
      * @param {boolean} options.show_all - Whether to show all contacts or not.
-     * @param {date} options.updated_since - The timestamp of the last update. Ex: 2021-06-01 00:00:00
+     * @param {date} options.updated_since - The timestamp of the last update in ISO 8601 format.
      * @param {number[]} options.ids - An array of contact IDs to get.
      * @param {string[]} options.fields - An array of fields to get.
      * @param {string[]} options.filter - An array of filters to use.

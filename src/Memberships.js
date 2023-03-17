@@ -31,7 +31,7 @@ class MembershipsAPI {
      * @param {string} options.limit - The number of results to return.
      * @param {string} options.offset - The number of results to skip.
      * @param {string} options.active - Whether to return active memberships.
-     * @param {string} options.updated_since - The date to return memberships updated since.
+     * @param {date} options.updated_since - The date to return memberships updated since in ISO 8601 format.
      * @returns {object} - The list of memberships.
      * @private
      */
@@ -52,7 +52,7 @@ class MembershipsAPI {
      * @param {string} options.limit - The number of results to return.
      * @param {string} options.offset - The number of results to skip.
      * @param {string} options.active - Whether to return active memberships.
-     * @param {string} options.updated_since - The date to return memberships updated since.
+     * @param {date} options.updated_since - The date to return memberships updated since in ISO 8601 format.
      * @returns {object} - The list of memberships.
      */
     async getMemberships(options = {}) {
@@ -66,7 +66,7 @@ class MembershipsAPI {
      * @param {string} options.limit - The number of results to return.
      * @param {string} options.offset - The number of results to skip.
      * @param {string} options.active - Whether to return active memberships.
-     * @param {string} options.updated_since - The date to return memberships updated since.
+     * @param {date} options.updated_since - The date to return memberships updated since in ISO 8601 format.
      * @returns {object} - The list of memberships.
      */
     async getMembershipsForContact(contact_id, options = {}) {
@@ -80,7 +80,7 @@ class MembershipsAPI {
      * @param {string} options.limit - The number of results to return.
      * @param {string} options.offset - The number of results to skip.
      * @param {string} options.active - Whether to return active memberships.
-     * @param {string} options.updated_since - The date to return memberships updated since.
+     * @param {date} options.updated_since - The date to return memberships updated since in ISO 8601 format.
      * @returns {object} - The list of memberships.
      */
     async getMembershipsForMembershipLevel(membership_level_id, options = {}) {
