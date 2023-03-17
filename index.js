@@ -14,12 +14,10 @@ const { MeetingsAPI } = require("./src/Meetings");
 const { MembershipsAPI } = require("./src/Memberships");
 const { MembershipLevelsAPI } = require("./src/MembershipLevels");
 const { TasksAPI } = require("./src/Tasks");
+const { TransactionsAPI } = require("./src/Transactions");
 
 class TidyHQ {
-    constructor(clientID, clientSecret, redirectURI, accessToken) {
-        this.clientID = clientID;
-        this.clientSecret = clientSecret;
-        this.redirectURI = redirectURI;
+    constructor(accessToken) {
         this.accessToken = accessToken;
 
         this.Categories = new CategoriesAPI(accessToken);
@@ -31,6 +29,7 @@ class TidyHQ {
         this.Memberships = new MembershipsAPI(accessToken);
         this.MembershipLevels = new MembershipLevelsAPI(accessToken);
         this.Tasks = new TasksAPI(accessToken);
+        this.Transactions = new TransactionsAPI(accessToken);
     }
 
 }
