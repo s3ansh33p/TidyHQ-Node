@@ -176,7 +176,7 @@ class GroupsAPI {
      * @description This function is used to remove a contact from a group in TidyHQ.
      * @param {number} group_id - The ID of the group.
      * @param {number} contact_id - The ID of the contact.
-     * @returns {object} - The group object.
+     * @returns {boolean} - Success or failure.
      */
     async removeContactFromGroup(group_id, contact_id) {
         let success = false;

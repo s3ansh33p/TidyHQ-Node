@@ -99,4 +99,4 @@ class MeetingsAPI {
     }
 }
 
-module.exports = { MembershipLevelsAPI };
+module.exports = { MeetingsAPI };

@@ -5,8 +5,10 @@
  * @license GPL-3.0
  */
 
+const { CategoriesAPI } = require("./src/Categories");
 const { ContactsAPI } = require("./src/Contacts");
 const { CustomFieldsAPI } = require("./src/CustomFields");
+const { EventsAPI } = require("./src/Events");
 const { GroupsAPI } = require("./src/Groups");
 const { MeetingsAPI } = require("./src/Meetings");
 const { MembershipsAPI } = require("./src/Memberships");
@@ -19,8 +21,10 @@ class TidyHQ {
         this.redirectURI = redirectURI;
         this.accessToken = accessToken;
 
+        this.Categories = new CategoriesAPI(accessToken);
         this.Contacts = new ContactsAPI(accessToken);
         this.CustomFields = new CustomFieldsAPI(accessToken);
+        this.Events = new EventsAPI(accessToken);
         this.Groups = new GroupsAPI(accessToken);
         this.Meetings = new MeetingsAPI(accessToken);
         this.Memberships = new MembershipsAPI(accessToken);
