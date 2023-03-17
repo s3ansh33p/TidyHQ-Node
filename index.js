@@ -8,6 +8,9 @@
 const { ContactsAPI } = require("./src/Contacts");
 const { CustomFieldsAPI } = require("./src/CustomFields");
 const { GroupsAPI } = require("./src/Groups");
+const { MeetingsAPI } = require("./src/Meetings");
+const { MembershipsAPI } = require("./src/Memberships");
+const { MembershipLevelsAPI } = require("./src/MembershipLevels");
 
 class TidyHQ {
     constructor(clientID, clientSecret, redirectURI, accessToken) {
@@ -19,6 +22,9 @@ class TidyHQ {
         this.Contacts = new ContactsAPI(accessToken);
         this.CustomFields = new CustomFieldsAPI(accessToken);
         this.Groups = new GroupsAPI(accessToken);
+        this.Meetings = new MeetingsAPI(accessToken);
+        this.Memberships = new MembershipsAPI(accessToken);
+        this.MembershipLevels = new MembershipLevelsAPI(accessToken);
     }
 
 }

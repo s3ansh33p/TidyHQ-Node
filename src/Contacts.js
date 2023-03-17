@@ -26,6 +26,33 @@ class ContactsAPI {
 
     /**
      * @description This function is used to get a list of contacts from TidyHQ.
+     * @param {object} path - The path for the request.
+     * @param {object} options - The options to use.
+     * @param {number} options.limit - The maximum number of contacts to return.
+     * @param {number} options.offset - The number of contacts to skip.
+     * @param {string} options.search_terms - The search terms to use.
+     * @param {boolean} options.show_all - Whether to show all contacts or not.
+     * @param {date} options.updated_since - The timestamp of the last update. Ex: 2021-06-01 00:00:00
+     * @param {number[]} options.ids - An array of contact IDs to get.
+     * @param {string[]} options.fields - An array of fields to get.
+     * @param {string[]} options.filter - An array of filters to use.
+     * @returns {object[]} - An array of contact objects.
+     * @private
+     */
+    async #_getContacts(path, options = {}) {
+        let optionalParametersString = makeURLParameters(["limit", "offset", "search_terms", "show_all", "updated_since", "ids[]", "fields[]", "filter[[]]"], options)
+
+        let contacts = [];
+        await axios.get(`https://api.tidyhq.com/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+            contacts = response.data;
+        }).catch((error) => {
+            throw new Error(`Contacts.getContacts: ${error}`);
+        });
+        return contacts;
+    }
+
+    /**
+     * @description This function is used to get a list of contacts from TidyHQ.
      * @param {object} options - The options to use.
      * @param {number} options.limit - The maximum number of contacts to return.
      * @param {number} options.offset - The number of contacts to skip.
@@ -38,15 +65,25 @@ class ContactsAPI {
      * @returns {object[]} - An array of contact objects.
      */
     async getContacts(options = {}) {
-        let optionalParametersString = makeURLParameters(["limit", "offset", "search_terms", "show_all", "updated_since", "ids[]", "fields[]", "filter[[]]"], options)
+        return this.#_getContacts("contacts", options);
+    }
 
-        let contacts = [];
-        await axios.get(`https://api.tidyhq.com/v1/contacts?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
-            contacts = response.data;
-        }).catch((error) => {
-            throw new Error(`Contacts.getContacts: ${error}`);
-        });
-        return contacts;
+    /**
+     * @description This function is used to get a list of contacts from TidyHQ.
+     * @param {string} group_id - The ID of the group to get contacts from.
+     * @param {object} options - The options to use.
+     * @param {number} options.limit - The maximum number of contacts to return.
+     * @param {number} options.offset - The number of contacts to skip.
+     * @param {string} options.search_terms - The search terms to use.
+     * @param {boolean} options.show_all - Whether to show all contacts or not.
+     * @param {date} options.updated_since - The timestamp of the last update. Ex: 2021-06-01 00:00:00
+     * @param {number[]} options.ids - An array of contact IDs to get.
+     * @param {string[]} options.fields - An array of fields to get.
+     * @param {string[]} options.filter - An array of filters to use.
+     * @returns {object[]} - An array of contact objects.
+     */
+    async getContactsInGroup(group_id, options = {}) {
+        return this.#_getContacts(`groups/${group_id}/contacts`, options);
     }
 
     /**
