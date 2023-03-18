@@ -12,10 +12,9 @@ const axios = require("axios");
  * @description This function is used to authorize the application with TidyHQ and return an access token.
  * @param {string} client_id - The client ID of the application.
  * @param {string} redirect_uri - The redirect URI of the application.
- * @param {string} response_type - The response type of the application - should be "code" in V1.
  * @returns {string} - The access token.
  */
-async function authorize(client_id, redirect_uri, response_type="code") {
+async function authorize(client_id, redirect_uri) {
     // must be strings
     if (typeof client_id !== "string") throw new TypeError("OAuth.authorize: client_id must be a string.");
     if (typeof redirect_uri !== "string") throw new TypeError("OAuth.authorize: redirect_uri must be a string.");
@@ -29,7 +28,7 @@ async function authorize(client_id, redirect_uri, response_type="code") {
 
     // finally, we can make the request
     let code = "";
-    await axios.get(`https://accounts.tidyhq.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}`).then((response) => {
+    await axios.get(`https://accounts.tidyhq.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`).then((response) => {
         code = response.data;
     }).catch((error) => {
         throw new Error(`OAuth.authorize: ${error}`);
@@ -39,15 +38,49 @@ async function authorize(client_id, redirect_uri, response_type="code") {
 }
 
 /**
+ * @description This function is used to authorize using a username and password.
+ * @param {string} client_id - The client ID of the application.
+ * @param {string} client_secret - The client secret of the application.
+ * @param {string} username - The username of the user.
+ * @param {string} password - The password of the user.
+ * @param {string} domain_prefix - The domain prefix of the club.
+ * @returns {string} - The access token.
+ */
+async function authorizeWithPassword(client_id, client_secret, username, password, domain_prefix) {
+    // check types
+    if (typeof client_id !== "string") throw new TypeError("OAuth.authorizeWithPassword: client_id must be a string.");
+    if (typeof client_secret !== "string") throw new TypeError("OAuth.authorizeWithPassword: client_secret must be a string.");
+    if (typeof username !== "string") throw new TypeError("OAuth.authorizeWithPassword: username must be a string.");
+    if (typeof password !== "string") throw new TypeError("OAuth.authorizeWithPassword: password must be a string.");
+    // check lengths
+    if (client_id.length !== 64) throw new RangeError("OAuth.authorizeWithPassword: client_id must be 64 characters long.");
+    if (client_secret.length !== 64) throw new RangeError("OAuth.authorizeWithPassword: client_secret must be 64 characters long.");
+
+    let accessToken = "";
+    await axios.post("https://accounts.tidyhq.com/oauth/token", {
+        client_id: client_id,
+        client_secret: client_secret,
+        username: username,
+        password: password,
+        domain_prefix: domain_prefix,
+        grant_type: "password",
+    }).then((response) => {
+        accessToken = response.data.access_token;
+    }).catch((error) => {
+        throw new Error(`OAuth.authorizeWithPassword: ${error}`);
+    });
+    return accessToken;
+}
+
+/**
  * @description This function is used to request an access token from TidyHQ.
  * @param {string} client_id - The client ID of the application.
  * @param {string} client_secret - The client secret of the application.
  * @param {string} redirect_uri - The redirect URI of the application.
  * @param {string} code - The code returned from the authorize function.
- * @param {string} grant_type - The grant type of the application - should be "authorization_code" in V1.
  * @returns {string} - The access token.
  */
-async function requestAccessToken(client_id, client_secret, redirect_uri, code, grant_type="authorization_code") {
+async function requestAccessToken(client_id, client_secret, redirect_uri, code) {
     // check types
     if (typeof client_id !== "string") throw new TypeError("OAuth.requestAccessToken: client_id must be a string.");
     if (typeof client_secret !== "string") throw new TypeError("OAuth.requestAccessToken: client_secret must be a string.");
@@ -58,17 +91,14 @@ async function requestAccessToken(client_id, client_secret, redirect_uri, code, 
     if (client_id.length !== 64) throw new RangeError("OAuth.requestAccessToken: client_id must be 64 characters long.");
     if (client_secret.length !== 64) throw new RangeError("OAuth.requestAccessToken: client_secret must be 64 characters long.");
     if (!redirect_uri.startsWith("http")) throw new RangeError("OAuth.requestAccessToken: redirect_uri must be a valid URL.");
-    if (grant_type !== "authorization_code") throw new RangeError("OAuth.requestAccessToken: grant_type must be \"authorization_code\" in V1.");
 
-    // make the request
-    // post to https://accounts.tidyhq.com/oauth/token
     let accessToken = "";
     await axios.post("https://accounts.tidyhq.com/oauth/token", {
         client_id: client_id,
         client_secret: client_secret,
         redirect_uri: redirect_uri,
         code: code,
-        grant_type: grant_type
+        grant_type: "authorization_code"
     }).then((response) => {
         accessToken = response.data.access_token;
     }).catch((error) => {
@@ -78,4 +108,4 @@ async function requestAccessToken(client_id, client_secret, redirect_uri, code, 
     return accessToken;
 }
 
-module.exports = { authorize, requestAccessToken };
+module.exports = { authorize, authorizeWithPassword, requestAccessToken };
