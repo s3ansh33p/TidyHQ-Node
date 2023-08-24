@@ -58,27 +58,72 @@ class TicketsAPI {
         return await this.#_getTickets(event_id, true);
     }
 
+    /**
+     * @description This function is used to create a ticket category for an event.
+     * @param {string} event_id - The ID of the event.
+     * @param {string} name - The name for the type of ticket.
+     * @param {object} options - The options for the ticket.
+     * @param {decimal} options.amount - The amount for the ticket. Default is 0.00 and is for free tickets.
+     * @param {number} options.initial_quantity - Limit the number of tickets available. Default is null and is for unlimited.
+     * @param {number} options.maximum_purchase - Limit the number of tickets per purchase. Default is 5
+     * @param {date} options.sales_end - The date in ISO 8601 format for sales to end. Default is null and is for no end date.
+     * @returns {object} - The ticket category.
+     */
+    async createTicket(event_id, name, options = {}) {
+        let ticket = {};
+        let optionalParametersString = makeURLParameters(["amount", "initial_quantity", "maximum_purchase", "sales_end"], options);
+
+        await axios.post(`https://api.tidyhq.com/v1/events/${event_id}/tickets?access_token=${this.access_token}&name=${name}${optionalParametersString}`).then((response) => {
+            ticket = response.data;
+        }).catch((error) => {
+            throw new Error(`Tickets.createTicket: ${error}`);
+        });
+        return ticket;
+    }
+
+    /**
+     * @description This function is used to update a ticket category for an event.
+     * @param {string} event_id - The ID of the event.
+     * @param {string} ticket_id - The ID of the ticket.
+     * @param {string} options - The options for the ticket.
+     * @param {string} options.name - The name for the type of ticket.
+     * @param {decimal} options.amount - The amount for the ticket.
+     * @param {number} options.initial_quantity - Limit the number of tickets available.
+     * @param {number} options.maximum_purchase - Limit the number of tickets per purchase.
+     * @param {date} options.sales_end - The date in ISO 8601 format for sales to end.
+     * @returns {object} - The updated ticket category.
+     */
+    async updateTicket(event_id, ticket_id, options) {
+        let ticket = {};
+        let optionalParametersString = makeURLParameters(["name", "amount", "initial_quantity", "maximum_purchase", "sales_end"], options);
+
+        if (optionalParametersString == "") {
+            throw new Error("Tickets.updateTicket: No options were provided to update.");
+        }
+
+        await axios.put(`https://api.tidyhq.com/v1/events/${event_id}/tickets/${ticket_id}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+            ticket = response.data;
+        }).catch((error) => {
+            throw new Error(`Tickets.updateTicket: ${error}`);
+        });
+        return ticket;
+    }
+
+    /**
+     * @description This function is used to delete a ticket category for an event.
+     * @param {string} event_id - The ID of the event.
+     * @param {string} ticket_id - The ID of the ticket.
+     * @returns {boolean} - Whether or not the ticket was deleted.
+     */
+    async deleteTicket(event_id, ticket_id) {
+        let deleted = false;
+        await axios.delete(`https://api.tidyhq.com/v1/events/${event_id}/tickets/${ticket_id}?access_token=${this.access_token}`).then((response) => {
+            deleted = true;
+        }).catch((error) => {
+            throw new Error(`Tickets.deleteTicket: ${error}`);
+        });
+        return deleted;
+    }
 }
 
 module.exports = { TicketsAPI };
-
-// tba
-/*
-List tickets
-GET /events/:event_id/tickets
-
-List tickets sold
-GET /events/:event_id/tickets/sold
-
-Get a single ticket
-GET /events/:event_id/tickets
-
-Create a ticket
-POST /events/:event_id/tickets
-
-Update a ticket
-PUT /events/:event_id/tickets/:id
-
-Delete a ticket
-DELETE /events/:event_id/tickets/:id
-*/
