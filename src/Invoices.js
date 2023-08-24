@@ -76,10 +76,10 @@ class InvoicesAPI {
      * @param {object} options - The options to create the invoice with.
      * @param {string} options.description - The description of the invoice.
      * @param {string} options.metadata - The metadata of the invoice.
-     * @returns {object} - The new invoice.
+     * @returns {boolean} - Success or failure.
      */
      async createInvoice(reference, amount, included_tax_total, pre_tax_amount, due_date, category_id, contact_id, options = {}) {
-        let invoice = {};
+        let success = false;
         
         const validOptions = ["description", "metadata"];
         let keys = Object.keys(options);
@@ -99,11 +99,13 @@ class InvoicesAPI {
             contact_id,
             ...options
         }).then((response) => {
-            invoice = response.data;
+            if (response.status == 201) {
+                success = true;
+            }
         }).catch((error) => {
             throw new Error(`Invoices.createInvoice: ${error}`);
         });
-        return invoice;
+        return success;
     }
 
     /**
