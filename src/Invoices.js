@@ -26,11 +26,21 @@ class InvoicesAPI {
 
     /**
      * @description This function is used to get a list of invoices from TidyHQ.
-     * @returns {object} - An array of custom field objects.
+     * @param {object} options - The options to use.
+     * @param {number} options.limit - The maximum number of invoices to return.
+     * @param {number} options.offset - The number of invoices to skip.
+     * @param {"activated" | "cancelled" | "all"} options.status - The status of the invoice.
+     * @param {date} options.updated_since - The timestamp of the last update in ISO 8601 format.
+     * @returns {object} - An array of invoices.
      */
-    async getInvoices() {
+    async getInvoices(options = {}) {
         let invoices = [];
-        await axios.get(`https://api.tidyhq.com/v1/invoices?access_token=${this.access_token}`).then((response) => {
+        if (options.status == "all") {
+            options.status = "activated,cancelled";
+        }
+        let optionalParametersString = makeURLParameters(["limit", "offset", "status", "updated_since"], options);
+
+        await axios.get(`https://api.tidyhq.com/v1/invoices?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             invoices = response.data;
         }).catch((error) => {
             throw new Error(`Invoices.getInvoices: ${error}`);
@@ -39,23 +49,14 @@ class InvoicesAPI {
     }
 
     /**
-     * @description This function is used to get a single custom field from TidyHQ.
-     * @param {string} invoiceID - The ID of the Invoice to get
-     * @param {object} options - The options to use.
-     * @param {number} options.limit - The maximum number of invoices to return.
-     * @param {number} options.offset - The number of invoices to skip.
-     * @param {"activated" | "cancelled" | "all"} options.status - The status of the invoice.
-     * @param {date} options.updated_since - The timestamp of the last update in ISO 8601 format.
+     * @description This function is used to get a single invoice from TidyHQ.
+     * @param {string} invoiceID - The ID of the invoice to get
      * @returns {object} - An Invoice object.
      **/
-    async getInvoice(invoiceID, options = {}) {
+    async getInvoice(invoiceID) {
         let invoice = {};
-        if (options.status == "all") {
-            options.status = "activated,cancelled";
-        }
-        let optionalParametersString = makeURLParameters(["limit", "offset", "status", "updated_since"], options);
 
-        await axios.get(`https://api.tidyhq.com/v1/invoices/${invoiceID}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://api.tidyhq.com/v1/invoices/${invoiceID}?access_token=${this.access_token}`).then((response) => {
             invoice = response.data;
         }).catch((error) => {
             throw new Error(`Invoices.getInvoice: ${error}`);
