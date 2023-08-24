@@ -9,6 +9,7 @@ const { AssociationAPI } = require("./src/Association");
 const { CategoriesAPI } = require("./src/Categories");
 const { ContactsAPI } = require("./src/Contacts");
 const { CustomFieldsAPI } = require("./src/CustomFields");
+const { DepositsAPI } = require("./src/Deposits");
 const { EmailsAPI } = require("./src/Emails");
 const { EventsAPI } = require("./src/Events");
 const { ExpensesAPI } = require("./src/Expenses");
@@ -30,6 +31,7 @@ class TidyHQ {
         this.Categories = new CategoriesAPI(accessToken);
         this.Contacts = new ContactsAPI(accessToken);
         this.CustomFields = new CustomFieldsAPI(accessToken);
+        this.Deposits = new DepositsAPI(accessToken);
         this.Emails = new EmailsAPI(accessToken);
         this.Events = new EventsAPI(accessToken);
         this.Expenses = new ExpensesAPI(accessToken);
