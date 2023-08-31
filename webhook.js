@@ -36,14 +36,18 @@ class TidyHQWebhook {
     handleEvent(event, data) {
         if (this.callbacks[event]) {
             this.callbacks[event](data);
+        } else {
+            console.log("No callback registered for event: " + event);
+            console.log(data);
         }
     }
 
     verifyAndHandle(tidySignatureHeader, body, httpMethod = 'POST') {
         this.verify(tidySignatureHeader, body, httpMethod).then((data) => {
+            console.log("Verified event: " + data.kind + " at " + new Date().toISOString());
             this.handleEvent(data.kind, data.data);
         }).catch((error) => {
-            throw new Error(`Webhooks.verifyAndHandle: ${error}`);
+            console.log(`[ERROR] Webhooks.verifyAndHandle: ${error} for ${tidySignatureHeader} ${body.kind} ${httpMethod}`);
         });
     }
 
