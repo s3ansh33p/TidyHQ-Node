@@ -42,12 +42,12 @@ class WebhooksAPI {
      * @param {string} id - The ID of the Webhook.
      * @returns {object} - The Webhook.
      */
-    async getWebhookByID(id) {
+    async getWebhook(id) {
         let webhook = {};
         await axios.get(`https://api.tidyhq.com/v2/webhooks/${id}?access_token=${this.access_token}`).then((response) => {
             webhook = response.data;
         }).catch((error) => {
-            throw new Error(`Webhooks.getWebhookByID: ${error}`);
+            throw new Error(`Webhooks.getWebhook: ${error}`);
         });
         return webhook;
     }
