@@ -23,6 +23,9 @@ const { TasksAPI } = require("./src/Tasks");
 const { TicketsAPI } = require("./src/Tickets");
 const { TransactionsAPI } = require("./src/Transactions");
 
+// v2
+const { V2 } = require("./src/v2/index");
+
 class TidyHQ {
     constructor(accessToken) {
         this.accessToken = accessToken;
@@ -44,6 +47,9 @@ class TidyHQ {
         this.Tasks = new TasksAPI(accessToken);
         this.Tickets = new TicketsAPI(accessToken);
         this.Transactions = new TransactionsAPI(accessToken);
+
+        // v2
+        this.V2 = new V2(accessToken);
     }
 
 }
