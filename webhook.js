@@ -14,6 +14,9 @@ const crypto = require("crypto");
  */
 class TidyHQWebhook {
 
+    // callbacks
+    callbacks = {};
+
     /**
      * @description This function is used to create a new instance of the TidyHQWebhook class.
      * @param {string} webhookId - The ID of the webhook.
@@ -24,6 +27,24 @@ class TidyHQWebhook {
     constructor(webhookId, signingKey) {
         this.signingKey = signingKey;
         this.webhookId = webhookId;
+    }
+
+    registerCallback(event, callback) {
+        this.callbacks[event] = callback;
+    }
+
+    handleEvent(event, data) {
+        if (this.callbacks[event]) {
+            this.callbacks[event](data);
+        }
+    }
+
+    verifyAndHandle(tidySignatureHeader, body, httpMethod = 'POST') {
+        this.verify(tidySignatureHeader, body, httpMethod).then((data) => {
+            this.handleEvent(data.kind, data.data);
+        }).catch((error) => {
+            throw new Error(`Webhooks.verifyAndHandle: ${error}`);
+        });
     }
 
     /**
@@ -49,7 +70,7 @@ class TidyHQWebhook {
         const timestamp = details.timestamp
         const signature = details.signatures[0]
 
-        const timestampedPayload = `${timestamp}.${body}`
+        const timestampedPayload = `${timestamp}.${JSON.stringify(body)}`
 
         const expectedSignature = crypto.createHmac('sha256', signingKey)
             .update(timestampedPayload, 'utf8')
@@ -65,7 +86,7 @@ class TidyHQWebhook {
             throw new Error('Timestamp outside the tolerance zone')
         }
 
-        const data = JSON.parse(body)
+        const data = body
 
         if (data.webhook_id !== this.webhookId) {
             throw new Error(`There has been a webhook ID mismatch, expected ${this.webhookId} got ${data.webhook_id}`)
@@ -74,8 +95,6 @@ class TidyHQWebhook {
         if (data.http_method !== httpMethod) {
             throw new Error(`There has been a HTTP method mismatch, expected ${httpMethod} got ${data.http_method}`)
         }
-
-        console.log(`Webhook verified, webhook ID: ${data.webhook_id}, HTTP method: ${data.http_method}`)
 
         return data
     }
