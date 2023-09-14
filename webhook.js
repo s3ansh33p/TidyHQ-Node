@@ -44,7 +44,7 @@ class TidyHQWebhook {
 
     verifyAndHandle(tidySignatureHeader, body, httpMethod = 'POST') {
         this.verify(tidySignatureHeader, body, httpMethod).then((data) => {
-            console.log("Verified event: " + data.kind + " at " + new Date().toISOString());
+            console.log("[" + this.webhookId + "] Verified event: " + data.kind + " at " + new Date().toISOString());
             this.handleEvent(data.kind, data.data);
         }).catch((error) => {
             console.log(data);
