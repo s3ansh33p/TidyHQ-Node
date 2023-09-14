@@ -123,6 +123,7 @@ class EventsAPI {
      * @param {boolean} options.archived - Whether the event is archived or not (showing on public events page).
      * @param {boolean} options.hidden - Whether the event is hidden or not (showing on public events and admin page).
      * @param {number} options.category_id - The ID of the category to assign the event to (defaults to tickets category).
+     * @param {string} options.location - The location of the event.
      * @returns {object} - The event.
      */
     async createEvent(name, start_at, options = {}) {
@@ -151,12 +152,14 @@ class EventsAPI {
      * @param {boolean} options.archived - Whether the event is archived or not (showing on public events page).
      * @param {boolean} options.hidden - Whether the event is hidden or not (showing on public events and admin page).
      * @param {number} options.category_id - The ID of the category to assign the event to (defaults to tickets category).
+     * @param {string} options.location - The location of the event.
      * @returns {object} - The event.
      */
     async updateEvent(event_id, options = {}) {
         let event = {};
-        let optionalParameters = makeURLParameters(["name", "start_at", "end_at", "body", "archived", "hidden", "category_id"], options);
-        await axios.put(`https://api.tidyhq.com/v1/events/${event_id}?access_token=${this.access_token}&${optionalParameters}`, {
+        let optionalParameters = makeURLParameters(["name", "start_at", "end_at", "body", "archived", "hidden", "category_id", "location"], options);
+        console.log(`https://api.tidyhq.com/v1/events/${event_id}?access_token=${this.access_token}${optionalParameters}`);
+        await axios.put(`https://api.tidyhq.com/v1/events/${event_id}?access_token=${this.access_token}${optionalParameters}`, {
         }).then((response) => {
             event = response.data;
         }).catch((error) => {

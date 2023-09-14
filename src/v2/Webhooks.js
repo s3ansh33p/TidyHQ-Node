@@ -57,7 +57,7 @@ class WebhooksAPI {
      * @param {string} url - The URL of the Webhook to listen to.
      * @param {string} matching_kind - The kind of event to listen for.
      * @param {string} description - The description of the Webhook.
-     * @param {boolean} allow_state_changes - ???
+     * @param {boolean} allow_state_changes - If the Webhook should allow state changes, or terminate on the first state change.
      * @returns {object} - The new Webhook.
      * @todo Find out what allow_state_changes does.
      */

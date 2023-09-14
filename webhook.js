@@ -47,6 +47,7 @@ class TidyHQWebhook {
             console.log("Verified event: " + data.kind + " at " + new Date().toISOString());
             this.handleEvent(data.kind, data.data);
         }).catch((error) => {
+            console.log(data);
             console.log(`[ERROR] Webhooks.verifyAndHandle: ${error} for ${tidySignatureHeader} ${body.kind} ${httpMethod}`);
         });
     }
