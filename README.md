@@ -63,7 +63,7 @@ As of 31/August/2023, the `http://api.tidyhq.com/v2/webhooks/{webhookId}` route 
 
 | Event Name | Kind | Verified |
 | --- | --- | --- |
-| contact.activated | contact | - |
+| contact.activated | contact | FAILS (see notes) |
 | contact.deactivated | contact | - |
 | contact.merged | contact | YES |
 | contact.group.added | contact.group | SOMETIMES (see notes) |
@@ -96,30 +96,45 @@ As of 31/August/2023, the `http://api.tidyhq.com/v2/webhooks/{webhookId}` route 
 Other event kinds that were found but not documented:
 | Event Name | Kind | Verified | Notes |
 | --- | --- | --- | --- |
-| contact.deleted | contact | YES | N/A |
+| contact.deleted | contact | YES | - |
 | contact.created | contact | - | - |
-| contact.updated | contact | - | - |
-| event.created | event | YES | N/A |
-| event.updated | event | FAILS | SOMTIMES (see notes) |
+| contact.updated | contact | YES | - |
+| event.created | event | YES | - |
+| event.updated | event | FAILS | SOMETIMES (see notes) |
+| event.deleted | event | YES | - |
 | event.activated | event | FAILS | Signature Mismatch when creating an event via dashboard |
 
-Other notes:
-Requests for `contact.group.removed` and `contact.group.added` failed to verify the signature when the
-webhook was made to allow state changes, yet work if set to false. Will need to investigate further.
+### Other notes:
 
-### For `event.updated`:
- - Signature Mismatch occurs for 
+#### For `contact.activated`:
+- Signature Mismatch occurs for 
+    - purchasing a ticket (on unpublished event though, not tested on published event yet)
+
+#### For `contact.group.added`:
+- Signature Mismatch occurs for 
+    - adding a user to a group via the web dashboard
+
+- Works for
+    - merging contacts
+
+#### For `contact.group.removed`:
+- Signature Mismatch occurs for 
+    - removing a user from a group via the web dashboard
+
+#### For `event.updated`:
+- Signature Mismatch occurs for 
     - creating an event via dashboard
     - updating by adding a ticket category
 
- - Works for
-    - Updating the body of an event, after one already exists
+- Sometimes works for
+    - Updating the body of an event, after one already exists (not sure why it works sometimes, but not others)
  
- - Potential issues
+- Potential issues
     - There is no event/message sent after updating location
 
-
-When tasks are added or marked as complete, no webhook event is sent.
+#### Misc
+- When tasks are added or marked as complete, no webhook event is sent.
+- There is no clear event/message after a free ticket is purchased (`finance.order.activated` is theoretically sent for paid tickets, but not yet tested). Hopefully, a new event is sent when a ticket is purchased, regardless of whether it is free or not.
 
 ## Authors
 
