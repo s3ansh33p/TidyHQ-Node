@@ -158,7 +158,6 @@ class EventsAPI {
     async updateEvent(event_id, options = {}) {
         let event = {};
         let optionalParameters = makeURLParameters(["name", "start_at", "end_at", "body", "archived", "hidden", "category_id", "location"], options);
-        console.log(`https://api.tidyhq.com/v1/events/${event_id}?access_token=${this.access_token}${optionalParameters}`);
         await axios.put(`https://api.tidyhq.com/v1/events/${event_id}?access_token=${this.access_token}${optionalParameters}`, {
         }).then((response) => {
             event = response.data;
