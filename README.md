@@ -68,8 +68,8 @@ As of 31/August/2023, the `http://api.tidyhq.com/v2/webhooks/{webhookId}` route 
 | contact.merged | contact | YES |
 | contact.group.added | contact.group | SOMETIMES (see notes) |
 | contact.group.removed | contact.group | SOMETIMES (see notes) |
-| finance.order.pending | finance.order | - |
-| finance.order.activated | finance.order | - |
+| finance.order.pending | finance.order | SOMETIMES (see notes) |
+| finance.order.activated | finance.order | SOMETIMES (see notes) |
 | finance.order.awaiting_payment | finance.order | - |
 | finance.order.rejected | finance.order | - |
 | finance.order.cancelled | finance.order | - |
@@ -77,14 +77,14 @@ As of 31/August/2023, the `http://api.tidyhq.com/v2/webhooks/{webhookId}` route 
 | membership.created | membership | - |
 | membership.updated | membership | - |
 | membership.deleted | membership | FAILS (experienced after merging contacts) |
-| membership.activated | membership | - |
+| membership.activated | membership | FAILS (though only logged once) |
 | membership.partiated | membership | - |
 | membership.expired | membership | - |
 | membership.cancelled | membership | - |
 | subscription.created | subscription | - |
-| subscription.updated | subscription | - |
+| subscription.updated | subscription | FAILS (though only logged once) |
 | subscription.deleted | subscription | - |
-| subscription.started | subscription | - |
+| subscription.started | subscription | FAILS (though only logged once) |
 | subscription.expired | subscription | - |
 | subscription.continued | subscription | - |
 | subscription.cancelled | subscription | - |
@@ -93,7 +93,7 @@ As of 31/August/2023, the `http://api.tidyhq.com/v2/webhooks/{webhookId}` route 
 | webhook.deactivated | webhook | YES |
 | webhook.errored | webhook | YES |
 
-Other event kinds that were found but not documented:
+Other event kinds that were found but not documented yet:
 | Event Name | Kind | Verified | Notes |
 | --- | --- | --- | --- |
 | contact.deleted | contact | YES | - |
@@ -131,6 +131,19 @@ Other event kinds that were found but not documented:
  
 - Potential issues
     - There is no event/message sent after updating location
+
+#### For `finance.order.pending`:
+- Signature Mismatch occurs for 
+    - body with `subscription` field
+
+- Works for
+    - body with `tickets_pack` field
+
+#### For `finance.order.activated`:
+- Same as `finance.order.pending` with regards to `subscription` and `tickets_pack` fields
+- Note: for `tickets_pack` responses, there doesn't appear to be an easy way to get
+information about the tickets that were purchased. The `tickets_pack` field only contains an
+ID that isn't for a ticket or category, and the remaining fields are financial information/status.
 
 #### Misc
 - When tasks are added or marked as complete, no webhook event is sent.
