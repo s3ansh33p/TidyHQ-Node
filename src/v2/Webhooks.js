@@ -1,7 +1,7 @@
 /**
  * @fileoverview This file contains functions for interacting with Webhooks in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 2.0.0
  * @license GPL-3.0
  */
 
@@ -32,7 +32,7 @@ class WebhooksAPI {
         await axios.get(`https://api.tidyhq.com/v2/webhooks?access_token=${this.access_token}`).then((response) => {
             webhooks = response.data;
         }).catch((error) => {
-            throw new Error(`Webhooks.getWebhooks: ${error}`);
+            throw new Error(`V2.Webhooks.getWebhooks: ${error}`);
         });
         return webhooks;
     }
@@ -47,7 +47,7 @@ class WebhooksAPI {
         await axios.get(`https://api.tidyhq.com/v2/webhooks/${id}?access_token=${this.access_token}`).then((response) => {
             webhook = response.data;
         }).catch((error) => {
-            throw new Error(`Webhooks.getWebhook: ${error}`);
+            throw new Error(`V2.Webhooks.getWebhook: ${error}`);
         });
         return webhook;
     }
@@ -71,7 +71,7 @@ class WebhooksAPI {
         }).then((response) => {
             webhook = response.data;
         }).catch((error) => {
-            throw new Error(`Webhooks.createWebhook: ${error}`);
+            throw new Error(`V2.Webhooks.createWebhook: ${error}`);
         });
         return webhook;
     }
@@ -127,7 +127,7 @@ class WebhooksAPI {
                 success = true;
             }
         }).catch((error) => {
-            throw new Error(`Webhooks.deleteWebhook: ${error}`);
+            throw new Error(`V2.Webhooks.deleteWebhook: ${error}`);
             success = false;
         });
         return success;
