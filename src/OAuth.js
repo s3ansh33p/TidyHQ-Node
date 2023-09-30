@@ -18,13 +18,10 @@ async function authorize(client_id, redirect_uri) {
     // must be strings
     if (typeof client_id !== "string") throw new TypeError("OAuth.authorize: client_id must be a string.");
     if (typeof redirect_uri !== "string") throw new TypeError("OAuth.authorize: redirect_uri must be a string.");
-    if (typeof response_type !== "string") throw new TypeError("OAuth.authorize: response_type must be a string.");
     // client_id must be 64 characters long
     if (client_id.length !== 64) throw new RangeError("OAuth.authorize: client_id must be 64 characters long.");
     // redirect_uri must be a valid URL
     if (!redirect_uri.startsWith("http")) throw new RangeError("OAuth.authorize: redirect_uri must be a valid URL.");
-    // response_type must be "code" in V1
-    if (response_type !== "code") throw new RangeError("OAuth.authorize: response_type must be \"code\" in V1.");
 
     // finally, we can make the request
     let code = "";
