@@ -23,6 +23,8 @@ const { TasksAPI } = require("./src/Tasks");
 const { TicketsAPI } = require("./src/Tickets");
 const { TransactionsAPI } = require("./src/Transactions");
 
+const axios = require("axios");
+
 // v2
 const { V2 } = require("./src/v2/index");
 
@@ -50,6 +52,29 @@ class TidyHQ {
 
         // v2
         this.V2 = new V2(accessToken);
+    }
+
+    /**
+     * @description Global request function for the TidyHQ API.
+     * @param {string} path
+     * @param {string} accessToken 
+     */
+    async get(path, accessToken) {
+        let url = `https://api.tidyhq.com/${path}?access_token=${accessToken}`;
+        // return data and status
+        let data = {};
+        let status = 400;
+        await axios.get(url).then((response) => {
+            data = response.data;
+            status = response.status;
+        }).catch((error) => {
+            data = error;
+            status = error.response.status;
+        });
+        return {
+            data: data,
+            status: status
+        };
     }
 
 }
