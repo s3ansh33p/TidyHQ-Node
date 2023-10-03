@@ -58,9 +58,10 @@ class TidyHQ {
      * @description Global request function for the TidyHQ API.
      * @param {string} path
      * @param {string} accessToken 
+     * @param {string} query
      */
-    async get(path, accessToken) {
-        let url = `https://api.tidyhq.com/${path}?access_token=${accessToken}`;
+    async get(path, accessToken, query="") {
+        let url = `https://api.tidyhq.com/${path}?access_token=${accessToken}${query}`;
         // return data and status
         let data = {};
         let status = 400;
@@ -68,7 +69,7 @@ class TidyHQ {
             data = response.data;
             status = response.status;
         }).catch((error) => {
-            data = error;
+            data = error.response.data;
             status = error.response.status;
         });
         return {
