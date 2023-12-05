@@ -31,6 +31,7 @@ const { V2 } = require("./src/v2/index");
 class TidyHQ {
     constructor(accessToken, host = "api.tidyhq.com") {
         this.accessToken = accessToken;
+        this.host = host;
 
         this.Association = new AssociationAPI(accessToken, host);
         this.Categories = new CategoriesAPI(accessToken, host);
