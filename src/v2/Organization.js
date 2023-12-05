@@ -25,7 +25,7 @@ class OrganizationAPI {
     }
 
     /**
-     * @description Returns the organisation the current token is associated with, including their domain prefix etc.
+     * @description Returns the organization the current token is associated with, including their domain prefix etc.
      * @returns {object} - The organization.
      */
     async getOrganization() {
@@ -39,7 +39,7 @@ class OrganizationAPI {
     }
 
     /**
-     * @description Returns all admins configured / provisioned for the current organisation.
+     * @description Returns all admins configured / provisioned for the current organization.
      * @param {object} [options] - The options to use.
      * @param {number} [options.limit] - The maximum number of admins to return.
      * @param {number} [options.offset] - The number of admins to skip.
@@ -60,7 +60,7 @@ class OrganizationAPI {
     }
 
     /**
-     * @description Returns all roles configured / provisioned for the current organisation.
+     * @description Returns all roles configured / provisioned for the current organization.
      * @param {object} [options] - The options to use.
      * @param {number} [options.limit] - The maximum number of roles to return.
      * @param {number} [options.offset] - The number of roles to skip.

@@ -27,13 +27,13 @@ class AssociationAPI {
      * @returns {object} - The list of organizations.
      */
     async getOrganizations() {
-        let organisations = [];
+        let organizations = [];
         await this.axios.get(`/v1/association/organizations`).then((response) => {
-            organisations = response.data;
+            organizations = response.data;
         }).catch((error) => {
             throw new Error(`Association.getOrganizations: ${error}\n${error.response.data}`);
         });
-        return organisations;
+        return organizations;
     }
 
     /**
@@ -42,13 +42,13 @@ class AssociationAPI {
      * @returns {object} - The organization.
      */
     async getOrganization(id) {
-        let organisation = [];
+        let organization = [];
         await this.axios.get(`/v1/association/organizations/${id}`).then((response) => {
-            organisation = response.data;
+            organization = response.data;
         }).catch((error) => {
             throw new Error(`Association.getOrganization: ${error}\n${error.response.data}`);
         });
-        return organisation;
+        return organization;
     }
 
     /**
