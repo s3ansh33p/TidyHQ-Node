@@ -25,11 +25,11 @@ class DepositsAPI {
 
     /**
      * @description This function is used to get a list of deposits from TidyHQ.
-     * @param {object} options - The options to use.
-     * @param {number} options.limit - The maximum number of deposits to return.
-     * @param {number} options.offset - The number of deposits to skip.
-     * @param {"activated" | "cancelled" | "all"} options.status - The status of the deposit.
-     * @param {date} options.updated_since - The timestamp of the last update in ISO 8601 format.
+     * @param {object} [options] - The options to use.
+     * @param {number} [options.limit] - The maximum number of deposits to return.
+     * @param {number} [options.offset] - The number of deposits to skip.
+     * @param {"activated" | "cancelled" | "all"} [options.status] - The status of the deposit.
+     * @param {date} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
      * @returns {object} - An array of deposits.
      */
     async getDeposits(options = {}) {
@@ -70,9 +70,9 @@ class DepositsAPI {
      * @param {date} paid_date - The date that the deposit was paid in ISO 8601 format.
      * @param {category_id} category_id - The category of the deposit.
      * @param {contact_id} contact_id - The source of the deposit.
-     * @param {object} options - The options to create the deposit with.
-     * @param {string} options.description - The description of the deposit.
-     * @param {string} options.metadata - The metadata of the deposit.
+     * @param {object} [options] - The options to create the deposit with.
+     * @param {string} [options.description] - The description of the deposit.
+     * @param {string} [options.metadata] - The metadata of the deposit.
      * @returns {boolean} - Success or failure.
      */
     async createDeposit(name, amount, paid_date, category_id, contact_id, options = {}) {

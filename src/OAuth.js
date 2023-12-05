@@ -25,7 +25,7 @@ async function authorize(client_id, redirect_uri, host = "https://accounts.tidyh
 
     // finally, we can make the request
     let code = "";
-    await axios.get(`${host}/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`).then((response) => {
+    await this.axios.get(`${host}/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`).then((response) => {
         code = response.data;
     }).catch((error) => {
         throw new Error(`OAuth.authorize: ${error}\n${error.response.data}`);
@@ -54,7 +54,7 @@ async function authorizeWithPassword(client_id, client_secret, username, passwor
     if (client_secret.length !== 64) throw new RangeError("OAuth.authorizeWithPassword: client_secret must be 64 characters long.");
 
     let accessToken = "";
-    await axios.post(`${host}/oauth/token`, {
+    await this.axios.post(`${host}/oauth/token`, {
         client_id: client_id,
         client_secret: client_secret,
         username: username,
@@ -90,7 +90,7 @@ async function requestAccessToken(client_id, client_secret, redirect_uri, code, 
     if (!redirect_uri.startsWith("http")) throw new RangeError("OAuth.requestAccessToken: redirect_uri must be a valid URL.");
 
     let accessToken = "";
-    await axios.post(`${host}/oauth/token`, {
+    await this.axios.post(`${host}/oauth/token`, {
         client_id: client_id,
         client_secret: client_secret,
         redirect_uri: redirect_uri,

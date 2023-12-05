@@ -26,10 +26,10 @@ class TasksAPI {
     /**
      * @description This function is used to get a list of all tasks.
      * @param {string} path - The path for the request.
-     * @param {object} options - The options for the request.
-     * @param {string} options.limit - The number of results to return.
-     * @param {string} options.offset - The number of results to skip.
-     * @param {boolean} options.completed - Return only completed tasks or not.
+     * @param {object} [options] - The options for the request.
+     * @param {string} [options.limit] - The number of results to return.
+     * @param {string} [options.offset] - The number of results to skip.
+     * @param {boolean} [options.completed] - Return only completed tasks or not.
      * @returns {object} - The list of tasks.
      * @private
      */
@@ -46,10 +46,10 @@ class TasksAPI {
 
     /**
      * @description This function is used to get a list of all tasks.
-     * @param {object} options - The options for the request.
-     * @param {string} options.limit - The number of results to return.
-     * @param {string} options.offset - The number of results to skip.
-     * @param {boolean} options.completed - Return only completed tasks or not.
+     * @param {object} [options] - The options for the request.
+     * @param {string} [options.limit] - The number of results to return.
+     * @param {string} [options.offset] - The number of results to skip.
+     * @param {boolean} [options.completed] - Return only completed tasks or not.
      * @returns {object} - The list of tasks.
      */
     async getTasks(options = {}) {
@@ -59,10 +59,10 @@ class TasksAPI {
     /**
      * @description This function is used to get a list of all tasks for a contact.
      * @param {string} contact_id - The ID of the contact.
-     * @param {object} options - The options for the request.
-     * @param {string} options.limit - The number of results to return.
-     * @param {string} options.offset - The number of results to skip.
-     * @param {boolean} options.completed - Return only completed tasks or not.
+     * @param {object} [options] - The options for the request.
+     * @param {string} [options.limit] - The number of results to return.
+     * @param {string} [options.offset] - The number of results to skip.
+     * @param {boolean} [options.completed] - Return only completed tasks or not.
      * @returns {object} - The list of tasks.
      */
     async getContactTasks(contact_id, options = {}) {
@@ -110,12 +110,12 @@ class TasksAPI {
     /**
      * @description This function is used to update a task.
      * @param {string} task_id - The ID of the task.
-     * @param {object} options - The options for the request.
-     * @param {string} options.contact_id - The ID of the contact to assign the task to.
-     * @param {string} options.title - The title of the task.
-     * @param {date} options.due_date - The due date of the task in ISO 8601 format.
-     * @param {string} options.description - The description of the task.
-     * @param {boolean} options.completed - Whether the task is completed or not.
+     * @param {object} [options] - The options for the request.
+     * @param {string} [options.contact_id] - The ID of the contact to assign the task to.
+     * @param {string} [options.title] - The title of the task.
+     * @param {date} [options.due_date] - The due date of the task in ISO 8601 format.
+     * @param {string} [options.description] - The description of the task.
+     * @param {boolean} [options.completed] - Whether the task is completed or not.
      * @returns {object} - The updated task.
      */
     async updateTask(task_id, options = {}) {

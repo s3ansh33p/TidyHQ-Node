@@ -25,11 +25,11 @@ class ExpensesAPI {
 
     /**
      * @description This function is used to get a list of expenses from TidyHQ.
-     * @param {object} options - The options to use.
-     * @param {number} options.limit - The maximum number of expenses to return.
-     * @param {number} options.offset - The number of expenses to skip.
-     * @param {"activated" | "cancelled" | "all"} options.status - The status of the expense.
-     * @param {date} options.updated_since - The timestamp of the last update in ISO 8601 format.
+     * @param {object} [options] - The options to use.
+     * @param {number} [options.limit] - The maximum number of expenses to return.
+     * @param {number} [options.offset] - The number of expenses to skip.
+     * @param {"activated" | "cancelled" | "all"} [options.status] - The status of the expense.
+     * @param {date} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
      * @returns {object} - An array of expenses.
      */
     async getExpenses(options = {}) {
@@ -70,9 +70,9 @@ class ExpensesAPI {
      * @param {date} due_date - The due date of the expense in ISO 8601 format.
      * @param {category_id} category_id - The category of the expense.
      * @param {contact_id} contact_id - The source of the expense.
-     * @param {object} options - The options to create the expense with.
-     * @param {string} options.description - The description of the expense.
-     * @param {string} options.metadata - The metadata of the expense.
+     * @param {object} [options] - The options to create the expense with.
+     * @param {string} [options.description] - The description of the expense.
+     * @param {string} [options.metadata] - The metadata of the expense.
      * @returns {boolean} - Success or failure.
      */
     async createExpense(name, amount, due_date, category_id, contact_id, options = {}) {
@@ -107,10 +107,10 @@ class ExpensesAPI {
     /**
      * @description This function is used to add a payment to an expense.
      * @param {string} expenseID - The ID of the expense.
-     * @param {object} options - The options to create the payment with.
-     * @param {decimal} options.amount - The amount of the payment expressed as a decimal.
-     * @param {"cash" | "card" | "cheque" | "bank" | "other"} options.payment_type - The type of payment.
-     * @param {date} options.date - The date of the payment in ISO 8601 format.
+     * @param {object} [options] - The options to create the payment with.
+     * @param {decimal} [options.amount] - The amount of the payment expressed as a decimal.
+     * @param {"cash" | "card" | "cheque" | "bank" | "other"} [options.payment_type] - The type of payment.
+     * @param {date} [options.date] - The date of the payment in ISO 8601 format.
      * @returns {boolean} - Success or failure.
      */
     async addPayment(expenseID, options = {}) {

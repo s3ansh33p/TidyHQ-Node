@@ -61,11 +61,11 @@ class TicketsAPI {
      * @description This function is used to create a ticket category for an event.
      * @param {string} event_id - The ID of the event.
      * @param {string} name - The name for the type of ticket.
-     * @param {object} options - The options for the ticket.
-     * @param {decimal} options.amount - The amount for the ticket. Default is 0.00 and is for free tickets.
-     * @param {number} options.initial_quantity - Limit the number of tickets available. Default is null and is for unlimited.
-     * @param {number} options.maximum_purchase - Limit the number of tickets per purchase. Default is 5
-     * @param {date} options.sales_end - The date in ISO 8601 format for sales to end. Default is null and is for no end date.
+     * @param {object} [options] - The options for the ticket.
+     * @param {decimal} [options.amount] - The amount for the ticket. Default is 0.00 and is for free tickets.
+     * @param {number} [options.initial_quantity] - Limit the number of tickets available. Default is null and is for unlimited.
+     * @param {number} [options.maximum_purchase] - Limit the number of tickets per purchase. Default is 5
+     * @param {date} [options.sales_end] - The date in ISO 8601 format for sales to end. Default is null and is for no end date.
      * @returns {object} - The ticket category.
      */
     async createTicket(event_id, name, options = {}) {
@@ -84,12 +84,12 @@ class TicketsAPI {
      * @description This function is used to update a ticket category for an event.
      * @param {string} event_id - The ID of the event.
      * @param {string} ticket_id - The ID of the ticket.
-     * @param {string} options - The options for the ticket.
-     * @param {string} options.name - The name for the type of ticket.
-     * @param {decimal} options.amount - The amount for the ticket.
-     * @param {number} options.initial_quantity - Limit the number of tickets available.
-     * @param {number} options.maximum_purchase - Limit the number of tickets per purchase.
-     * @param {date} options.sales_end - The date in ISO 8601 format for sales to end.
+     * @param {string} [options] - The options for the ticket.
+     * @param {string} [options.name] - The name for the type of ticket.
+     * @param {decimal} [options.amount] - The amount for the ticket.
+     * @param {number} [options.initial_quantity] - Limit the number of tickets available.
+     * @param {number} [options.maximum_purchase] - Limit the number of tickets per purchase.
+     * @param {date} [options.sales_end] - The date in ISO 8601 format for sales to end.
      * @returns {object} - The updated ticket category.
      */
     async updateTicket(event_id, ticket_id, options) {

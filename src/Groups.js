@@ -25,10 +25,10 @@ class GroupsAPI {
 
     /**
      * @description This function is used to get a list of groups from TidyHQ.
-     * @param {object} options - The options to use.
-     * @param {number} options.limit - The maximum number of groups to return.
-     * @param {number} options.offset - The number of groups to skip.
-     * @param {string} options.search_terms - The search terms to use.
+     * @param {object} [options] - The options to use.
+     * @param {number} [options.limit] - The maximum number of groups to return.
+     * @param {number} [options.offset] - The number of groups to skip.
+     * @param {string} [options.search_terms] - The search terms to use.
      * @returns {object[]} - An array of group objects.
      */
     async getGroups(options = {}) {
@@ -46,10 +46,10 @@ class GroupsAPI {
     /**
      * @description This function is used to get groups for a contact from TidyHQ.
      * @param {number} contact_id - The ID of the contact.
-     * @param {object} options - The options to use.
-     * @param {number} options.limit - The maximum number of groups to return.
-     * @param {number} options.offset - The number of groups to skip.
-     * @param {string} options.search_terms - The search terms to use.
+     * @param {object} [options] - The options to use.
+     * @param {number} [options.limit] - The maximum number of groups to return.
+     * @param {number} [options.offset] - The number of groups to skip.
+     * @param {string} [options.search_terms] - The search terms to use.
      * @returns {object[]} - An array of group objects.
      */
     async getGroupsForContact(contact_id, options) {
@@ -94,7 +94,7 @@ class GroupsAPI {
 
     /**
      * @description This function is used to create a new group in TidyHQ.
-     * @param {object} options - The options to use.
+     * @param {object} [options] - The options to use.
      * @param {string} name - The name of the group.
      * @param {string} description - The description of the group.
      * @returns {object} - The group object.
@@ -118,9 +118,9 @@ class GroupsAPI {
     /**
      * @description This function is used to update a group in TidyHQ.
      * @param {number} group_id - The ID of the group.
-     * @param {object} options - The options to use.
-     * @param {string} options.name - The name of the group.
-     * @param {string} options.description - The description of the group.
+     * @param {object} [options] - The options to use.
+     * @param {string} [options.name] - The name of the group.
+     * @param {string} [options.description] - The description of the group.
      * @returns {object} - The group object.
      */
     async updateGroup(group_id, options) {

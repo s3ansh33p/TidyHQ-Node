@@ -25,9 +25,9 @@ class MembershipLevelsAPI {
 
     /**
      * @description This function is used to get a list of all membership levels.
-     * @param {object} options - The options for the request.
-     * @param {string} options.limit - The number of results to return.
-     * @param {string} options.offset - The number of results to skip.
+     * @param {object} [options] - The options for the request.
+     * @param {string} [options.limit] - The number of results to return.
+     * @param {string} [options.offset] - The number of results to skip.
      * @returns {object} - The list of membership levels.
      */
     async getMembershipLevels(options = {}) {

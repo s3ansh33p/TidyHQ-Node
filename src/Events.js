@@ -26,12 +26,12 @@ class EventsAPI {
     /**
      * @description This function is used to get a list of events.
      * @param {object} path - The path for the request.
-     * @param {object} options - The options to use.
-     * @param {number} options.limit - The maximum number of contacts to return.
-     * @param {number} options.offset - The number of contacts to skip.
-     * @param {date} options.start_at - The start date of the events to return in ISO 8601 format.
-     * @param {date} options.end_at - The end date of the events to return in ISO 8601 format.
-     * @param {boolean} options.public - Whether to return only public events or not.
+     * @param {object} [options] - The options to use.
+     * @param {number} [options.limit] - The maximum number of contacts to return.
+     * @param {number} [options.offset] - The number of contacts to skip.
+     * @param {date} [options.start_at] - The start date of the events to return in ISO 8601 format.
+     * @param {date} [options.end_at] - The end date of the events to return in ISO 8601 format.
+     * @param {boolean} [options.public] - Whether to return only public events or not.
      * @returns {object} - The list of events.
      * @private
      */
@@ -48,12 +48,12 @@ class EventsAPI {
 
     /**
      * @description This function is used to get a list of events.
-     * @param {object} options - The options to use.
-     * @param {number} options.limit - The maximum number of contacts to return.
-     * @param {number} options.offset - The number of contacts to skip.
-     * @param {date} options.start_at - The start date of the events to return in ISO 8601 format.
-     * @param {date} options.end_at - The end date of the events to return in ISO 8601 format.
-     * @param {boolean} options.public - Whether to return only public events or not.
+     * @param {object} [options] - The options to use.
+     * @param {number} [options.limit] - The maximum number of contacts to return.
+     * @param {number} [options.offset] - The number of contacts to skip.
+     * @param {date} [options.start_at] - The start date of the events to return in ISO 8601 format.
+     * @param {date} [options.end_at] - The end date of the events to return in ISO 8601 format.
+     * @param {boolean} [options.public] - Whether to return only public events or not.
      * @returns {object} - The list of events.
      */
     async getEvents(options = {}) {
@@ -63,12 +63,12 @@ class EventsAPI {
     /**
      * @description This function is used to get a list of events for an organization.
      * @param {number} organization_id - The ID of the organization.
-     * @param {object} options - The options to use.
-     * @param {number} options.limit - The maximum number of contacts to return.
-     * @param {number} options.offset - The number of contacts to skip.
-     * @param {date} options.start_at - The start date of the events to return in ISO 8601 format.
-     * @param {date} options.end_at - The end date of the events to return in ISO 8601 format.
-     * @param {boolean} options.public - Whether to return only public events or not.
+     * @param {object} [options] - The options to use.
+     * @param {number} [options.limit] - The maximum number of contacts to return.
+     * @param {number} [options.offset] - The number of contacts to skip.
+     * @param {date} [options.start_at] - The start date of the events to return in ISO 8601 format.
+     * @param {date} [options.end_at] - The end date of the events to return in ISO 8601 format.
+     * @param {boolean} [options.public] - Whether to return only public events or not.
      * @returns {object} - The list of events.
      */
     async getOrganizationEvents(organization_id, options = {}) {
@@ -115,14 +115,14 @@ class EventsAPI {
      * @description This function is used to create a new event.
      * @param {string} name - The name of the event.
      * @param {date} start_at - The start date of the event in ISO 8601 format.
-     * @param {object} options - The options to use.
-     * @param {date} options.end_at - The end date of the event in ISO 8601 format.
-     * @param {string} options.body - The description of the event.
-     * {string} options.location - The location of the event. ERROR IN TIDYHQ DOCUMENTATION/API
-     * @param {boolean} options.archived - Whether the event is archived or not (showing on public events page).
-     * @param {boolean} options.hidden - Whether the event is hidden or not (showing on public events and admin page).
-     * @param {number} options.category_id - The ID of the category to assign the event to (defaults to tickets category).
-     * @param {string} options.location - The location of the event.
+     * @param {object} [options] - The options to use.
+     * @param {date} [options.end_at] - The end date of the event in ISO 8601 format.
+     * @param {string} [options.body] - The description of the event.
+     * {string} [options.location] - The location of the event. ERROR IN TIDYHQ DOCUMENTATION/API
+     * @param {boolean} [options.archived] - Whether the event is archived or not (showing on public events page).
+     * @param {boolean} [options.hidden] - Whether the event is hidden or not (showing on public events and admin page).
+     * @param {number} [options.category_id] - The ID of the category to assign the event to (defaults to tickets category).
+     * @param {string} [options.location] - The location of the event.
      * @returns {object} - The event.
      */
     async createEvent(name, start_at, options = {}) {
@@ -142,16 +142,16 @@ class EventsAPI {
     /**
      * @description This function is used to update an event.
      * @param {number} event_id - The ID of the event.
-     * @param {object} options - The options to use.
-     * @param {string} options.name - The name of the event.
-     * @param {date} options.start_at - The start date of the event in ISO 8601 format.
-     * @param {date} options.end_at - The end date of the event in ISO 8601 format.
-     * @param {string} options.body - The description of the event.
-     * {string} options.location - The location of the event. ERROR IN TIDYHQ DOCUMENTATION/API
-     * @param {boolean} options.archived - Whether the event is archived or not (showing on public events page).
-     * @param {boolean} options.hidden - Whether the event is hidden or not (showing on public events and admin page).
-     * @param {number} options.category_id - The ID of the category to assign the event to (defaults to tickets category).
-     * @param {string} options.location - The location of the event.
+     * @param {object} [options] - The options to use.
+     * @param {string} [options.name] - The name of the event.
+     * @param {date} [options.start_at] - The start date of the event in ISO 8601 format.
+     * @param {date} [options.end_at] - The end date of the event in ISO 8601 format.
+     * @param {string} [options.body] - The description of the event.
+     * {string} [options.location] - The location of the event. ERROR IN TIDYHQ DOCUMENTATION/API
+     * @param {boolean} [options.archived] - Whether the event is archived or not (showing on public events page).
+     * @param {boolean} [options.hidden] - Whether the event is hidden or not (showing on public events and admin page).
+     * @param {number} [options.category_id] - The ID of the category to assign the event to (defaults to tickets category).
+     * @param {string} [options.location] - The location of the event.
      * @returns {object} - The event.
      */
     async updateEvent(event_id, options = {}) {

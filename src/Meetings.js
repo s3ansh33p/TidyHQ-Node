@@ -26,9 +26,9 @@ class MeetingsAPI {
     /**
      * @description This function is used to get a list of all meetings.
      * @param {object} path - The path for the request.
-     * @param {object} options - The options for the request.
-     * @param {string} options.limit - The number of results to return.
-     * @param {string} options.offset - The number of results to skip.
+     * @param {object} [options] - The options for the request.
+     * @param {string} [options.limit] - The number of results to return.
+     * @param {string} [options.offset] - The number of results to skip.
      * @returns {object} - The list of meetings.
      * @private
      */
@@ -45,9 +45,9 @@ class MeetingsAPI {
 
     /**
      * @description This function is used to get a list of all meetings.
-     * @param {object} options - The options for the request.
-     * @param {string} options.limit - The number of results to return.
-     * @param {string} options.offset - The number of results to skip.
+     * @param {object} [options] - The options for the request.
+     * @param {string} [options.limit] - The number of results to return.
+     * @param {string} [options.offset] - The number of results to skip.
      * @returns {object} - The list of meetings.
      */
     async getMeetings(options = {}) {
@@ -57,9 +57,9 @@ class MeetingsAPI {
     /**
      * @description This function is used to get meetings for an organization.
      * @param {string} organization_id - The ID of the organization.
-     * @param {object} options - The options for the request.
-     * @param {string} options.limit - The number of results to return.
-     * @param {string} options.offset - The number of results to skip.
+     * @param {object} [options] - The options for the request.
+     * @param {string} [options.limit] - The number of results to return.
+     * @param {string} [options.offset] - The number of results to skip.
      * @returns {object} - The list of meetings.
      */
     async getOrganizationMeetings(organization_id, options = {}) {

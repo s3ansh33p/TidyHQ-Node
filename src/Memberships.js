@@ -26,11 +26,11 @@ class MembershipsAPI {
     /**
      * @description This function is used to get a list of all memberships.
      * @param {object} path - The path for the request.
-     * @param {object} options - The options for the request.
-     * @param {string} options.limit - The number of results to return.
-     * @param {string} options.offset - The number of results to skip.
-     * @param {string} options.active - Whether to return active memberships.
-     * @param {date} options.updated_since - The date to return memberships updated since in ISO 8601 format.
+     * @param {object} [options] - The options for the request.
+     * @param {string} [options.limit] - The number of results to return.
+     * @param {string} [options.offset] - The number of results to skip.
+     * @param {string} [options.active] - Whether to return active memberships.
+     * @param {date} [options.updated_since] - The date to return memberships updated since in ISO 8601 format.
      * @returns {object} - The list of memberships.
      * @private
      */
@@ -47,11 +47,11 @@ class MembershipsAPI {
 
     /**
      * @description This function is used to get a list of all memberships.
-     * @param {object} options - The options for the request.
-     * @param {string} options.limit - The number of results to return.
-     * @param {string} options.offset - The number of results to skip.
-     * @param {string} options.active - Whether to return active memberships.
-     * @param {date} options.updated_since - The date to return memberships updated since in ISO 8601 format.
+     * @param {object} [options] - The options for the request.
+     * @param {string} [options.limit] - The number of results to return.
+     * @param {string} [options.offset] - The number of results to skip.
+     * @param {string} [options.active] - Whether to return active memberships.
+     * @param {date} [options.updated_since] - The date to return memberships updated since in ISO 8601 format.
      * @returns {object} - The list of memberships.
      */
     async getMemberships(options = {}) {
@@ -61,11 +61,11 @@ class MembershipsAPI {
     /**
      * @description This function is used to get a list of all memberships for a contact.
      * @param {string} contact_id - The ID of the contact.
-     * @param {object} options - The options for the request.
-     * @param {string} options.limit - The number of results to return.
-     * @param {string} options.offset - The number of results to skip.
-     * @param {string} options.active - Whether to return active memberships.
-     * @param {date} options.updated_since - The date to return memberships updated since in ISO 8601 format.
+     * @param {object} [options] - The options for the request.
+     * @param {string} [options.limit] - The number of results to return.
+     * @param {string} [options.offset] - The number of results to skip.
+     * @param {string} [options.active] - Whether to return active memberships.
+     * @param {date} [options.updated_since] - The date to return memberships updated since in ISO 8601 format.
      * @returns {object} - The list of memberships.
      */
     async getMembershipsForContact(contact_id, options = {}) {
@@ -75,11 +75,11 @@ class MembershipsAPI {
     /**
      * @description This function is used to get a list of all memberships for a membership level.
      * @param {string} membership_level_id - The ID of the membership level.
-     * @param {object} options - The options for the request.
-     * @param {string} options.limit - The number of results to return.
-     * @param {string} options.offset - The number of results to skip.
-     * @param {string} options.active - Whether to return active memberships.
-     * @param {date} options.updated_since - The date to return memberships updated since in ISO 8601 format.
+     * @param {object} [options] - The options for the request.
+     * @param {string} [options.limit] - The number of results to return.
+     * @param {string} [options.offset] - The number of results to skip.
+     * @param {string} [options.active] - Whether to return active memberships.
+     * @param {date} [options.updated_since] - The date to return memberships updated since in ISO 8601 format.
      * @returns {object} - The list of memberships.
      */
     async getMembershipsForMembershipLevel(membership_level_id, options = {}) {

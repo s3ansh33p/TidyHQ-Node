@@ -25,11 +25,11 @@ class InvoicesAPI {
 
     /**
      * @description This function is used to get a list of invoices from TidyHQ.
-     * @param {object} options - The options to use.
-     * @param {number} options.limit - The maximum number of invoices to return.
-     * @param {number} options.offset - The number of invoices to skip.
-     * @param {"activated" | "cancelled" | "all"} options.status - The status of the invoice.
-     * @param {date} options.updated_since - The timestamp of the last update in ISO 8601 format.
+     * @param {object} [options] - The options to use.
+     * @param {number} [options.limit] - The maximum number of invoices to return.
+     * @param {number} [options.offset] - The number of invoices to skip.
+     * @param {"activated" | "cancelled" | "all"} [options.status] - The status of the invoice.
+     * @param {date} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
      * @returns {object} - An array of invoices.
      */
     async getInvoices(options = {}) {
@@ -72,9 +72,9 @@ class InvoicesAPI {
      * @param {date} due_date - The due date of the invoice in ISO 8601 format.
      * @param {integer} category_id - The ID of the category to assign the invoice to. 
      * @param {integer} contact_id - The ID of the contact to assign the invoice to.
-     * @param {object} options - The options to create the invoice with.
-     * @param {string} options.description - The description of the invoice.
-     * @param {string} options.metadata - The metadata of the invoice.
+     * @param {object} [options] - The options to create the invoice with.
+     * @param {string} [options.description] - The description of the invoice.
+     * @param {string} [options.metadata] - The metadata of the invoice.
      * @returns {boolean} - Success or failure.
      */
      async createInvoice(reference, amount, included_tax_total, pre_tax_amount, due_date, category_id, contact_id, options = {}) {
@@ -110,10 +110,10 @@ class InvoicesAPI {
     /**
      * @description This function is used to add a payment to an invoice.
      * @param {string} invoiceID - The ID of the invoice.
-     * @param {object} options - The options to create the payment with.
-     * @param {decimal} options.amount - The amount of the payment expressed as a decimal.
-     * @param {"cash" | "card" | "cheque" | "bank" | "other"} options.payment_type - The type of payment.
-     * @param {date} options.date - The date of the payment in ISO 8601 format.
+     * @param {object} [options] - The options to create the payment with.
+     * @param {decimal} [options.amount] - The amount of the payment expressed as a decimal.
+     * @param {"cash" | "card" | "cheque" | "bank" | "other"} [options.payment_type] - The type of payment.
+     * @param {date} [options.date] - The date of the payment in ISO 8601 format.
      * @returns {boolean} - Success or failure.
      */
     async addPayment(invoiceID, options = {}) {
