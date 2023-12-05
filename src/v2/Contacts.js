@@ -35,7 +35,7 @@ class ContactsAPI {
      * @param {boolean} [options.registered]  - When given, returns only users with / without a user account attached.
      * @param {boolean} [options.all] - When given, returns all (including inactive) - defaults to only returning visible / active.
      * @param {string[]} [options.ids] - When given, filters to those matching the given IDs. Can be combined with scope to specify the type of ID.
-     * @param {"sports_australia_connect" | "contact_id_number"} [options.scope] - If specified, applies ids to the specified type. If not given, will default to check the id reference or the id.
+     * @param {"contact_id_number" | "sports_australia_connect"} [options.scope] - If specified, applies ids to the specified type. If not given, will default to check the id reference or the id.
      * @param {string} [options.search_terms] - The search terms to use.
      * @param {string[]} [options.filter_equals] - An array of filters to use. Supports first_name, last_name, company, email_address, phone_number, kind, contact_id_number
      * @returns {object[]} - An array of contact objects.
