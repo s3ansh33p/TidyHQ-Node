@@ -40,11 +40,11 @@ class OrganizationAPI {
 
     /**
      * @description Returns all admins configured / provisioned for the current organisation.
-     * @param {object} options - The options to use.
-     * @param {number} options.limit - The maximum number of admins to return.
-     * @param {number} options.offset - The number of admins to skip.
-     * @param {date} options.updated_since - The timestamp of the last update in ISO 8601 format.
-     * @param {date} options.updated_before - The timestamp of the last update in ISO 8601 format.
+     * @param {object} [options] - The options to use.
+     * @param {number} [options.limit] - The maximum number of admins to return.
+     * @param {number} [options.offset] - The number of admins to skip.
+     * @param {date} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
+     * @param {date} [options.updated_before] - The timestamp of the last update in ISO 8601 format.
      * @returns {object} - The admins.
      */
     async getAdmins(options = {}) {
@@ -61,11 +61,11 @@ class OrganizationAPI {
 
     /**
      * @description Returns all roles configured / provisioned for the current organisation.
-     * @param {object} options - The options to use.
-     * @param {number} options.limit - The maximum number of roles to return.
-     * @param {number} options.offset - The number of roles to skip.
-     * @param {date} options.updated_since - The timestamp of the last update in ISO 8601 format.
-     * @param {date} options.updated_before - The timestamp of the last update in ISO 8601 format.
+     * @param {object} [options] - The options to use.
+     * @param {number} [options.limit] - The maximum number of roles to return.
+     * @param {number} [options.offset] - The number of roles to skip.
+     * @param {date} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
+     * @param {date} [options.updated_before] - The timestamp of the last update in ISO 8601 format.
      * @returns {object} - The roles.
      */
     async getRoles(options = {}) {
