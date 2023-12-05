@@ -5,15 +5,18 @@
  * @license GPL-3.0
  */
 
+const { ContactsAPI } = require("./Contacts.js");
 const { OrganizationAPI } = require("./Organization.js");
 const { WebhooksAPI } = require("./Webhooks");
 
 class V2 {
-    constructor(accessToken) {
+    constructor(accessToken, host) {
         this.accessToken = accessToken;
+        this.host = host;
 
-        this.Organization = new OrganizationAPI(accessToken);
-        this.Webhooks = new WebhooksAPI(accessToken);
+        this.Contacts = new ContactsAPI(accessToken, host);
+        this.Organization = new OrganizationAPI(accessToken, host);
+        this.Webhooks = new WebhooksAPI(accessToken, host);
     }
 
 }

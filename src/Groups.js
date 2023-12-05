@@ -20,8 +20,9 @@ class GroupsAPI {
      * @returns {object} - A new instance of the GroupsAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -36,7 +37,7 @@ class GroupsAPI {
         let optionalParametersString = makeURLParameters(["limit", "offset", "search_terms"], options)
 
         let groups = [];
-        await axios.get(`https://api.tidyhq.com/v1/groups?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/groups?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             groups = response.data;
         }).catch((error) => {
             throw new Error(`Groups.getGroups: ${error}`);
@@ -57,7 +58,7 @@ class GroupsAPI {
         let optionalParametersString = makeURLParameters(["limit", "offset", "search_terms"], options)
 
         let groups = [];
-        await axios.get(`https://api.tidyhq.com/v1/contacts/${contact_id}/groups?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/contacts/${contact_id}/groups?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             groups = response.data;
         }).catch((error) => {
             throw new Error(`Groups.getGroupsForContact: ${error}`);
@@ -72,7 +73,7 @@ class GroupsAPI {
      */
     async getGroup(group_id) {
         let group = {};
-        await axios.get(`https://api.tidyhq.com/v1/groups/${group_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/groups/${group_id}?access_token=${this.access_token}`).then((response) => {
             group = response.data;
         }).catch((error) => {
             throw new Error(`Groups.getGroup: ${error}`);
@@ -108,7 +109,7 @@ class GroupsAPI {
             options.description = description;
         }
         let group = {};
-        await axios.post(`https://api.tidyhq.com/v1/groups?access_token=${this.access_token}`, options).then((response) => {
+        await axios.post(`https://${this.host}/v1/groups?access_token=${this.access_token}`, options).then((response) => {
             group = response.data;
         }).catch((error) => {
             throw new Error(`Groups.createGroup: ${error}`);
@@ -133,7 +134,7 @@ class GroupsAPI {
         if (optionalParametersString == "") throw new Error("CustomFields.updateCustomField: No valid options provided.");
 
         let group = {};
-        await axios.put(`https://api.tidyhq.com/v1/groups/${group_id}?access_token=${this.access_token}${optionalParametersString}`, options).then((response) => {
+        await axios.put(`https://${this.host}/v1/groups/${group_id}?access_token=${this.access_token}${optionalParametersString}`, options).then((response) => {
             group = response.data;
         }).catch((error) => {
             throw new Error(`Groups.updateGroup: ${error}`);
@@ -148,7 +149,7 @@ class GroupsAPI {
      */
     async deleteGroup(group_id) {
         let success = false;
-        await axios.delete(`https://api.tidyhq.com/v1/groups/${group_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.delete(`https://${this.host}/v1/groups/${group_id}?access_token=${this.access_token}`).then((response) => {
             success = true;
         }).catch((error) => {
             throw new Error(`Groups.deleteGroup: ${error}`);
@@ -164,7 +165,7 @@ class GroupsAPI {
      */
     async addContactToGroup(group_id, contact_id) {
         let success = false;
-        await axios.put(`https://api.tidyhq.com/v1/groups/${group_id}/contacts/${contact_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.put(`https://${this.host}/v1/groups/${group_id}/contacts/${contact_id}?access_token=${this.access_token}`).then((response) => {
             success = true;
         }).catch((error) => {
             throw new Error(`Groups.addContactToGroup: ${error}`);
@@ -180,7 +181,7 @@ class GroupsAPI {
      */
     async removeContactFromGroup(group_id, contact_id) {
         let success = false;
-        await axios.delete(`https://api.tidyhq.com/v1/groups/${group_id}/contacts/${contact_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.delete(`https://${this.host}/v1/groups/${group_id}/contacts/${contact_id}?access_token=${this.access_token}`).then((response) => {
             success = true;
         }).catch((error) => {
             throw new Error(`Groups.removeContactFromGroup: ${error}`);

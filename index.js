@@ -29,29 +29,29 @@ const axios = require("axios");
 const { V2 } = require("./src/v2/index");
 
 class TidyHQ {
-    constructor(accessToken) {
+    constructor(accessToken, host = "api.tidyhq.com") {
         this.accessToken = accessToken;
 
-        this.Association = new AssociationAPI(accessToken);
-        this.Categories = new CategoriesAPI(accessToken);
-        this.Contacts = new ContactsAPI(accessToken);
-        this.CustomFields = new CustomFieldsAPI(accessToken);
-        this.Deposits = new DepositsAPI(accessToken);
-        this.Emails = new EmailsAPI(accessToken);
-        this.Events = new EventsAPI(accessToken);
-        this.Expenses = new ExpensesAPI(accessToken);
-        this.Groups = new GroupsAPI(accessToken);
-        this.Invoices = new InvoicesAPI(accessToken);
-        this.Meetings = new MeetingsAPI(accessToken);
-        this.Memberships = new MembershipsAPI(accessToken);
-        this.MembershipLevels = new MembershipLevelsAPI(accessToken);
-        this.Organization = new OrganizationAPI(accessToken);
-        this.Tasks = new TasksAPI(accessToken);
-        this.Tickets = new TicketsAPI(accessToken);
-        this.Transactions = new TransactionsAPI(accessToken);
+        this.Association = new AssociationAPI(accessToken, host);
+        this.Categories = new CategoriesAPI(accessToken, host);
+        this.Contacts = new ContactsAPI(accessToken, host);
+        this.CustomFields = new CustomFieldsAPI(accessToken, host);
+        this.Deposits = new DepositsAPI(accessToken, host);
+        this.Emails = new EmailsAPI(accessToken, host);
+        this.Events = new EventsAPI(accessToken, host);
+        this.Expenses = new ExpensesAPI(accessToken, host);
+        this.Groups = new GroupsAPI(accessToken, host);
+        this.Invoices = new InvoicesAPI(accessToken, host);
+        this.Meetings = new MeetingsAPI(accessToken, host);
+        this.Memberships = new MembershipsAPI(accessToken, host);
+        this.MembershipLevels = new MembershipLevelsAPI(accessToken, host);
+        this.Organization = new OrganizationAPI(accessToken, host);
+        this.Tasks = new TasksAPI(accessToken, host);
+        this.Tickets = new TicketsAPI(accessToken, host);
+        this.Transactions = new TransactionsAPI(accessToken, host);
 
         // v2
-        this.V2 = new V2(accessToken);
+        this.V2 = new V2(accessToken, host);
     }
 
     /**
@@ -61,7 +61,7 @@ class TidyHQ {
      * @param {string} query
      */
     async get(path, accessToken, query="") {
-        let url = `https://api.tidyhq.com/${path}?access_token=${accessToken}${query}`;
+        let url = `https://${this.host}/${path}?access_token=${accessToken}${query}`;
         // return data and status
         let data = {};
         let status = 400;

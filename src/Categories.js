@@ -20,8 +20,9 @@ class CategoriesAPI {
      * @returns {object} - A new instance of the CategoriesAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -34,7 +35,7 @@ class CategoriesAPI {
     async getCategories(options = {}) {
         let optionalParametersString = makeURLParameters(["limit", "offset"], options)
         let categories = [];
-        await axios.get(`https://api.tidyhq.com/v1/categories?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/categories?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             categories = response.data;
         }).catch((error) => {
             throw new Error(`Categories.getCategories: ${error}`);

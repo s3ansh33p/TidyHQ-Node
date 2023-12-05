@@ -19,8 +19,9 @@ class TransactionsAPI {
      * @returns {object} - A new instance of the TransactionsAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -29,7 +30,7 @@ class TransactionsAPI {
      */
     async getTransactions() {
         let transactions = [];
-        await axios.get(`https://api.tidyhq.com/v1/transactions?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/transactions?access_token=${this.access_token}`).then((response) => {
             transactions = response.data;
         }).catch((error) => {
             throw new Error(`Transactions.getTransactions: ${error}`);
@@ -44,7 +45,7 @@ class TransactionsAPI {
      */
     async getTransaction(id) {
         let transaction = {};
-        await axios.get(`https://api.tidyhq.com/v1/transactions/${id}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/transactions/${id}?access_token=${this.access_token}`).then((response) => {
             transaction = response.data;
         }).catch((error) => {
             throw new Error(`Transactions.getTransaction: ${error}`);

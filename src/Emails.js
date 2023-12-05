@@ -19,8 +19,9 @@ class EmailsAPI {
      * @returns {object} - A new instance of the EmailsAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -30,7 +31,7 @@ class EmailsAPI {
      */
     async #_getEmails(email_id = "") {
         let emails = [];
-        await axios.get(`https://api.tidyhq.com/v1/emails/${email_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/emails/${email_id}?access_token=${this.access_token}`).then((response) => {
             emails = response.data;
         }).catch((error) => {
             throw new Error(`Emails.getEmails: ${error}`);
@@ -65,7 +66,7 @@ class EmailsAPI {
      */
     async createEmail(email) {
         let newEmail = [];
-        await axios.post(`https://api.tidyhq.com/v1/emails?access_token=${this.access_token}`, email).then((response) => {
+        await axios.post(`https://${this.host}/v1/emails?access_token=${this.access_token}`, email).then((response) => {
             newEmail = response.data;
         }).catch((error) => {
             throw new Error(`Emails.createEmail: ${error}`);

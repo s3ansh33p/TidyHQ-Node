@@ -20,8 +20,9 @@ class MembershipsAPI {
      * @returns {object} - A new instance of the MembershipsAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -38,7 +39,7 @@ class MembershipsAPI {
     async #_getMemberships(path, options = {}) {
         let optionalParametersString = makeURLParameters(["limit", "offset", "active", "updated_since"], options)
         let memberships = [];
-        await axios.get(`https://api.tidyhq.com/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             memberships = response.data;
         }).catch((error) => {
             throw new Error(`Memberships.getMemberships: ${error}`);
@@ -94,7 +95,7 @@ class MembershipsAPI {
      */
     async getMembership(membership_id) {
         let membership = {};
-        await axios.get(`https://api.tidyhq.com/v1/memberships/${membership_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/memberships/${membership_id}?access_token=${this.access_token}`).then((response) => {
             membership = response.data;
         }).catch((error) => {
             throw new Error(`Memberships.getMembership: ${error}`);

@@ -20,8 +20,9 @@ class ExpensesAPI {
      * @returns {object} - A new instance of the ExpensesAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -40,7 +41,7 @@ class ExpensesAPI {
         }
         let optionalParametersString = makeURLParameters(["limit", "offset", "status", "updated_since"], options);
 
-        await axios.get(`https://api.tidyhq.com/v1/expenses?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/expenses?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             expenses = response.data;
         }).catch((error) => {
             throw new Error(`Expenses.getExpenses: ${error}`);
@@ -56,7 +57,7 @@ class ExpensesAPI {
     async getExpense(expenseID) {
         let expense = {};
 
-        await axios.get(`https://api.tidyhq.com/v1/expenses/${expenseID}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/expenses/${expenseID}?access_token=${this.access_token}`).then((response) => {
             expense = response.data;
         }).catch((error) => {
             throw new Error(`Expenses.getExpense: ${error}`);
@@ -87,7 +88,7 @@ class ExpensesAPI {
             }
         }
         
-        await axios.post(`https://api.tidyhq.com/v1/expenses?access_token=${this.access_token}`, {
+        await axios.post(`https://${this.host}/v1/expenses?access_token=${this.access_token}`, {
             name,
             amount,
             due_date,
@@ -122,7 +123,7 @@ class ExpensesAPI {
         let optionalParametersString = makeURLParameters(["amount", "payment_type", "date"], options);
         if (optionalParametersString == "") throw new Error("Expenses.addPayment: No valid options provided.");
 
-        await axios.post(`https://api.tidyhq.com/v1/expenses/${expenseID}/payments?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.post(`https://${this.host}/v1/expenses/${expenseID}/payments?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             if (response.status == 201) {
                 success = true;
             }
@@ -139,7 +140,7 @@ class ExpensesAPI {
      */
     async deleteExpense(expenseID) {
         let success = false;
-        await axios.delete(`https://api.tidyhq.com/v1/expenses/${expenseID}?access_token=${this.access_token}`).then((response) => {
+        await axios.delete(`https://${this.host}/v1/expenses/${expenseID}?access_token=${this.access_token}`).then((response) => {
             if (response.status == 200) {
                 success = true;
             }

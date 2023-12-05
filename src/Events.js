@@ -20,8 +20,9 @@ class EventsAPI {
      * @returns {object} - A new instance of the EventsAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -39,7 +40,7 @@ class EventsAPI {
     async #_getEvents(path, options = {}) {
         let optionalParametersString = makeURLParameters(["limit", "offset", "start_at", "end_at", "public"], options)
         let events = [];
-        await axios.get(`https://api.tidyhq.com/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             events = response.data;
         }).catch((error) => {
             throw new Error(`Events.getEvents: ${error}`);
@@ -85,7 +86,7 @@ class EventsAPI {
      */
     async #_getEvent(path, event_id) {
         let event = {};
-        await axios.get(`https://api.tidyhq.com/v1/${path}/${event_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/${path}/${event_id}?access_token=${this.access_token}`).then((response) => {
             event = response.data;
         }).catch((error) => {
             throw new Error(`Events.getEvent: ${error}`);
@@ -128,7 +129,7 @@ class EventsAPI {
      */
     async createEvent(name, start_at, options = {}) {
         let event = {};
-        await axios.post(`https://api.tidyhq.com/v1/events?access_token=${this.access_token}`, {
+        await axios.post(`https://${this.host}/v1/events?access_token=${this.access_token}`, {
             name: name,
             start_at: start_at,
             ...options
@@ -158,7 +159,7 @@ class EventsAPI {
     async updateEvent(event_id, options = {}) {
         let event = {};
         let optionalParameters = makeURLParameters(["name", "start_at", "end_at", "body", "archived", "hidden", "category_id", "location"], options);
-        await axios.put(`https://api.tidyhq.com/v1/events/${event_id}?access_token=${this.access_token}${optionalParameters}`, {
+        await axios.put(`https://${this.host}/v1/events/${event_id}?access_token=${this.access_token}${optionalParameters}`, {
         }).then((response) => {
             event = response.data;
         }).catch((error) => {
@@ -174,7 +175,7 @@ class EventsAPI {
      */
     async deleteEvent(event_id) {
         let success = false;
-        await axios.delete(`https://api.tidyhq.com/v1/events/${event_id}?access_token=${this.access_token}`).then(() => {
+        await axios.delete(`https://${this.host}/v1/events/${event_id}?access_token=${this.access_token}`).then(() => {
             success = true;
         }).catch((error) => {
             throw new Error(`Events.deleteEvent: ${error}`);

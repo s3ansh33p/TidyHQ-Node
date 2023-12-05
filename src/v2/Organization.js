@@ -20,8 +20,9 @@ class OrganizationAPI {
      * @returns {object} - A new instance of the OrganizationAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -30,7 +31,7 @@ class OrganizationAPI {
      */
     async getOrganization() {
         let organization = [];
-        await axios.get(`https://api.tidyhq.com/v2/organization?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v2/organization?access_token=${this.access_token}`).then((response) => {
             organization = response.data;
         }).catch((error) => {
             throw new Error(`V2.Organization.getOrganization: ${error}`);
@@ -51,7 +52,7 @@ class OrganizationAPI {
         let optionalParametersString = makeURLParameters(["limit", "offset", "updated_since", "updated_before"], options)
 
         let admins = [];
-        await axios.get(`https://api.tidyhq.com/v2/organization/admins?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v2/organization/admins?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             admins = response.data;
         }).catch((error) => {
             throw new Error(`V2.Organization.getAdmins: ${error}`);
@@ -72,7 +73,7 @@ class OrganizationAPI {
         let optionalParametersString = makeURLParameters(["limit", "offset", "updated_since", "updated_before"], options)
 
         let roles = [];
-        await axios.get(`https://api.tidyhq.com/v2/organization/roles?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v2/organization/roles?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             roles = response.data;
         }).catch((error) => {
             throw new Error(`V2.Organization.getRoles: ${error}`);

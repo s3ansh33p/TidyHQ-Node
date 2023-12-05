@@ -20,8 +20,9 @@ class ContactsAPI {
      * @returns {object} - A new instance of the ContactsAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -43,7 +44,7 @@ class ContactsAPI {
         let optionalParametersString = makeURLParameters(["limit", "offset", "search_terms", "show_all", "updated_since", "ids[]", "fields[]", "filter[[]]"], options)
 
         let contacts = [];
-        await axios.get(`https://api.tidyhq.com/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             contacts = response.data;
         }).catch((error) => {
             throw new Error(`Contacts.getContacts: ${error}`);
@@ -95,7 +96,7 @@ class ContactsAPI {
         if (contactID == 0) contactID = "me";
 
         let contact = {};
-        await axios.get(`https://api.tidyhq.com/v1/contacts/${contactID}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/contacts/${contactID}?access_token=${this.access_token}`).then((response) => {
             contact = response.data;
         }).catch((error) => {
             throw new Error(`Contacts.getContact: ${error}`);

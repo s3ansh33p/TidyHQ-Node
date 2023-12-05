@@ -20,8 +20,9 @@ class MeetingsAPI {
      * @returns {object} - A new instance of the MeetingsAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -36,7 +37,7 @@ class MeetingsAPI {
     async #_getMeetings(path, options = {}) {
         let optionalParametersString = makeURLParameters(["limit", "offset"], options)
         let meetings = [];
-        await axios.get(`https://api.tidyhq.com/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             meetings = response.data;
         }).catch((error) => {
             throw new Error(`Meetings.getMeetings: ${error}`);
@@ -74,7 +75,7 @@ class MeetingsAPI {
      */
     async getMeeting(meeting_id) {
         let meeting = {};
-        await axios.get(`https://api.tidyhq.com/v1/meetings/${meeting_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/meetings/${meeting_id}?access_token=${this.access_token}`).then((response) => {
             meeting = response.data;
         }).catch((error) => {
             throw new Error(`Meetings.getMeeting: ${error}`);
@@ -90,7 +91,7 @@ class MeetingsAPI {
      */
     async getOrganizationMeeting(organization_id, meeting_id) {
         let meeting = {};
-        await axios.get(`https://api.tidyhq.com/v1/association/organizations/${organization_id}/meetings/${meeting_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/association/organizations/${organization_id}/meetings/${meeting_id}?access_token=${this.access_token}`).then((response) => {
             meeting = response.data;
         }).catch((error) => {
             throw new Error(`Meetings.getOrganizationMeeting: ${error}`);

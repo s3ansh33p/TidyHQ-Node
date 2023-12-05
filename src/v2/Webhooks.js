@@ -19,8 +19,9 @@ class WebhooksAPI {
      * @returns {object} - A new instance of the WebhooksAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -29,7 +30,7 @@ class WebhooksAPI {
      */
     async getWebhooks() {
         let webhooks = [];
-        await axios.get(`https://api.tidyhq.com/v2/webhooks?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v2/webhooks?access_token=${this.access_token}`).then((response) => {
             webhooks = response.data;
         }).catch((error) => {
             throw new Error(`V2.Webhooks.getWebhooks: ${error}`);
@@ -44,7 +45,7 @@ class WebhooksAPI {
      */
     async getWebhook(id) {
         let webhook = {};
-        await axios.get(`https://api.tidyhq.com/v2/webhooks/${id}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v2/webhooks/${id}?access_token=${this.access_token}`).then((response) => {
             webhook = response.data;
         }).catch((error) => {
             throw new Error(`V2.Webhooks.getWebhook: ${error}`);
@@ -63,7 +64,7 @@ class WebhooksAPI {
      */
     async createWebhook(url, matching_kind, description, allow_state_changes = true) {
         let webhook = {};
-        await axios.post(`https://api.tidyhq.com/v2/webhooks?access_token=${this.access_token}`, {
+        await axios.post(`https://${this.host}/v2/webhooks?access_token=${this.access_token}`, {
             "url": url,
             "matching_kind": matching_kind,
             "description": description,
@@ -84,7 +85,7 @@ class WebhooksAPI {
     async activateWebhook(id) {
         let success = false;
         // if status code is 204, then success
-        await axios.post(`https://api.tidyhq.com/v2/webhooks/${id}/activate?access_token=${this.access_token}`).then((response) => {
+        await axios.post(`https://${this.host}/v2/webhooks/${id}/activate?access_token=${this.access_token}`).then((response) => {
             if (response.status == 204) {
                 success = true;
             }
@@ -103,7 +104,7 @@ class WebhooksAPI {
     async deactivateWebhook(id) {
         let success = false;
         // if status code is 204, then success
-        await axios.post(`https://api.tidyhq.com/v2/webhooks/${id}/deactivate?access_token=${this.access_token}`).then((response) => {
+        await axios.post(`https://${this.host}/v2/webhooks/${id}/deactivate?access_token=${this.access_token}`).then((response) => {
             if (response.status == 204) {
                 success = true;
             }
@@ -122,7 +123,7 @@ class WebhooksAPI {
     async deleteWebhook(id) {
         let success = false;
         // if status code is 204, then success
-        await axios.delete(`https://api.tidyhq.com/v2/webhooks/${id}?access_token=${this.access_token}`).then((response) => {
+        await axios.delete(`https://${this.host}/v2/webhooks/${id}?access_token=${this.access_token}`).then((response) => {
             if (response.status == 204) {
                 success = true;
             }

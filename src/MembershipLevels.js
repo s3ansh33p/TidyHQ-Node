@@ -20,8 +20,9 @@ class MembershipLevelsAPI {
      * @returns {object} - A new instance of the MembershipLevelsAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -35,7 +36,7 @@ class MembershipLevelsAPI {
         let optionalParametersString = makeURLParameters(["limit", "offset"], options)
 
         let membershipLevels = [];
-        await axios.get(`https://api.tidyhq.com/v1/membership_levels?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/membership_levels?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             membershipLevels = response.data;
         }).catch((error) => {
             throw new Error(`MembershipLevels.getMembershipLevels: ${error}`);
@@ -50,7 +51,7 @@ class MembershipLevelsAPI {
      */
     async getMembershipLevel(membership_level_id) {
         let membershipLevel = {};
-        await axios.get(`https://api.tidyhq.com/v1/membership_levels/${membership_level_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/membership_levels/${membership_level_id}?access_token=${this.access_token}`).then((response) => {
             membershipLevel = response.data;
         }).catch((error) => {
             throw new Error(`MembershipLevels.getMembershipLevel: ${error}`);
@@ -64,7 +65,7 @@ class MembershipLevelsAPI {
      */
     async getPricingVariations(membership_level_id) {
         let pricingVariations = [];
-        await axios.get(`https://api.tidyhq.com/v1/membership_levels/${membership_level_id}/pricing_variations?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/membership_levels/${membership_level_id}/pricing_variations?access_token=${this.access_token}`).then((response) => {
             pricingVariations = response.data;
         }).catch((error) => {
             if (error.response.status == 403) {

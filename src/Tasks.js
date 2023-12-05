@@ -20,8 +20,9 @@ class TasksAPI {
      * @returns {object} - A new instance of the TasksAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -37,7 +38,7 @@ class TasksAPI {
     async #_getTasks(path, options = {}) {
         let optionalParametersString = makeURLParameters(["limit", "offset", "completed"], options)
         let tasks = [];
-        await axios.get(`https://api.tidyhq.com/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             tasks = response.data;
         }).catch((error) => {
             throw new Error(`Tasks.getTasks: ${error}`);
@@ -77,7 +78,7 @@ class TasksAPI {
      */
     async getTask(task_id) {
         let task = {};
-        await axios.get(`https://api.tidyhq.com/v1/tasks/${task_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/tasks/${task_id}?access_token=${this.access_token}`).then((response) => {
             task = response.data;
         }).catch((error) => {
             throw new Error(`Tasks.getTask: ${error}`);
@@ -95,7 +96,7 @@ class TasksAPI {
      */
     async createTask(contact_id, title, due_date, description = "") {
         let task = {};
-        await axios.post(`https://api.tidyhq.com/v1/tasks?access_token=${this.access_token}`, {
+        await axios.post(`https://${this.host}/v1/tasks?access_token=${this.access_token}`, {
             contact_id,
             title,
             due_date,
@@ -121,7 +122,7 @@ class TasksAPI {
      */
     async updateTask(task_id, options = {}) {
         let task = {};
-        await axios.put(`https://api.tidyhq.com/v1/tasks/${task_id}?access_token=${this.access_token}`, options).then((response) => {
+        await axios.put(`https://${this.host}/v1/tasks/${task_id}?access_token=${this.access_token}`, options).then((response) => {
             task = response.data;
         }).catch((error) => {
             throw new Error(`Tasks.updateTask: ${error}`);
@@ -136,7 +137,7 @@ class TasksAPI {
      */
     async deleteTask(task_id) {
         let success = false;
-        await axios.delete(`https://api.tidyhq.com/v1/tasks/${task_id}?access_token=${this.access_token}`).then(() => {
+        await axios.delete(`https://${this.host}/v1/tasks/${task_id}?access_token=${this.access_token}`).then(() => {
             success = true;
         }).catch((error) => {
             throw new Error(`Tasks.deleteTask: ${error}`);

@@ -20,8 +20,9 @@ class InvoicesAPI {
      * @returns {object} - A new instance of the InvoicesAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -40,7 +41,7 @@ class InvoicesAPI {
         }
         let optionalParametersString = makeURLParameters(["limit", "offset", "status", "updated_since"], options);
 
-        await axios.get(`https://api.tidyhq.com/v1/invoices?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/invoices?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             invoices = response.data;
         }).catch((error) => {
             throw new Error(`Invoices.getInvoices: ${error}`);
@@ -56,7 +57,7 @@ class InvoicesAPI {
     async getInvoice(invoiceID) {
         let invoice = {};
 
-        await axios.get(`https://api.tidyhq.com/v1/invoices/${invoiceID}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/invoices/${invoiceID}?access_token=${this.access_token}`).then((response) => {
             invoice = response.data;
         }).catch((error) => {
             throw new Error(`Invoices.getInvoice: ${error}`);
@@ -89,7 +90,7 @@ class InvoicesAPI {
             }
         }
         
-        await axios.post(`https://api.tidyhq.com/v1/invoices?access_token=${this.access_token}`, {
+        await axios.post(`https://${this.host}/v1/invoices?access_token=${this.access_token}`, {
             reference,
             amount,
             included_tax_total,
@@ -125,7 +126,7 @@ class InvoicesAPI {
         let optionalParametersString = makeURLParameters(["amount", "payment_type", "date"], options);
         if (optionalParametersString == "") throw new Error("Invoices.addPayment: No valid options provided.");
 
-        await axios.post(`https://api.tidyhq.com/v1/invoices/${invoiceID}/payments?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.post(`https://${this.host}/v1/invoices/${invoiceID}/payments?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             if (response.status == 201) {
                 success = true;
             }
@@ -143,7 +144,7 @@ class InvoicesAPI {
      */
     async deleteInvoice(invoiceID) {
         let success = false;
-        await axios.delete(`https://api.tidyhq.com/v1/invoices/${invoiceID}?access_token=${this.access_token}`).then((response) => {
+        await axios.delete(`https://${this.host}/v1/invoices/${invoiceID}?access_token=${this.access_token}`).then((response) => {
             if (response.status == 200) {
                 success = true;
             }

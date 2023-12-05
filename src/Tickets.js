@@ -20,8 +20,9 @@ class TicketsAPI {
      * @returns {object} - A new instance of the TicketsAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -32,7 +33,7 @@ class TicketsAPI {
      */
     async #_getTickets(event_id, soldFilter = false) {
         let tickets = [];
-        await axios.get(`https://api.tidyhq.com/v1/events/${event_id}/tickets/${soldFilter ? 'sold' : ''}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/events/${event_id}/tickets/${soldFilter ? 'sold' : ''}?access_token=${this.access_token}`).then((response) => {
             tickets = response.data;
         }).catch((error) => {
             throw new Error(`Tickets.getTickets: ${error}`);
@@ -73,7 +74,7 @@ class TicketsAPI {
         let ticket = {};
         let optionalParametersString = makeURLParameters(["amount", "initial_quantity", "maximum_purchase", "sales_end"], options);
 
-        await axios.post(`https://api.tidyhq.com/v1/events/${event_id}/tickets?access_token=${this.access_token}&name=${name}${optionalParametersString}`).then((response) => {
+        await axios.post(`https://${this.host}/v1/events/${event_id}/tickets?access_token=${this.access_token}&name=${name}${optionalParametersString}`).then((response) => {
             ticket = response.data;
         }).catch((error) => {
             throw new Error(`Tickets.createTicket: ${error}`);
@@ -101,7 +102,7 @@ class TicketsAPI {
             throw new Error("Tickets.updateTicket: No options were provided to update.");
         }
 
-        await axios.put(`https://api.tidyhq.com/v1/events/${event_id}/tickets/${ticket_id}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.put(`https://${this.host}/v1/events/${event_id}/tickets/${ticket_id}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             ticket = response.data;
         }).catch((error) => {
             throw new Error(`Tickets.updateTicket: ${error}`);
@@ -117,7 +118,7 @@ class TicketsAPI {
      */
     async deleteTicket(event_id, ticket_id) {
         let deleted = false;
-        await axios.delete(`https://api.tidyhq.com/v1/events/${event_id}/tickets/${ticket_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.delete(`https://${this.host}/v1/events/${event_id}/tickets/${ticket_id}?access_token=${this.access_token}`).then((response) => {
             deleted = true;
         }).catch((error) => {
             throw new Error(`Tickets.deleteTicket: ${error}`);

@@ -19,8 +19,9 @@ class OrganizationAPI {
      * @returns {object} - A new instance of the OrganizationAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -29,7 +30,7 @@ class OrganizationAPI {
      */
     async getOrganization() {
         let organization = [];
-        await axios.get(`https://api.tidyhq.com/v1/organization?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/organization?access_token=${this.access_token}`).then((response) => {
             organization = response.data;
         }).catch((error) => {
             throw new Error(`Organization.getOrganization: ${error}`);

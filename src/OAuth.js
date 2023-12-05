@@ -43,7 +43,7 @@ async function authorize(client_id, redirect_uri) {
  * @param {string} domain_prefix - The domain prefix of the club.
  * @returns {string} - The access token.
  */
-async function authorizeWithPassword(client_id, client_secret, username, password, domain_prefix) {
+async function authorizeWithPassword(client_id, client_secret, username, password, domain_prefix, host = "accounts.tidyhq.com") {
     // check types
     if (typeof client_id !== "string") throw new TypeError("OAuth.authorizeWithPassword: client_id must be a string.");
     if (typeof client_secret !== "string") throw new TypeError("OAuth.authorizeWithPassword: client_secret must be a string.");
@@ -54,7 +54,7 @@ async function authorizeWithPassword(client_id, client_secret, username, passwor
     if (client_secret.length !== 64) throw new RangeError("OAuth.authorizeWithPassword: client_secret must be 64 characters long.");
 
     let accessToken = "";
-    await axios.post("https://accounts.tidyhq.com/oauth/token", {
+    await axios.post(`https://${host}/oauth/token`, {
         client_id: client_id,
         client_secret: client_secret,
         username: username,
@@ -64,6 +64,7 @@ async function authorizeWithPassword(client_id, client_secret, username, passwor
     }).then((response) => {
         accessToken = response.data.access_token;
     }).catch((error) => {
+        console.log(error.response.data);
         throw new Error(`OAuth.authorizeWithPassword: ${error}`);
     });
     return accessToken;
@@ -77,7 +78,7 @@ async function authorizeWithPassword(client_id, client_secret, username, passwor
  * @param {string} code - The code returned from the authorize function.
  * @returns {string} - The access token.
  */
-async function requestAccessToken(client_id, client_secret, redirect_uri, code) {
+async function requestAccessToken(client_id, client_secret, redirect_uri, code, host = "accounts.tidyhq.com") {
     // check types
     if (typeof client_id !== "string") throw new TypeError("OAuth.requestAccessToken: client_id must be a string.");
     if (typeof client_secret !== "string") throw new TypeError("OAuth.requestAccessToken: client_secret must be a string.");
@@ -90,7 +91,7 @@ async function requestAccessToken(client_id, client_secret, redirect_uri, code) 
     if (!redirect_uri.startsWith("http")) throw new RangeError("OAuth.requestAccessToken: redirect_uri must be a valid URL.");
 
     let accessToken = "";
-    await axios.post("https://accounts.tidyhq.com/oauth/token", {
+    await axios.post(`https://${host}/oauth/token`, {
         client_id: client_id,
         client_secret: client_secret,
         redirect_uri: redirect_uri,

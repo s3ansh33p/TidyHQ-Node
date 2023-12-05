@@ -19,8 +19,9 @@ class AssociationAPI {
      * @returns {object} - A new instance of the AssociationAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -29,7 +30,7 @@ class AssociationAPI {
      */
     async getOrganizations() {
         let organisations = [];
-        await axios.get(`https://api.tidyhq.com/v1/association/organizations?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/association/organizations?access_token=${this.access_token}`).then((response) => {
             organisations = response.data;
         }).catch((error) => {
             throw new Error(`Association.getOrganizations: ${error}`);
@@ -44,7 +45,7 @@ class AssociationAPI {
      */
     async getOrganization(id) {
         let organisation = [];
-        await axios.get(`https://api.tidyhq.com/v1/association/organizations/${id}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/association/organizations/${id}?access_token=${this.access_token}`).then((response) => {
             organisation = response.data;
         }).catch((error) => {
             throw new Error(`Association.getOrganization: ${error}`);
@@ -59,7 +60,7 @@ class AssociationAPI {
      */
     async getOrganizationContacts(organization_id) {
         let contacts = [];
-        await axios.get(`https://api.tidyhq.com/v1/association/organizations/${organization_id}/contacts?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/association/organizations/${organization_id}/contacts?access_token=${this.access_token}`).then((response) => {
             contacts = response.data;
         }).catch((error) => {
             throw new Error(`Association.getOrganizationContacts: ${error}`);
@@ -74,7 +75,7 @@ class AssociationAPI {
      */
     async getOrganizationEvents(organization_id) {
         let events = [];
-        await axios.get(`https://api.tidyhq.com/v1/association/organizations/${organization_id}/events?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/association/organizations/${organization_id}/events?access_token=${this.access_token}`).then((response) => {
             events = response.data;
         }).catch((error) => {
             throw new Error(`Association.getOrganizationEvents: ${error}`);
@@ -90,7 +91,7 @@ class AssociationAPI {
      */
     async getOrganizationEvent(organization_id, event_id) {
         let event = [];
-        await axios.get(`https://api.tidyhq.com/v1/association/organizations/${organization_id}/events/${event_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/association/organizations/${organization_id}/events/${event_id}?access_token=${this.access_token}`).then((response) => {
             event = response.data;
         }).catch((error) => {
             throw new Error(`Association.getOrganizationEvent: ${error}`);
@@ -105,7 +106,7 @@ class AssociationAPI {
      */
     async getOrganizationMeetings(organization_id) {
         let meetings = [];
-        await axios.get(`https://api.tidyhq.com/v1/association/organizations/${organization_id}/meetings?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/association/organizations/${organization_id}/meetings?access_token=${this.access_token}`).then((response) => {
             meetings = response.data;
         }).catch((error) => {
             throw new Error(`Association.getOrganizationMeetings: ${error}`);
@@ -121,7 +122,7 @@ class AssociationAPI {
      */
     async getOrganizationMeeting(organization_id, meeting_id) {
         let meeting = [];
-        await axios.get(`https://api.tidyhq.com/v1/association/organizations/${organization_id}/meetings/${meeting_id}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/association/organizations/${organization_id}/meetings/${meeting_id}?access_token=${this.access_token}`).then((response) => {
             meeting = response.data;
         }).catch((error) => {
             throw new Error(`Association.getOrganizationMeeting: ${error}`);

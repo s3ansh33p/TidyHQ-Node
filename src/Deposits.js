@@ -20,8 +20,9 @@ class DepositsAPI {
      * @returns {object} - A new instance of the DepositsAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -40,7 +41,7 @@ class DepositsAPI {
         }
         let optionalParametersString = makeURLParameters(["limit", "offset", "status", "updated_since"], options);
 
-        await axios.get(`https://api.tidyhq.com/v1/deposits?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/deposits?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             deposits = response.data;
         }).catch((error) => {
             throw new Error(`Deposits.getDeposits: ${error}`);
@@ -56,7 +57,7 @@ class DepositsAPI {
     async getDeposit(depositID) {
         let deposit = {};
 
-        await axios.get(`https://api.tidyhq.com/v1/deposits/${depositID}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/deposits/${depositID}?access_token=${this.access_token}`).then((response) => {
             deposit = response.data;
         }).catch((error) => {
             throw new Error(`Deposits.getDeposit: ${error}`);
@@ -87,7 +88,7 @@ class DepositsAPI {
             }
         }
         
-        await axios.post(`https://api.tidyhq.com/v1/deposits?access_token=${this.access_token}`, {
+        await axios.post(`https://${this.host}/v1/deposits?access_token=${this.access_token}`, {
             name,
             amount,
             paid_date,

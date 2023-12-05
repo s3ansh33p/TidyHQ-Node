@@ -20,8 +20,9 @@ class CustomFieldsAPI {
      * @returns {object} - A new instance of the CustomFieldsAPI class.
      * @constructor
      */
-    constructor(access_token) {
+    constructor(access_token, host) {
         this.access_token = access_token;
+        this.host = host;
     }
 
     /**
@@ -30,7 +31,7 @@ class CustomFieldsAPI {
      */
     async getCustomFields() {
         let customFields = [];
-        await axios.get(`https://api.tidyhq.com/v1/custom_fields?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/custom_fields?access_token=${this.access_token}`).then((response) => {
             customFields = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.getCustomFields: ${error}`);
@@ -45,7 +46,7 @@ class CustomFieldsAPI {
      **/
     async getCustomField(CustomFieldID) {
         let customField = {};
-        await axios.get(`https://api.tidyhq.com/v1/custom_fields/${CustomFieldID}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/custom_fields/${CustomFieldID}?access_token=${this.access_token}`).then((response) => {
             customField = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.getCustomField: ${error}`);
@@ -75,7 +76,7 @@ class CustomFieldsAPI {
     async createCustomField(name, type) {
         if (!["string", "text", "dropdown", "boolean", "date"].includes(type)) throw new Error(`CustomFields.createCustomField: Invalid type ${type}.`);
         let customField = {};
-        await axios.post(`https://api.tidyhq.com/v1/custom_fields?access_token=${this.access_token}`, {
+        await axios.post(`https://${this.host}/v1/custom_fields?access_token=${this.access_token}`, {
             title: name,
             type: type
         }).then((response) => {
@@ -106,7 +107,7 @@ class CustomFieldsAPI {
         if (optionalParametersString == "") throw new Error("CustomFields.updateCustomField: No valid options provided.");
 
         let customField = {};
-        await axios.put(`https://api.tidyhq.com/v1/custom_fields/${customFieldID}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await axios.put(`https://${this.host}/v1/custom_fields/${customFieldID}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
             customField = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.updateCustomField: ${error}`);
@@ -121,7 +122,7 @@ class CustomFieldsAPI {
      */
     async deleteCustomField(customFieldID) {
         let success = false;
-        await axios.delete(`https://api.tidyhq.com/v1/custom_fields/${customFieldID}?access_token=${this.access_token}`).then((response) => {
+        await axios.delete(`https://${this.host}/v1/custom_fields/${customFieldID}?access_token=${this.access_token}`).then((response) => {
             success = true;
         }).catch((error) => {
             if (error.response.status == 404) {
@@ -140,7 +141,7 @@ class CustomFieldsAPI {
      */
     async getCustomFieldChoices(customFieldID) {
         let options = [];
-        await axios.get(`https://api.tidyhq.com/v1/custom_fields/${customFieldID}/choices?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/custom_fields/${customFieldID}/choices?access_token=${this.access_token}`).then((response) => {
             options = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.getCustomFieldDropdownOptions: ${error}`);
@@ -156,7 +157,7 @@ class CustomFieldsAPI {
      */
     async getCustomFieldChoice(customFieldID, choiceID) {
         let option = {};
-        await axios.get(`https://api.tidyhq.com/v1/custom_fields/${customFieldID}/choices/${choiceID}?access_token=${this.access_token}`).then((response) => {
+        await axios.get(`https://${this.host}/v1/custom_fields/${customFieldID}/choices/${choiceID}?access_token=${this.access_token}`).then((response) => {
             option = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.getCustomFieldDropdownOption: ${error}`);
@@ -172,7 +173,7 @@ class CustomFieldsAPI {
      */
     async createCustomFieldChoice(customFieldID, name) {
         let option = {};
-        await axios.post(`https://api.tidyhq.com/v1/custom_fields/${customFieldID}/choices?access_token=${this.access_token}`, {
+        await axios.post(`https://${this.host}/v1/custom_fields/${customFieldID}/choices?access_token=${this.access_token}`, {
             title: name
         }).then((response) => {
             option = response.data;
@@ -192,7 +193,7 @@ class CustomFieldsAPI {
     async updateCustomFieldChoice(customFieldID, choiceID, name) {
 
         let option = {};
-        await axios.put(`https://api.tidyhq.com/v1/custom_fields/${customFieldID}/choices/${choiceID}?access_token=${this.access_token}&title=${name}`).then((response) => {
+        await axios.put(`https://${this.host}/v1/custom_fields/${customFieldID}/choices/${choiceID}?access_token=${this.access_token}&title=${name}`).then((response) => {
             option = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.updateCustomFieldChoice: ${error}`);
@@ -208,7 +209,7 @@ class CustomFieldsAPI {
      */
     async deleteCustomFieldChoice(customFieldID, choiceID) {
         let success = false;
-        await axios.delete(`https://api.tidyhq.com/v1/custom_fields/${customFieldID}/choices/${choiceID}?access_token=${this.access_token}`).then((response) => {
+        await axios.delete(`https://${this.host}/v1/custom_fields/${customFieldID}/choices/${choiceID}?access_token=${this.access_token}`).then((response) => {
             success = true;
         }).catch((error) => {
             if (error.response.status == 404) {
