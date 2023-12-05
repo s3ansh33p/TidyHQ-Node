@@ -1,11 +1,10 @@
 /**
  * @fileoverview This file contains functions for interacting with Membership Levels in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
-const axios = require("axios");
 const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
@@ -16,13 +15,12 @@ class MembershipLevelsAPI {
 
     /**
      * @description This function is used to create a new instance of the MembershipLevelsAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the MembershipLevelsAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -36,10 +34,10 @@ class MembershipLevelsAPI {
         let optionalParametersString = makeURLParameters(["limit", "offset"], options)
 
         let membershipLevels = [];
-        await axios.get(`https://${this.host}/v1/membership_levels?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.get(`/v1/membership_levels${optionalParametersString}`).then((response) => {
             membershipLevels = response.data;
         }).catch((error) => {
-            throw new Error(`MembershipLevels.getMembershipLevels: ${error}`);
+            throw new Error(`MembershipLevels.getMembershipLevels: ${error}\n${error.response.data}`);
         });
         return membershipLevels;
     }
@@ -51,10 +49,10 @@ class MembershipLevelsAPI {
      */
     async getMembershipLevel(membership_level_id) {
         let membershipLevel = {};
-        await axios.get(`https://${this.host}/v1/membership_levels/${membership_level_id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/membership_levels/${membership_level_id}`).then((response) => {
             membershipLevel = response.data;
         }).catch((error) => {
-            throw new Error(`MembershipLevels.getMembershipLevel: ${error}`);
+            throw new Error(`MembershipLevels.getMembershipLevel: ${error}\n${error.response.data}`);
         });
         return membershipLevel;
     }
@@ -65,13 +63,13 @@ class MembershipLevelsAPI {
      */
     async getPricingVariations(membership_level_id) {
         let pricingVariations = [];
-        await axios.get(`https://${this.host}/v1/membership_levels/${membership_level_id}/pricing_variations?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/membership_levels/${membership_level_id}/pricing_variations`).then((response) => {
             pricingVariations = response.data;
         }).catch((error) => {
             if (error.response.status == 403) {
                 throw new Error(`MembershipLevels.getPricingVariations: You do not have permission to access this resource.`);
             }
-            throw new Error(`MembershipLevels.getPricingVariations: ${error}`);
+            throw new Error(`MembershipLevels.getPricingVariations: ${error}\n${error.response.data}`);
         });
         return pricingVariations;
     }

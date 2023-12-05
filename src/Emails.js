@@ -1,11 +1,10 @@
 /**
  * @fileoverview This file contains functions for interacting with Emails in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
-const axios = require("axios");
 
 /**
  * @description This class is used to interact with Emails in TidyHQ.
@@ -15,13 +14,12 @@ class EmailsAPI {
 
     /**
      * @description This function is used to create a new instance of the EmailsAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the EmailsAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -31,10 +29,10 @@ class EmailsAPI {
      */
     async #_getEmails(email_id = "") {
         let emails = [];
-        await axios.get(`https://${this.host}/v1/emails/${email_id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/emails/${email_id}`).then((response) => {
             emails = response.data;
         }).catch((error) => {
-            throw new Error(`Emails.getEmails: ${error}`);
+            throw new Error(`Emails.getEmails: ${error}\n${error.response.data}`);
         });
         return emails;
     }
@@ -66,10 +64,10 @@ class EmailsAPI {
      */
     async createEmail(email) {
         let newEmail = [];
-        await axios.post(`https://${this.host}/v1/emails?access_token=${this.access_token}`, email).then((response) => {
+        await this.axios.post(`/v1/emails`, email).then((response) => {
             newEmail = response.data;
         }).catch((error) => {
-            throw new Error(`Emails.createEmail: ${error}`);
+            throw new Error(`Emails.createEmail: ${error}\n${error.response.data}`);
         });
         return newEmail;
     }

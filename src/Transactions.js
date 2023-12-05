@@ -1,11 +1,9 @@
 /**
  * @fileoverview This file contains functions for interacting with Transactions in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
-
-const axios = require("axios");
 
 /**
  * @description This class is used to interact with Transactions in TidyHQ.
@@ -15,13 +13,12 @@ class TransactionsAPI {
 
     /**
      * @description This function is used to create a new instance of the TransactionsAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the TransactionsAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -30,10 +27,10 @@ class TransactionsAPI {
      */
     async getTransactions() {
         let transactions = [];
-        await axios.get(`https://${this.host}/v1/transactions?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/transactions`).then((response) => {
             transactions = response.data;
         }).catch((error) => {
-            throw new Error(`Transactions.getTransactions: ${error}`);
+            throw new Error(`Transactions.getTransactions: ${error}\n${error.response.data}`);
         });
         return transactions;
     }
@@ -45,10 +42,10 @@ class TransactionsAPI {
      */
     async getTransaction(id) {
         let transaction = {};
-        await axios.get(`https://${this.host}/v1/transactions/${id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/transactions/${id}`).then((response) => {
             transaction = response.data;
         }).catch((error) => {
-            throw new Error(`Transactions.getTransaction: ${error}`);
+            throw new Error(`Transactions.getTransaction: ${error}\n${error.response.data}`);
         });
         return transaction;
     }

@@ -1,11 +1,10 @@
 /**
  * @fileoverview This file contains functions for interacting with Deposits in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
-const axios = require("axios");
 const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
@@ -16,13 +15,12 @@ class DepositsAPI {
 
     /**
      * @description This function is used to create a new instance of the DepositsAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the DepositsAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -41,10 +39,10 @@ class DepositsAPI {
         }
         let optionalParametersString = makeURLParameters(["limit", "offset", "status", "updated_since"], options);
 
-        await axios.get(`https://${this.host}/v1/deposits?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.get(`/v1/deposits${optionalParametersString}`).then((response) => {
             deposits = response.data;
         }).catch((error) => {
-            throw new Error(`Deposits.getDeposits: ${error}`);
+            throw new Error(`Deposits.getDeposits: ${error}\n${error.response.data}`);
         });
         return deposits;
     }
@@ -57,10 +55,10 @@ class DepositsAPI {
     async getDeposit(depositID) {
         let deposit = {};
 
-        await axios.get(`https://${this.host}/v1/deposits/${depositID}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/deposits/${depositID}`).then((response) => {
             deposit = response.data;
         }).catch((error) => {
-            throw new Error(`Deposits.getDeposit: ${error}`);
+            throw new Error(`Deposits.getDeposit: ${error}\n${error.response.data}`);
         });
         return deposit;
     }
@@ -88,7 +86,7 @@ class DepositsAPI {
             }
         }
         
-        await axios.post(`https://${this.host}/v1/deposits?access_token=${this.access_token}`, {
+        await this.axios.post(`/v1/deposits`, {
             name,
             amount,
             paid_date,
@@ -100,7 +98,7 @@ class DepositsAPI {
                 success = true;
             }
         }).catch((error) => {
-            throw new Error(`Deposits.createDeposit: ${error}`);
+            throw new Error(`Deposits.createDeposit: ${error}\n${error.response.data}`);
         });
 
         return success;

@@ -1,11 +1,10 @@
 /**
  * @fileoverview This file contains functions for interacting with Memberships in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
-const axios = require("axios");
 const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
@@ -16,13 +15,12 @@ class MembershipsAPI {
 
     /**
      * @description This function is used to create a new instance of the MembershipsAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the MembershipsAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -39,10 +37,10 @@ class MembershipsAPI {
     async #_getMemberships(path, options = {}) {
         let optionalParametersString = makeURLParameters(["limit", "offset", "active", "updated_since"], options)
         let memberships = [];
-        await axios.get(`https://${this.host}/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.get(`/v1/${path}${optionalParametersString}`).then((response) => {
             memberships = response.data;
         }).catch((error) => {
-            throw new Error(`Memberships.getMemberships: ${error}`);
+            throw new Error(`Memberships.getMemberships: ${error}\n${error.response.data}`);
         });
         return memberships;
     }
@@ -95,10 +93,10 @@ class MembershipsAPI {
      */
     async getMembership(membership_id) {
         let membership = {};
-        await axios.get(`https://${this.host}/v1/memberships/${membership_id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/memberships/${membership_id}`).then((response) => {
             membership = response.data;
         }).catch((error) => {
-            throw new Error(`Memberships.getMembership: ${error}`);
+            throw new Error(`Memberships.getMembership: ${error}\n${error.response.data}`);
         });
         return membership;
     }

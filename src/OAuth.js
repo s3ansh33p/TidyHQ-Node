@@ -1,20 +1,20 @@
 /**
  * @fileoverview This file contains OAuth functions for the application.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
 // axios is a library that allows us to make HTTP requests
-const axios = require("axios");
 
 /**
  * @description This function is used to authorize the application with TidyHQ and return an access token.
  * @param {string} client_id - The client ID of the application.
  * @param {string} redirect_uri - The redirect URI of the application.
+ * @param {string} host - The host url of TidyHQ.
  * @returns {string} - The access token.
  */
-async function authorize(client_id, redirect_uri) {
+async function authorize(client_id, redirect_uri, host = "https://accounts.tidyhq.com") {
     // must be strings
     if (typeof client_id !== "string") throw new TypeError("OAuth.authorize: client_id must be a string.");
     if (typeof redirect_uri !== "string") throw new TypeError("OAuth.authorize: redirect_uri must be a string.");
@@ -25,10 +25,10 @@ async function authorize(client_id, redirect_uri) {
 
     // finally, we can make the request
     let code = "";
-    await axios.get(`https://accounts.tidyhq.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`).then((response) => {
+    await axios.get(`${host}/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`).then((response) => {
         code = response.data;
     }).catch((error) => {
-        throw new Error(`OAuth.authorize: ${error}`);
+        throw new Error(`OAuth.authorize: ${error}\n${error.response.data}`);
     });
     console.log(code);
     return code;
@@ -43,7 +43,7 @@ async function authorize(client_id, redirect_uri) {
  * @param {string} domain_prefix - The domain prefix of the club.
  * @returns {string} - The access token.
  */
-async function authorizeWithPassword(client_id, client_secret, username, password, domain_prefix, host = "accounts.tidyhq.com") {
+async function authorizeWithPassword(client_id, client_secret, username, password, domain_prefix, host = "https://accounts.tidyhq.com") {
     // check types
     if (typeof client_id !== "string") throw new TypeError("OAuth.authorizeWithPassword: client_id must be a string.");
     if (typeof client_secret !== "string") throw new TypeError("OAuth.authorizeWithPassword: client_secret must be a string.");
@@ -54,7 +54,7 @@ async function authorizeWithPassword(client_id, client_secret, username, passwor
     if (client_secret.length !== 64) throw new RangeError("OAuth.authorizeWithPassword: client_secret must be 64 characters long.");
 
     let accessToken = "";
-    await axios.post(`https://${host}/oauth/token`, {
+    await axios.post(`${host}/oauth/token`, {
         client_id: client_id,
         client_secret: client_secret,
         username: username,
@@ -64,8 +64,7 @@ async function authorizeWithPassword(client_id, client_secret, username, passwor
     }).then((response) => {
         accessToken = response.data.access_token;
     }).catch((error) => {
-        console.log(error.response.data);
-        throw new Error(`OAuth.authorizeWithPassword: ${error}`);
+        throw new Error(`OAuth.authorizeWithPassword: ${error}\n${error.response.data}`);
     });
     return accessToken;
 }
@@ -78,7 +77,7 @@ async function authorizeWithPassword(client_id, client_secret, username, passwor
  * @param {string} code - The code returned from the authorize function.
  * @returns {string} - The access token.
  */
-async function requestAccessToken(client_id, client_secret, redirect_uri, code, host = "accounts.tidyhq.com") {
+async function requestAccessToken(client_id, client_secret, redirect_uri, code, host = "https://accounts.tidyhq.com") {
     // check types
     if (typeof client_id !== "string") throw new TypeError("OAuth.requestAccessToken: client_id must be a string.");
     if (typeof client_secret !== "string") throw new TypeError("OAuth.requestAccessToken: client_secret must be a string.");
@@ -91,7 +90,7 @@ async function requestAccessToken(client_id, client_secret, redirect_uri, code, 
     if (!redirect_uri.startsWith("http")) throw new RangeError("OAuth.requestAccessToken: redirect_uri must be a valid URL.");
 
     let accessToken = "";
-    await axios.post(`https://${host}/oauth/token`, {
+    await axios.post(`${host}/oauth/token`, {
         client_id: client_id,
         client_secret: client_secret,
         redirect_uri: redirect_uri,
@@ -100,7 +99,7 @@ async function requestAccessToken(client_id, client_secret, redirect_uri, code, 
     }).then((response) => {
         accessToken = response.data.access_token;
     }).catch((error) => {
-        throw new Error(`OAuth.requestAccessToken: ${error}`);
+        throw new Error(`OAuth.requestAccessToken: ${error}\n${error.response.data}`);
     });
     console.log(accessToken);
     return accessToken;

@@ -1,11 +1,10 @@
 /**
  * @fileoverview This file contains functions for interacting with Meetings in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
-const axios = require("axios");
 const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
@@ -16,13 +15,12 @@ class MeetingsAPI {
 
     /**
      * @description This function is used to create a new instance of the MeetingsAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the MeetingsAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -37,10 +35,10 @@ class MeetingsAPI {
     async #_getMeetings(path, options = {}) {
         let optionalParametersString = makeURLParameters(["limit", "offset"], options)
         let meetings = [];
-        await axios.get(`https://${this.host}/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.get(`/v1/${path}${optionalParametersString}`).then((response) => {
             meetings = response.data;
         }).catch((error) => {
-            throw new Error(`Meetings.getMeetings: ${error}`);
+            throw new Error(`Meetings.getMeetings: ${error}\n${error.response.data}`);
         });
         return meetings;
     }
@@ -75,10 +73,10 @@ class MeetingsAPI {
      */
     async getMeeting(meeting_id) {
         let meeting = {};
-        await axios.get(`https://${this.host}/v1/meetings/${meeting_id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/meetings/${meeting_id}`).then((response) => {
             meeting = response.data;
         }).catch((error) => {
-            throw new Error(`Meetings.getMeeting: ${error}`);
+            throw new Error(`Meetings.getMeeting: ${error}\n${error.response.data}`);
         });
         return meeting;
     }
@@ -91,10 +89,10 @@ class MeetingsAPI {
      */
     async getOrganizationMeeting(organization_id, meeting_id) {
         let meeting = {};
-        await axios.get(`https://${this.host}/v1/association/organizations/${organization_id}/meetings/${meeting_id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/association/organizations/${organization_id}/meetings/${meeting_id}`).then((response) => {
             meeting = response.data;
         }).catch((error) => {
-            throw new Error(`Meetings.getOrganizationMeeting: ${error}`);
+            throw new Error(`Meetings.getOrganizationMeeting: ${error}\n${error.response.data}`);
         });
         return meeting;
     }

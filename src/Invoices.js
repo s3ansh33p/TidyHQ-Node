@@ -1,11 +1,10 @@
 /**
  * @fileoverview This file contains functions for interacting with Invoices in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
-const axios = require("axios");
 const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
@@ -16,13 +15,12 @@ class InvoicesAPI {
 
     /**
      * @description This function is used to create a new instance of the InvoicesAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the InvoicesAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -41,10 +39,10 @@ class InvoicesAPI {
         }
         let optionalParametersString = makeURLParameters(["limit", "offset", "status", "updated_since"], options);
 
-        await axios.get(`https://${this.host}/v1/invoices?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.get(`/v1/invoices${optionalParametersString}`).then((response) => {
             invoices = response.data;
         }).catch((error) => {
-            throw new Error(`Invoices.getInvoices: ${error}`);
+            throw new Error(`Invoices.getInvoices: ${error}\n${error.response.data}`);
         });
         return invoices;
     }
@@ -57,10 +55,10 @@ class InvoicesAPI {
     async getInvoice(invoiceID) {
         let invoice = {};
 
-        await axios.get(`https://${this.host}/v1/invoices/${invoiceID}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/invoices/${invoiceID}`).then((response) => {
             invoice = response.data;
         }).catch((error) => {
-            throw new Error(`Invoices.getInvoice: ${error}`);
+            throw new Error(`Invoices.getInvoice: ${error}\n${error.response.data}`);
         });
         return invoice;
     }
@@ -90,7 +88,7 @@ class InvoicesAPI {
             }
         }
         
-        await axios.post(`https://${this.host}/v1/invoices?access_token=${this.access_token}`, {
+        await this.axios.post(`/v1/invoices`, {
             reference,
             amount,
             included_tax_total,
@@ -104,7 +102,7 @@ class InvoicesAPI {
                 success = true;
             }
         }).catch((error) => {
-            throw new Error(`Invoices.createInvoice: ${error}`);
+            throw new Error(`Invoices.createInvoice: ${error}\n${error.response.data}`);
         });
         return success;
     }
@@ -126,12 +124,12 @@ class InvoicesAPI {
         let optionalParametersString = makeURLParameters(["amount", "payment_type", "date"], options);
         if (optionalParametersString == "") throw new Error("Invoices.addPayment: No valid options provided.");
 
-        await axios.post(`https://${this.host}/v1/invoices/${invoiceID}/payments?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.post(`/v1/invoices/${invoiceID}/payments${optionalParametersString}`).then((response) => {
             if (response.status == 201) {
                 success = true;
             }
         }).catch((error) => {
-            throw new Error(`Invoices.addPayment: ${error}`);
+            throw new Error(`Invoices.addPayment: ${error}\n${error.response.data}`);
         });
         return success;
     }
@@ -144,12 +142,12 @@ class InvoicesAPI {
      */
     async deleteInvoice(invoiceID) {
         let success = false;
-        await axios.delete(`https://${this.host}/v1/invoices/${invoiceID}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.delete(`/v1/invoices/${invoiceID}`).then((response) => {
             if (response.status == 200) {
                 success = true;
             }
         }).catch((error) => {
-            throw new Error(`Invoices.deleteInvoice: ${error}`);
+            throw new Error(`Invoices.deleteInvoice: ${error}\n${error.response.data}`);
         });
         return success;
     }

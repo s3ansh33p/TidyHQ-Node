@@ -1,11 +1,10 @@
 /**
  * @fileoverview This file contains functions for interacting with Organizations in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
-const axios = require("axios");
 
 /**
  * @description This class is used to interact with Organizations in TidyHQ.
@@ -15,13 +14,12 @@ class OrganizationAPI {
 
     /**
      * @description This function is used to create a new instance of the OrganizationAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the OrganizationAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -30,10 +28,10 @@ class OrganizationAPI {
      */
     async getOrganization() {
         let organization = [];
-        await axios.get(`https://${this.host}/v1/organization?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/organization`).then((response) => {
             organization = response.data;
         }).catch((error) => {
-            throw new Error(`Organization.getOrganization: ${error}`);
+            throw new Error(`Organization.getOrganization: ${error}\n${error.response.data}`);
         });
         return organization;
     }

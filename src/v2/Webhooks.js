@@ -1,7 +1,7 @@
 /**
  * @fileoverview This file contains functions for interacting with Webhooks in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 2.0.0
+ * @version 2.1.0
  * @license GPL-3.0
  */
 
@@ -15,13 +15,12 @@ class WebhooksAPI {
 
     /**
      * @description This function is used to create a new instance of the WebhooksAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the WebhooksAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -30,10 +29,10 @@ class WebhooksAPI {
      */
     async getWebhooks() {
         let webhooks = [];
-        await axios.get(`https://${this.host}/v2/webhooks?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v2/webhooks`).then((response) => {
             webhooks = response.data;
         }).catch((error) => {
-            throw new Error(`V2.Webhooks.getWebhooks: ${error}`);
+            throw new Error(`V2.Webhooks.getWebhooks: ${error}\n${error.response.data}`);
         });
         return webhooks;
     }
@@ -45,10 +44,10 @@ class WebhooksAPI {
      */
     async getWebhook(id) {
         let webhook = {};
-        await axios.get(`https://${this.host}/v2/webhooks/${id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v2/webhooks/${id}`).then((response) => {
             webhook = response.data;
         }).catch((error) => {
-            throw new Error(`V2.Webhooks.getWebhook: ${error}`);
+            throw new Error(`V2.Webhooks.getWebhook: ${error}\n${error.response.data}`);
         });
         return webhook;
     }
@@ -64,7 +63,7 @@ class WebhooksAPI {
      */
     async createWebhook(url, matching_kind, description, allow_state_changes = true) {
         let webhook = {};
-        await axios.post(`https://${this.host}/v2/webhooks?access_token=${this.access_token}`, {
+        await this.axios.post(`/v2/webhooks`, {
             "url": url,
             "matching_kind": matching_kind,
             "description": description,
@@ -72,7 +71,7 @@ class WebhooksAPI {
         }).then((response) => {
             webhook = response.data;
         }).catch((error) => {
-            throw new Error(`V2.Webhooks.createWebhook: ${error}`);
+            throw new Error(`V2.Webhooks.createWebhook: ${error}\n${error.response.data}`);
         });
         return webhook;
     }
@@ -85,12 +84,12 @@ class WebhooksAPI {
     async activateWebhook(id) {
         let success = false;
         // if status code is 204, then success
-        await axios.post(`https://${this.host}/v2/webhooks/${id}/activate?access_token=${this.access_token}`).then((response) => {
+        await this.axios.post(`/v2/webhooks/${id}/activate`).then((response) => {
             if (response.status == 204) {
                 success = true;
             }
         }).catch((error) => {
-            // throw new Error(`Webhooks.activateWebhook: ${error}`);
+            // throw new Error(`Webhooks.activateWebhook: ${error}\n${error.response.data}`);
             success = false;
         });
         return success;
@@ -104,12 +103,12 @@ class WebhooksAPI {
     async deactivateWebhook(id) {
         let success = false;
         // if status code is 204, then success
-        await axios.post(`https://${this.host}/v2/webhooks/${id}/deactivate?access_token=${this.access_token}`).then((response) => {
+        await this.axios.post(`/v2/webhooks/${id}/deactivate`).then((response) => {
             if (response.status == 204) {
                 success = true;
             }
         }).catch((error) => {
-            // throw new Error(`Webhooks.deactivateWebhook: ${error}`);
+            // throw new Error(`Webhooks.deactivateWebhook: ${error}\n${error.response.data}`);
             success = false;
         });
         return success;
@@ -123,12 +122,12 @@ class WebhooksAPI {
     async deleteWebhook(id) {
         let success = false;
         // if status code is 204, then success
-        await axios.delete(`https://${this.host}/v2/webhooks/${id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.delete(`/v2/webhooks/${id}`).then((response) => {
             if (response.status == 204) {
                 success = true;
             }
         }).catch((error) => {
-            throw new Error(`V2.Webhooks.deleteWebhook: ${error}`);
+            throw new Error(`V2.Webhooks.deleteWebhook: ${error}\n${error.response.data}`);
             success = false;
         });
         return success;

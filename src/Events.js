@@ -1,11 +1,10 @@
 /**
  * @fileoverview This file contains functions for interacting with Events in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
-const axios = require("axios");
 const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
@@ -16,13 +15,12 @@ class EventsAPI {
 
     /**
      * @description This function is used to create a new instance of the EventsAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the EventsAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -40,10 +38,10 @@ class EventsAPI {
     async #_getEvents(path, options = {}) {
         let optionalParametersString = makeURLParameters(["limit", "offset", "start_at", "end_at", "public"], options)
         let events = [];
-        await axios.get(`https://${this.host}/v1/${path}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.get(`/v1/${path}${optionalParametersString}`).then((response) => {
             events = response.data;
         }).catch((error) => {
-            throw new Error(`Events.getEvents: ${error}`);
+            throw new Error(`Events.getEvents: ${error}\n${error.response.data}`);
         });
         return events;
     }
@@ -86,10 +84,10 @@ class EventsAPI {
      */
     async #_getEvent(path, event_id) {
         let event = {};
-        await axios.get(`https://${this.host}/v1/${path}/${event_id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/${path}/${event_id}`).then((response) => {
             event = response.data;
         }).catch((error) => {
-            throw new Error(`Events.getEvent: ${error}`);
+            throw new Error(`Events.getEvent: ${error}\n${error.response.data}`);
         });
         return event;
     }
@@ -129,14 +127,14 @@ class EventsAPI {
      */
     async createEvent(name, start_at, options = {}) {
         let event = {};
-        await axios.post(`https://${this.host}/v1/events?access_token=${this.access_token}`, {
+        await this.axios.post(`/v1/events`, {
             name: name,
             start_at: start_at,
             ...options
         }).then((response) => {
             event = response.data;
         }).catch((error) => {
-            throw new Error(`Events.createEvent: ${error}`);
+            throw new Error(`Events.createEvent: ${error}\n${error.response.data}`);
         });
         return event;
     }
@@ -159,11 +157,11 @@ class EventsAPI {
     async updateEvent(event_id, options = {}) {
         let event = {};
         let optionalParameters = makeURLParameters(["name", "start_at", "end_at", "body", "archived", "hidden", "category_id", "location"], options);
-        await axios.put(`https://${this.host}/v1/events/${event_id}?access_token=${this.access_token}${optionalParameters}`, {
+        await this.axios.put(`/v1/events/${event_id}${optionalParameters}`, {
         }).then((response) => {
             event = response.data;
         }).catch((error) => {
-            throw new Error(`Events.updateEvent: ${error}`);
+            throw new Error(`Events.updateEvent: ${error}\n${error.response.data}`);
         });
         return event;
     }
@@ -175,10 +173,10 @@ class EventsAPI {
      */
     async deleteEvent(event_id) {
         let success = false;
-        await axios.delete(`https://${this.host}/v1/events/${event_id}?access_token=${this.access_token}`).then(() => {
+        await this.axios.delete(`/v1/events/${event_id}`).then(() => {
             success = true;
         }).catch((error) => {
-            throw new Error(`Events.deleteEvent: ${error}`);
+            throw new Error(`Events.deleteEvent: ${error}\n${error.response.data}`);
         });
         return success;
     }

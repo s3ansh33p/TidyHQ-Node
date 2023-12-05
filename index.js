@@ -1,9 +1,11 @@
 /**
  * @fileoverview This file contains the main class for the TidyHQ API.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
+
+const axios = require("axios");
 
 const { AssociationAPI } = require("./src/Association");
 const { CategoriesAPI } = require("./src/Categories");
@@ -23,50 +25,58 @@ const { TasksAPI } = require("./src/Tasks");
 const { TicketsAPI } = require("./src/Tickets");
 const { TransactionsAPI } = require("./src/Transactions");
 
-const axios = require("axios");
-
-// v2
 const { V2 } = require("./src/v2/index");
 
+/**
+ * @description This class is used to interact with the TidyHQ API.
+ * @link https://dev.tidyhq.com
+ * @example
+ * const TidyHQ = require('../TidyHQ-Node');
+ * const thq = new TidyHQ(process.env.ACCESS_TOKEN);
+ */
 class TidyHQ {
-    constructor(accessToken, host = "api.tidyhq.com") {
+    constructor(accessToken, host = "https://api.tidyhq.com") {
         this.accessToken = accessToken;
         this.host = host;
 
-        this.Association = new AssociationAPI(accessToken, host);
-        this.Categories = new CategoriesAPI(accessToken, host);
-        this.Contacts = new ContactsAPI(accessToken, host);
-        this.CustomFields = new CustomFieldsAPI(accessToken, host);
-        this.Deposits = new DepositsAPI(accessToken, host);
-        this.Emails = new EmailsAPI(accessToken, host);
-        this.Events = new EventsAPI(accessToken, host);
-        this.Expenses = new ExpensesAPI(accessToken, host);
-        this.Groups = new GroupsAPI(accessToken, host);
-        this.Invoices = new InvoicesAPI(accessToken, host);
-        this.Meetings = new MeetingsAPI(accessToken, host);
-        this.Memberships = new MembershipsAPI(accessToken, host);
-        this.MembershipLevels = new MembershipLevelsAPI(accessToken, host);
-        this.Organization = new OrganizationAPI(accessToken, host);
-        this.Tasks = new TasksAPI(accessToken, host);
-        this.Tickets = new TicketsAPI(accessToken, host);
-        this.Transactions = new TransactionsAPI(accessToken, host);
+        this.axios = axios.create({
+            baseURL: this.host,
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
 
-        // v2
-        this.V2 = new V2(accessToken, host);
+        this.Association = new AssociationAPI(this.axios);
+        this.Categories = new CategoriesAPI(this.axios);
+        this.Contacts = new ContactsAPI(this.axios);
+        this.CustomFields = new CustomFieldsAPI(this.axios);
+        this.Deposits = new DepositsAPI(this.axios);
+        this.Emails = new EmailsAPI(this.axios);
+        this.Events = new EventsAPI(this.axios);
+        this.Expenses = new ExpensesAPI(this.axios);
+        this.Groups = new GroupsAPI(this.axios);
+        this.Invoices = new InvoicesAPI(this.axios);
+        this.Meetings = new MeetingsAPI(this.axios);
+        this.Memberships = new MembershipsAPI(this.axios);
+        this.MembershipLevels = new MembershipLevelsAPI(this.axios);
+        this.Organization = new OrganizationAPI(this.axios);
+        this.Tasks = new TasksAPI(this.axios);
+        this.Tickets = new TicketsAPI(this.axios);
+        this.Transactions = new TransactionsAPI(this.axios);
+
+        this.V2 = new V2(this.axios);
     }
 
     /**
      * @description Global request function for the TidyHQ API.
      * @param {string} path
-     * @param {string} accessToken 
      * @param {string} query
      */
-    async get(path, accessToken, query="") {
-        let url = `https://${this.host}/${path}?access_token=${accessToken}${query}`;
-        // return data and status
+    async get(path, query = "") {
+        let url = `/${path}${query}`;
         let data = {};
         let status = 400;
-        await axios.get(url).then((response) => {
+        await this.axios.get(url).then((response) => {
             data = response.data;
             status = response.status;
         }).catch((error) => {

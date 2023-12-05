@@ -1,11 +1,10 @@
 /**
  * @fileoverview This file contains functions for interacting with Associations in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
-const axios = require("axios");
 
 /**
  * @description This class is used to interact with Associations in TidyHQ.
@@ -15,13 +14,12 @@ class AssociationAPI {
 
     /**
      * @description This function is used to create a new instance of the AssociationAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the AssociationAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -30,10 +28,10 @@ class AssociationAPI {
      */
     async getOrganizations() {
         let organisations = [];
-        await axios.get(`https://${this.host}/v1/association/organizations?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/association/organizations`).then((response) => {
             organisations = response.data;
         }).catch((error) => {
-            throw new Error(`Association.getOrganizations: ${error}`);
+            throw new Error(`Association.getOrganizations: ${error}\n${error.response.data}`);
         });
         return organisations;
     }
@@ -45,10 +43,10 @@ class AssociationAPI {
      */
     async getOrganization(id) {
         let organisation = [];
-        await axios.get(`https://${this.host}/v1/association/organizations/${id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/association/organizations/${id}`).then((response) => {
             organisation = response.data;
         }).catch((error) => {
-            throw new Error(`Association.getOrganization: ${error}`);
+            throw new Error(`Association.getOrganization: ${error}\n${error.response.data}`);
         });
         return organisation;
     }
@@ -60,10 +58,10 @@ class AssociationAPI {
      */
     async getOrganizationContacts(organization_id) {
         let contacts = [];
-        await axios.get(`https://${this.host}/v1/association/organizations/${organization_id}/contacts?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/association/organizations/${organization_id}/contacts`).then((response) => {
             contacts = response.data;
         }).catch((error) => {
-            throw new Error(`Association.getOrganizationContacts: ${error}`);
+            throw new Error(`Association.getOrganizationContacts: ${error}\n${error.response.data}`);
         });
         return contacts;
     }
@@ -75,10 +73,10 @@ class AssociationAPI {
      */
     async getOrganizationEvents(organization_id) {
         let events = [];
-        await axios.get(`https://${this.host}/v1/association/organizations/${organization_id}/events?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/association/organizations/${organization_id}/events`).then((response) => {
             events = response.data;
         }).catch((error) => {
-            throw new Error(`Association.getOrganizationEvents: ${error}`);
+            throw new Error(`Association.getOrganizationEvents: ${error}\n${error.response.data}`);
         });
         return events;
     }
@@ -91,10 +89,10 @@ class AssociationAPI {
      */
     async getOrganizationEvent(organization_id, event_id) {
         let event = [];
-        await axios.get(`https://${this.host}/v1/association/organizations/${organization_id}/events/${event_id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/association/organizations/${organization_id}/events/${event_id}`).then((response) => {
             event = response.data;
         }).catch((error) => {
-            throw new Error(`Association.getOrganizationEvent: ${error}`);
+            throw new Error(`Association.getOrganizationEvent: ${error}\n${error.response.data}`);
         });
         return event;
     }
@@ -106,10 +104,10 @@ class AssociationAPI {
      */
     async getOrganizationMeetings(organization_id) {
         let meetings = [];
-        await axios.get(`https://${this.host}/v1/association/organizations/${organization_id}/meetings?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/association/organizations/${organization_id}/meetings`).then((response) => {
             meetings = response.data;
         }).catch((error) => {
-            throw new Error(`Association.getOrganizationMeetings: ${error}`);
+            throw new Error(`Association.getOrganizationMeetings: ${error}\n${error.response.data}`);
         });
         return meetings;
     }
@@ -122,10 +120,10 @@ class AssociationAPI {
      */
     async getOrganizationMeeting(organization_id, meeting_id) {
         let meeting = [];
-        await axios.get(`https://${this.host}/v1/association/organizations/${organization_id}/meetings/${meeting_id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/association/organizations/${organization_id}/meetings/${meeting_id}`).then((response) => {
             meeting = response.data;
         }).catch((error) => {
-            throw new Error(`Association.getOrganizationMeeting: ${error}`);
+            throw new Error(`Association.getOrganizationMeeting: ${error}\n${error.response.data}`);
         });
         return meeting;
     }

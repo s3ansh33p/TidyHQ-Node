@@ -1,7 +1,7 @@
 /**
  * @fileoverview This file contains functions for interacting with Organizations in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 2.0.0
+ * @version 2.1.0
  * @license GPL-3.0
  */
 
@@ -16,13 +16,12 @@ class OrganizationAPI {
 
     /**
      * @description This function is used to create a new instance of the OrganizationAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the OrganizationAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -31,10 +30,10 @@ class OrganizationAPI {
      */
     async getOrganization() {
         let organization = [];
-        await axios.get(`https://${this.host}/v2/organization?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v2/organization`).then((response) => {
             organization = response.data;
         }).catch((error) => {
-            throw new Error(`V2.Organization.getOrganization: ${error}`);
+            throw new Error(`V2.Organization.getOrganization: ${error}\n${error.response.data}`);
         });
         return organization;
     }
@@ -52,10 +51,10 @@ class OrganizationAPI {
         let optionalParametersString = makeURLParameters(["limit", "offset", "updated_since", "updated_before"], options)
 
         let admins = [];
-        await axios.get(`https://${this.host}/v2/organization/admins?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.get(`/v2/organization/admins${optionalParametersString}`).then((response) => {
             admins = response.data;
         }).catch((error) => {
-            throw new Error(`V2.Organization.getAdmins: ${error}`);
+            throw new Error(`V2.Organization.getAdmins: ${error}\n${error.response.data}`);
         });
         return admins;
     }
@@ -73,10 +72,10 @@ class OrganizationAPI {
         let optionalParametersString = makeURLParameters(["limit", "offset", "updated_since", "updated_before"], options)
 
         let roles = [];
-        await axios.get(`https://${this.host}/v2/organization/roles?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.get(`/v2/organization/roles${optionalParametersString}`).then((response) => {
             roles = response.data;
         }).catch((error) => {
-            throw new Error(`V2.Organization.getRoles: ${error}`);
+            throw new Error(`V2.Organization.getRoles: ${error}\n${error.response.data}`);
         });
         return roles;
     }

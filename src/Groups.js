@@ -1,11 +1,10 @@
 /**
  * @fileoverview This file contains functions for interacting with Groups in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
-const axios = require("axios");
 const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
@@ -16,13 +15,12 @@ class GroupsAPI {
 
     /**
      * @description This function is used to create a new instance of the GroupsAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the GroupsAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -37,10 +35,10 @@ class GroupsAPI {
         let optionalParametersString = makeURLParameters(["limit", "offset", "search_terms"], options)
 
         let groups = [];
-        await axios.get(`https://${this.host}/v1/groups?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.get(`/v1/groups${optionalParametersString}`).then((response) => {
             groups = response.data;
         }).catch((error) => {
-            throw new Error(`Groups.getGroups: ${error}`);
+            throw new Error(`Groups.getGroups: ${error}\n${error.response.data}`);
         });
         return groups;
     }
@@ -58,10 +56,10 @@ class GroupsAPI {
         let optionalParametersString = makeURLParameters(["limit", "offset", "search_terms"], options)
 
         let groups = [];
-        await axios.get(`https://${this.host}/v1/contacts/${contact_id}/groups?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.get(`/v1/contacts/${contact_id}/groups${optionalParametersString}`).then((response) => {
             groups = response.data;
         }).catch((error) => {
-            throw new Error(`Groups.getGroupsForContact: ${error}`);
+            throw new Error(`Groups.getGroupsForContact: ${error}\n${error.response.data}`);
         });
         return groups;
     }
@@ -73,10 +71,10 @@ class GroupsAPI {
      */
     async getGroup(group_id) {
         let group = {};
-        await axios.get(`https://${this.host}/v1/groups/${group_id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/groups/${group_id}`).then((response) => {
             group = response.data;
         }).catch((error) => {
-            throw new Error(`Groups.getGroup: ${error}`);
+            throw new Error(`Groups.getGroup: ${error}\n${error.response.data}`);
         });
         return group;
     }
@@ -109,10 +107,10 @@ class GroupsAPI {
             options.description = description;
         }
         let group = {};
-        await axios.post(`https://${this.host}/v1/groups?access_token=${this.access_token}`, options).then((response) => {
+        await this.axios.post(`/v1/groups`, options).then((response) => {
             group = response.data;
         }).catch((error) => {
-            throw new Error(`Groups.createGroup: ${error}`);
+            throw new Error(`Groups.createGroup: ${error}\n${error.response.data}`);
         });
         return group;
     }
@@ -134,10 +132,10 @@ class GroupsAPI {
         if (optionalParametersString == "") throw new Error("CustomFields.updateCustomField: No valid options provided.");
 
         let group = {};
-        await axios.put(`https://${this.host}/v1/groups/${group_id}?access_token=${this.access_token}${optionalParametersString}`, options).then((response) => {
+        await this.axios.put(`/v1/groups/${group_id}${optionalParametersString}`, options).then((response) => {
             group = response.data;
         }).catch((error) => {
-            throw new Error(`Groups.updateGroup: ${error}`);
+            throw new Error(`Groups.updateGroup: ${error}\n${error.response.data}`);
         });
         return group;
     }
@@ -149,10 +147,10 @@ class GroupsAPI {
      */
     async deleteGroup(group_id) {
         let success = false;
-        await axios.delete(`https://${this.host}/v1/groups/${group_id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.delete(`/v1/groups/${group_id}`).then((response) => {
             success = true;
         }).catch((error) => {
-            throw new Error(`Groups.deleteGroup: ${error}`);
+            throw new Error(`Groups.deleteGroup: ${error}\n${error.response.data}`);
         });
         return success;
     }
@@ -165,10 +163,10 @@ class GroupsAPI {
      */
     async addContactToGroup(group_id, contact_id) {
         let success = false;
-        await axios.put(`https://${this.host}/v1/groups/${group_id}/contacts/${contact_id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.put(`/v1/groups/${group_id}/contacts/${contact_id}`).then((response) => {
             success = true;
         }).catch((error) => {
-            throw new Error(`Groups.addContactToGroup: ${error}`);
+            throw new Error(`Groups.addContactToGroup: ${error}\n${error.response.data}`);
         });
         return success;
     }
@@ -181,10 +179,10 @@ class GroupsAPI {
      */
     async removeContactFromGroup(group_id, contact_id) {
         let success = false;
-        await axios.delete(`https://${this.host}/v1/groups/${group_id}/contacts/${contact_id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.delete(`/v1/groups/${group_id}/contacts/${contact_id}`).then((response) => {
             success = true;
         }).catch((error) => {
-            throw new Error(`Groups.removeContactFromGroup: ${error}`);
+            throw new Error(`Groups.removeContactFromGroup: ${error}\n${error.response.data}`);
         });
         return success;
     }

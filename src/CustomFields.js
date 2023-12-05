@@ -1,11 +1,10 @@
 /**
  * @fileoverview This file contains functions for interacting with Custom Fields in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
-const axios = require("axios");
 const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
@@ -16,13 +15,12 @@ class CustomFieldsAPI {
 
     /**
      * @description This function is used to create a new instance of the CustomFieldsAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the CustomFieldsAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -31,25 +29,25 @@ class CustomFieldsAPI {
      */
     async getCustomFields() {
         let customFields = [];
-        await axios.get(`https://${this.host}/v1/custom_fields?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/custom_fields`).then((response) => {
             customFields = response.data;
         }).catch((error) => {
-            throw new Error(`CustomFields.getCustomFields: ${error}`);
+            throw new Error(`CustomFields.getCustomFields: ${error}\n${error.response.data}`);
         });
         return customFields;
     }
 
     /**
      * @description This function is used to get a single custom field from TidyHQ.
-     * @param {string} CustomFieldID [0] - The ID of the CustomField to get
+     * @param {string} customFieldID - The ID of the CustomField to get
      * @returns {object} - A CustomField object.
      **/
-    async getCustomField(CustomFieldID) {
+    async getCustomField(customFieldID) {
         let customField = {};
-        await axios.get(`https://${this.host}/v1/custom_fields/${CustomFieldID}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/custom_fields/${customFieldID}`).then((response) => {
             customField = response.data;
         }).catch((error) => {
-            throw new Error(`CustomFields.getCustomField: ${error}`);
+            throw new Error(`CustomFields.getCustomField: ${error}\n${error.response.data}`);
         });
         return customField;
     }
@@ -68,21 +66,31 @@ class CustomFieldsAPI {
     }
 
     /**
+     * @description Helper function to determine if a custom field type is valid.
+     * @param {string} type - The type to check.
+     * @returns {boolean} - Whether the type is valid or not.
+     * @private
+     */
+    #_isValidType(type) {
+        return ["string", "text", "dropdown", "boolean", "date"].includes(type);
+    }
+
+    /**
      * @description This function is used to create a new custom field in TidyHQ.
      * @param {string} name - The name of the custom field to create.
      * @param {"string" | "text" | "dropdown" | "boolean" | "date"} type - The type of the custom field to create.
      * @returns {object} - The newly created custom field object.
      */
     async createCustomField(name, type) {
-        if (!["string", "text", "dropdown", "boolean", "date"].includes(type)) throw new Error(`CustomFields.createCustomField: Invalid type ${type}.`);
+        if (!this.#_isValidType(type)) throw new Error(`CustomFields.createCustomField: Invalid type ${type}.`);
         let customField = {};
-        await axios.post(`https://${this.host}/v1/custom_fields?access_token=${this.access_token}`, {
+        await this.axios.post(`/v1/custom_fields`, {
             title: name,
             type: type
         }).then((response) => {
             customField = response.data;
         }).catch((error) => {
-            throw new Error(`CustomFields.createCustomField: ${error}`);
+            throw new Error(`CustomFields.createCustomField: ${error}\n${error.response.data}`);
         });
         return customField;
     }
@@ -90,14 +98,14 @@ class CustomFieldsAPI {
     /**
      * @description This function is used to update a custom field in TidyHQ.
      * @param {string} customFieldID - The ID of the custom field to update.
-     * @param {object} options - The options to update the custom field with.
-     * @param {string} options.name - The new name of the custom field.
-     * @param {"string" | "text" | "dropdown" | "boolean" | "date"} options.type - The new type of the custom field.
+     * @param {object} [options] - The options to update the custom field with. At least one option is required.
+     * @param {string} [options.name] - The new name of the custom field.
+     * @param {"string" | "text" | "dropdown" | "boolean" | "date"} [options.type] - The new type of the custom field.
      * @returns {object} - The updated custom field object.
      */
     async updateCustomField(customFieldID, options) {
         if (options.type != undefined) {
-            if (!["string", "text", "dropdown", "boolean", "date"].includes(options.type)) throw new Error(`CustomFields.updateCustomField: Invalid type ${options.type}.`);
+            if (!this.#_isValidType(options.type)) throw new Error(`CustomFields.updateCustomField: Invalid type ${options.type}.`);
         }
         if (options.name != undefined) {
             options.title = options.name
@@ -107,10 +115,10 @@ class CustomFieldsAPI {
         if (optionalParametersString == "") throw new Error("CustomFields.updateCustomField: No valid options provided.");
 
         let customField = {};
-        await axios.put(`https://${this.host}/v1/custom_fields/${customFieldID}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.put(`/v1/custom_fields/${customFieldID}${optionalParametersString}`).then((response) => {
             customField = response.data;
         }).catch((error) => {
-            throw new Error(`CustomFields.updateCustomField: ${error}`);
+            throw new Error(`CustomFields.updateCustomField: ${error}\n${error.response.data}`);
         });
         return customField;
     }
@@ -122,13 +130,13 @@ class CustomFieldsAPI {
      */
     async deleteCustomField(customFieldID) {
         let success = false;
-        await axios.delete(`https://${this.host}/v1/custom_fields/${customFieldID}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.delete(`/v1/custom_fields/${customFieldID}`).then((response) => {
             success = true;
         }).catch((error) => {
             if (error.response.status == 404) {
                 throw new Error(`CustomFields.deleteCustomField: Custom field with ID ${customFieldID} does not exist.`);
             } else {
-                throw new Error(`CustomFields.deleteCustomField: ${error}`);
+                throw new Error(`CustomFields.deleteCustomField: ${error}\n${error.response.data}`);
             }
         });
         return success;
@@ -141,10 +149,10 @@ class CustomFieldsAPI {
      */
     async getCustomFieldChoices(customFieldID) {
         let options = [];
-        await axios.get(`https://${this.host}/v1/custom_fields/${customFieldID}/choices?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/custom_fields/${customFieldID}/choices`).then((response) => {
             options = response.data;
         }).catch((error) => {
-            throw new Error(`CustomFields.getCustomFieldDropdownOptions: ${error}`);
+            throw new Error(`CustomFields.getCustomFieldDropdownOptions: ${error}\n${error.response.data}`);
         });
         return options;
     }
@@ -157,10 +165,10 @@ class CustomFieldsAPI {
      */
     async getCustomFieldChoice(customFieldID, choiceID) {
         let option = {};
-        await axios.get(`https://${this.host}/v1/custom_fields/${customFieldID}/choices/${choiceID}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`).then((response) => {
             option = response.data;
         }).catch((error) => {
-            throw new Error(`CustomFields.getCustomFieldDropdownOption: ${error}`);
+            throw new Error(`CustomFields.getCustomFieldDropdownOption: ${error}\n${error.response.data}`);
         });
         return option;
     }
@@ -173,12 +181,12 @@ class CustomFieldsAPI {
      */
     async createCustomFieldChoice(customFieldID, name) {
         let option = {};
-        await axios.post(`https://${this.host}/v1/custom_fields/${customFieldID}/choices?access_token=${this.access_token}`, {
+        await this.axios.post(`/v1/custom_fields/${customFieldID}/choices`, {
             title: name
         }).then((response) => {
             option = response.data;
         }).catch((error) => {
-            throw new Error(`CustomFields.createCustomFieldChoice: ${error}`);
+            throw new Error(`CustomFields.createCustomFieldChoice: ${error}\n${error.response.data}`);
         });
         return option;
     }
@@ -193,10 +201,10 @@ class CustomFieldsAPI {
     async updateCustomFieldChoice(customFieldID, choiceID, name) {
 
         let option = {};
-        await axios.put(`https://${this.host}/v1/custom_fields/${customFieldID}/choices/${choiceID}?access_token=${this.access_token}&title=${name}`).then((response) => {
+        await this.axios.put(`/v1/custom_fields/${customFieldID}/choices/${choiceID}&title=${name}`).then((response) => {
             option = response.data;
         }).catch((error) => {
-            throw new Error(`CustomFields.updateCustomFieldChoice: ${error}`);
+            throw new Error(`CustomFields.updateCustomFieldChoice: ${error}\n${error.response.data}`);
         });
         return option;
     }
@@ -209,13 +217,13 @@ class CustomFieldsAPI {
      */
     async deleteCustomFieldChoice(customFieldID, choiceID) {
         let success = false;
-        await axios.delete(`https://${this.host}/v1/custom_fields/${customFieldID}/choices/${choiceID}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.delete(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`).then((response) => {
             success = true;
         }).catch((error) => {
             if (error.response.status == 404) {
                 throw new Error(`CustomFields.deleteCustomFieldChoice: Choice with ID ${choiceID} does not exist.`);
             } else {
-                throw new Error(`CustomFields.deleteCustomFieldChoice: ${error}`);
+                throw new Error(`CustomFields.deleteCustomFieldChoice: ${error}\n${error.response.data}`);
             }
         });
         return success;

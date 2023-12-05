@@ -1,11 +1,10 @@
 /**
  * @fileoverview This file contains functions for interacting with Tickets in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
-const axios = require("axios");
 const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
@@ -16,13 +15,12 @@ class TicketsAPI {
 
     /**
      * @description This function is used to create a new instance of the TicketsAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the TicketsAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -33,10 +31,10 @@ class TicketsAPI {
      */
     async #_getTickets(event_id, soldFilter = false) {
         let tickets = [];
-        await axios.get(`https://${this.host}/v1/events/${event_id}/tickets/${soldFilter ? 'sold' : ''}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/events/${event_id}/tickets/${soldFilter ? 'sold' : ''}`).then((response) => {
             tickets = response.data;
         }).catch((error) => {
-            throw new Error(`Tickets.getTickets: ${error}`);
+            throw new Error(`Tickets.getTickets: ${error}\n${error.response.data}`);
         });
         return tickets;
     }
@@ -74,10 +72,10 @@ class TicketsAPI {
         let ticket = {};
         let optionalParametersString = makeURLParameters(["amount", "initial_quantity", "maximum_purchase", "sales_end"], options);
 
-        await axios.post(`https://${this.host}/v1/events/${event_id}/tickets?access_token=${this.access_token}&name=${name}${optionalParametersString}`).then((response) => {
+        await this.axios.post(`/v1/events/${event_id}/tickets&name=${name}${optionalParametersString}`).then((response) => {
             ticket = response.data;
         }).catch((error) => {
-            throw new Error(`Tickets.createTicket: ${error}`);
+            throw new Error(`Tickets.createTicket: ${error}\n${error.response.data}`);
         });
         return ticket;
     }
@@ -102,10 +100,10 @@ class TicketsAPI {
             throw new Error("Tickets.updateTicket: No options were provided to update.");
         }
 
-        await axios.put(`https://${this.host}/v1/events/${event_id}/tickets/${ticket_id}?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.put(`/v1/events/${event_id}/tickets/${ticket_id}${optionalParametersString}`).then((response) => {
             ticket = response.data;
         }).catch((error) => {
-            throw new Error(`Tickets.updateTicket: ${error}`);
+            throw new Error(`Tickets.updateTicket: ${error}\n${error.response.data}`);
         });
         return ticket;
     }
@@ -118,10 +116,10 @@ class TicketsAPI {
      */
     async deleteTicket(event_id, ticket_id) {
         let deleted = false;
-        await axios.delete(`https://${this.host}/v1/events/${event_id}/tickets/${ticket_id}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.delete(`/v1/events/${event_id}/tickets/${ticket_id}`).then((response) => {
             deleted = true;
         }).catch((error) => {
-            throw new Error(`Tickets.deleteTicket: ${error}`);
+            throw new Error(`Tickets.deleteTicket: ${error}\n${error.response.data}`);
         });
         return deleted;
     }

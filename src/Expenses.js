@@ -1,11 +1,10 @@
 /**
  * @fileoverview This file contains functions for interacting with Expenses in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
- * @version 1.0.0
+ * @version 1.1.0
  * @license GPL-3.0
  */
 
-const axios = require("axios");
 const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
@@ -16,13 +15,12 @@ class ExpensesAPI {
 
     /**
      * @description This function is used to create a new instance of the ExpensesAPI class.
-     * @param {string} access_token - The access token of the application.
+     * @param {AxiosInstance} axios - The Axios instance to use for requests.
      * @returns {object} - A new instance of the ExpensesAPI class.
      * @constructor
      */
-    constructor(access_token, host) {
-        this.access_token = access_token;
-        this.host = host;
+    constructor(axios) {
+        this.axios = axios;
     }
 
     /**
@@ -41,10 +39,10 @@ class ExpensesAPI {
         }
         let optionalParametersString = makeURLParameters(["limit", "offset", "status", "updated_since"], options);
 
-        await axios.get(`https://${this.host}/v1/expenses?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.get(`/v1/expenses${optionalParametersString}`).then((response) => {
             expenses = response.data;
         }).catch((error) => {
-            throw new Error(`Expenses.getExpenses: ${error}`);
+            throw new Error(`Expenses.getExpenses: ${error}\n${error.response.data}`);
         });
         return expenses;
     }
@@ -57,10 +55,10 @@ class ExpensesAPI {
     async getExpense(expenseID) {
         let expense = {};
 
-        await axios.get(`https://${this.host}/v1/expenses/${expenseID}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.get(`/v1/expenses/${expenseID}`).then((response) => {
             expense = response.data;
         }).catch((error) => {
-            throw new Error(`Expenses.getExpense: ${error}`);
+            throw new Error(`Expenses.getExpense: ${error}\n${error.response.data}`);
         });
         return expense;
     }
@@ -88,7 +86,7 @@ class ExpensesAPI {
             }
         }
         
-        await axios.post(`https://${this.host}/v1/expenses?access_token=${this.access_token}`, {
+        await this.axios.post(`/v1/expenses`, {
             name,
             amount,
             due_date,
@@ -100,7 +98,7 @@ class ExpensesAPI {
                 success = true;
             }
         }).catch((error) => {
-            throw new Error(`Expenses.createExpense: ${error}`);
+            throw new Error(`Expenses.createExpense: ${error}\n${error.response.data}`);
         });
 
         return success;
@@ -123,12 +121,12 @@ class ExpensesAPI {
         let optionalParametersString = makeURLParameters(["amount", "payment_type", "date"], options);
         if (optionalParametersString == "") throw new Error("Expenses.addPayment: No valid options provided.");
 
-        await axios.post(`https://${this.host}/v1/expenses/${expenseID}/payments?access_token=${this.access_token}${optionalParametersString}`).then((response) => {
+        await this.axios.post(`/v1/expenses/${expenseID}/payments${optionalParametersString}`).then((response) => {
             if (response.status == 201) {
                 success = true;
             }
         }).catch((error) => {
-            throw new Error(`Expenses.addPayment: ${error}`);
+            throw new Error(`Expenses.addPayment: ${error}\n${error.response.data}`);
         });
         return success;
     }
@@ -140,12 +138,12 @@ class ExpensesAPI {
      */
     async deleteExpense(expenseID) {
         let success = false;
-        await axios.delete(`https://${this.host}/v1/expenses/${expenseID}?access_token=${this.access_token}`).then((response) => {
+        await this.axios.delete(`/v1/expenses/${expenseID}`).then((response) => {
             if (response.status == 200) {
                 success = true;
             }
         }).catch((error) => {
-            throw new Error(`Expenses.deleteExpense: ${error}`);
+            throw new Error(`Expenses.deleteExpense: ${error}\n${error.response.data}`);
         });
         return success;
     }
