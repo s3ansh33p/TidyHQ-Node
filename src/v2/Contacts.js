@@ -57,6 +57,7 @@ class ContactsAPI {
     /**
      * @todo REFACTOR TYPES AND TEST
      * @description Creates a new contact with the given data in TidyHQ.
+     * @link https://tidyhq.readme.io/reference/create-contact
      * @param {object} contact - The contact to create.
      * @param {string} [contact.id] - The ID of the contact to create.
      * @param {number} [contact.contact_id_reference] - The ID of the contact, used in V1 API.

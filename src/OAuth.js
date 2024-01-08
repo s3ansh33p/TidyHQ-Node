@@ -6,6 +6,7 @@
  */
 
 // axios is a library that allows us to make HTTP requests
+const axios = require("axios");
 
 /**
  * @description This function is used to authorize the application with TidyHQ and return an access token.
@@ -54,7 +55,7 @@ async function authorizeWithPassword(client_id, client_secret, username, passwor
     if (client_secret.length !== 64) throw new RangeError("OAuth.authorizeWithPassword: client_secret must be 64 characters long.");
 
     let accessToken = "";
-    await this.axios.post(`${host}/oauth/token`, {
+    await axios.post(`${host}/oauth/token`, {
         client_id: client_id,
         client_secret: client_secret,
         username: username,
@@ -90,7 +91,7 @@ async function requestAccessToken(client_id, client_secret, redirect_uri, code, 
     if (!redirect_uri.startsWith("http")) throw new RangeError("OAuth.requestAccessToken: redirect_uri must be a valid URL.");
 
     let accessToken = "";
-    await this.axios.post(`${host}/oauth/token`, {
+    await axios.post(`${host}/oauth/token`, {
         client_id: client_id,
         client_secret: client_secret,
         redirect_uri: redirect_uri,
