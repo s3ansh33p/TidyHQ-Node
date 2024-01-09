@@ -73,10 +73,10 @@ class TidyHQ {
      * @param {string} query
      */
     async get(path, query = "") {
-        let url = `/${path}${query}`;
+        let url = this.host + "/" + path + query;
         let data = {};
         let status = 400;
-        await this.axios.get(url).then((response) => {
+        await axios.get(url).then((response) => {
             data = response.data;
             status = response.status;
         }).catch((error) => {
