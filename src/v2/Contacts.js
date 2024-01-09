@@ -184,6 +184,24 @@ class ContactsAPI {
         return success;
     }
 
+    /**
+     * @description This function is used to update a contact in TidyHQ.
+     * @param {string} contact_id - The ID of the contact to update.
+     * @param {object} contact - The new contact data.
+     * @param {string} [contact.contact_id_number] - The contact ID number of the contact. Custom ID numbers must be enabled first in the organization settings.
+     * @returns {object} - The updated contact.
+     */
+    async updateContact(contact_id, contact) {
+        let updatedContact = {};
+        await this.axios.patch(`/v2/contacts/${contact_id}`, contact).then((response) => {
+            updatedContact = response.data;
+        }).catch((error) => {
+            console.log(error.response.data)
+            throw new Error(`V2.Contacts.updateContact: ${error}\n${error.response.data}`);
+        });
+        return updatedContact;
+    }
+
 }
 
 module.exports = { ContactsAPI };
