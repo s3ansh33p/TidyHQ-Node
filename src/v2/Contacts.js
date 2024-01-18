@@ -30,7 +30,7 @@ class ContactsAPI {
      * @param {object} [options = {}] - The options to use.
      * @param {Date} [options.updated_before] - ISO8601 formatted timestamp, only returns results last updated before the given time.
      * @param {Date} [options.updated_since] - ISO8601 formatted timestamp, only returns results last updated since the given time.
-     * @param {number} [options.limit] - The maximum number of contacts per pageto return.
+     * @param {number} [options.limit] - The maximum number of contacts per page to return.
      * @param {number} [options.offset] - The number of contacts to skip.
      * @param {boolean} [options.registered]  - When given, returns only users with / without a user account attached.
      * @param {boolean} [options.all] - When given, returns all (including inactive) - defaults to only returning visible / active.
@@ -200,6 +200,29 @@ class ContactsAPI {
             throw new Error(`V2.Contacts.updateContact: ${error}\n${error.response.data}`);
         });
         return updatedContact;
+    }
+
+    /**
+     * @description Gets all memberships for a given single contact.
+     * @link https://tidyhq.readme.io/reference/get-contact-memberships
+     * @param {string} contact_id - The ID of the contact to find memberships for.
+     * @param {object} [options = {}] - The options to use.
+     * @param {Date} [options.updated_before] - ISO8601 formatted timestamp, only returns results last updated before the given time.
+     * @param {Date} [options.updated_since] - ISO8601 formatted timestamp, only returns results last updated since the given time.
+     * @param {number} [options.limit] - The maximum number of contacts per page to return.
+     * @param {number} [options.offset] - The number of contacts to skip.
+     * @returns {object[]} - An array of contact objects.
+     * @private
+     */
+    async getContactMemberships(contact_id, options = {}) {
+        let optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset"], options)
+        let memberships = [];
+        await this.axios.get(`/v2/contacts/${contact_id}/memberships${optionalParametersString}`).then((response) => {
+            memberships = response.data;
+        }).catch((error) => {
+            throw new Error(`V2.Contacts.getContactMemberships: ${error}\n${error.response.data}`);
+        });
+        return memberships;
     }
 
 }
