@@ -212,7 +212,6 @@ class ContactsAPI {
      * @param {number} [options.limit] - The maximum number of contacts per page to return.
      * @param {number} [options.offset] - The number of contacts to skip.
      * @returns {object[]} - An array of contact objects.
-     * @private
      */
     async getContactMemberships(contact_id, options = {}) {
         let optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset"], options)

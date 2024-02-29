@@ -98,6 +98,7 @@ class ExpensesAPI {
                 success = true;
             }
         }).catch((error) => {
+            console.log(error.response.data);
             throw new Error(`Expenses.createExpense: ${error}\n${error.response.data}`);
         });
 
