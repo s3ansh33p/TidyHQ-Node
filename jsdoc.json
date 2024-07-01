@@ -17,11 +17,11 @@
         "menu": [
             {
                 "title": "Home",
-                "link": "/"
+                "link": "https://s3ansh33p.github.io/TidyHQ-Node"
             },
             {
                 "title": "GitHub",
-                "link": "https://github.com/s3ansh33p/tidyhq-node",
+                "link": "https://github.com/s3ansh33p/TidyHQ-Node",
                 "target": "_blank"
             },
             {
