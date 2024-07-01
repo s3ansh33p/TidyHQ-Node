@@ -160,13 +160,13 @@ class CustomFieldsAPI {
      * @returns {object[]} - An array of choice objects.
      */
     async getCustomFieldChoices(customFieldID, options = {}) {
-        let options = [];
+        let choices = [];
         await this.rest.get(`/v1/custom_fields/${customFieldID}/choices`, options.access_token).then((response) => {
-            options = response.data;
+            choices = response.data;
         }).catch((error) => {
-            throw new Error(`CustomFields.getCustomFieldDropdownOptions: ${error}\n${error.response.data}`);
+            throw new Error(`CustomFields.getCustomFieldChoice: ${error}\n${error.response.data}`);
         });
-        return options;
+        return choices;
     }
 
     /**
@@ -178,13 +178,13 @@ class CustomFieldsAPI {
      * @returns {object} - A choice object.
      */
     async getCustomFieldChoice(customFieldID, choiceID, options = {}) {
-        let option = {};
+        let choice = {};
         await this.rest.get(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`, options.access_token).then((response) => {
-            option = response.data;
+            choice = response.data;
         }).catch((error) => {
-            throw new Error(`CustomFields.getCustomFieldDropdownOption: ${error}\n${error.response.data}`);
+            throw new Error(`CustomFields.getCustomFieldChoice: ${error}\n${error.response.data}`);
         });
-        return option;
+        return choice;
     }
 
     /**
