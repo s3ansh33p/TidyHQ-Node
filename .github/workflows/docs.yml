@@ -20,6 +20,7 @@ jobs:
       
       - name: Generate JSDoc
         run: npx jsdoc -c jsdoc.json
+        continue-on-error: true
       
       - name: Deploy Documentation
         uses: crazy-max/ghaction-github-pages@v4.0.0
