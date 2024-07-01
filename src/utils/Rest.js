@@ -54,6 +54,10 @@ class Rest {
     async delete(path, data = {}, accessToken = this.accessToken) {
         return this._request("DELETE", path, data, accessToken);
     }
+
+    async patch(path, data = {}, accessToken = this.accessToken) {
+        return this._request("PATCH", path, data, accessToken);
+    }
 }
 
 module.exports = { Rest };
