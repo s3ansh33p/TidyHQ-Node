@@ -12,9 +12,8 @@
 class Rest {
 
     /**
-     * @param {AxiosInstance} axios - The Axios instance to use for requests.
+     * @param {AxiosInstance} axiosInstance - The Axios instance to use for requests.
      * @param {string} accessToken - The access token to use.
-     * @returns {Rest}
      * @constructor
      */
     constructor(axiosInstance, accessToken) {
@@ -28,28 +27,48 @@ class Rest {
      * @param {string} path - The path to request.
      * @param {Object} data - The data to send.
      * @param {string} accessToken - The access token to use.
-     * @returns {Promise} - The response from the request.
-     * @private
+     * @returns {Promise<ApiResponse>} - The response from the request.
      */
     async #_request(method, path, data = {}, accessToken) {
         if (!accessToken) {
             accessToken = this.accessToken;
         }
-        return this.axios.request({
-            method: method,
-            url: path,
-            data: data,
-            headers: {
-                Authorization: `Bearer ${accessToken}`
+        // console.log(`[DEBUG] Making ${method} request to ${path} with data: ${JSON.stringify(data)} and access token: ${accessToken}`)
+        let response;
+        try {
+            response = await this.axios.request({
+                method: method,
+                url: path,
+                data: data,
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+            response = {
+                data: response.data,
+                status: response.status,
+                statusText: response.statusText,
+                success: true
             }
-        });
+        } catch (error) {
+            response = {
+                data: error?.response?.data,
+                status: error?.response?.status,
+                statusText: error?.response?.statusText,
+                message: error.message,
+                success: false
+            }
+        }
+        
+        // console.log(`[DEBUG] ${this.axios.defaults.baseURL}${path} with ${response.status} and ${JSON.stringify(response.data).substring(0, 100)}`);
+        return response;
     }
 
     /**
      * @description Wrapper for making a GET request
      * @param {string} path - The path to request.
      * @param {string} accessToken - The access token to use.
-     * @returns {Promise} - The response from the request.
+     * @returns {Promise<ApiResponse>} - The response from the request.
      */
     async get(path, accessToken) {
         return this.#_request("GET", path, {}, accessToken);
@@ -60,7 +79,7 @@ class Rest {
      * @param {string} path - The path to request.
      * @param {Object} data - The data to send.
      * @param {string} accessToken - The access token to use.
-     * @returns {Promise} - The response from the request.
+     * @returns {Promise<ApiResponse>} - The response from the request.
      */
     async post(path, data = {}, accessToken = this.accessToken) {
         return this.#_request("POST", path, data, accessToken);
@@ -71,7 +90,7 @@ class Rest {
      * @param {string} path - The path to request.
      * @param {Object} data - The data to send.
      * @param {string} accessToken - The access token to use.
-     * @returns {Promise} - The response from the request.
+     * @returns {Promise<ApiResponse>} - The response from the request.
      */
     async put(path, data = {}, accessToken = this.accessToken) {
         return this.#_request("PUT", path, data, accessToken);
@@ -82,7 +101,7 @@ class Rest {
      * @param {string} path - The path to request.
      * @param {Object} data - The data to send.
      * @param {string} accessToken - The access token to use.
-     * @returns {Promise} - The response from the request.
+     * @returns {Promise<ApiResponse>} - The response from the request.
      */
     async delete(path, data = {}, accessToken = this.accessToken) {
         return this.#_request("DELETE", path, data, accessToken);
@@ -93,7 +112,7 @@ class Rest {
      * @param {string} path - The path to request.
      * @param {Object} data - The data to send.
      * @param {string} accessToken - The access token to use.
-     * @returns {Promise} - The response from the request.
+     * @returns {Promise<ApiResponse>} - The response from the request.
      */
     async patch(path, data = {}, accessToken = this.accessToken) {
         return this.#_request("PATCH", path, data, accessToken);

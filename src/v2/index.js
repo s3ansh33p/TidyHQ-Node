@@ -1,10 +1,11 @@
 /**
  * @fileoverview This file contains the main class for the TidyHQ V2 API.
  * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 2.1.0
+ * @version 2.2.0
  * @license GPL-3.0
  */
 
+const { Rest } = require("../utils/Rest.js");
 const { V2_ContactsAPI } = require("./Contacts.js");
 const { V2_OrganizationAPI } = require("./Organization.js");
 const { V2_WebhooksAPI } = require("./Webhooks");
@@ -15,8 +16,7 @@ const { V2_WebhooksAPI } = require("./Webhooks");
  */
 class V2 {
     /**
-     * @param {Rest} rest - The rest instance to use for requests.
-     * @returns {V2}
+     * @param {Rest} Rest - The rest instance to use for requests.
      * @constructor
      */
     constructor(Rest) {
