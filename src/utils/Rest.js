@@ -32,11 +32,9 @@ class Rest {
      * @private
      */
     async #_request(method, path, data = {}, accessToken) {
-        console.log(`[DEBUG] Token: ${accessToken}`);
         if (!accessToken) {
             accessToken = this.accessToken;
         }
-        console.log(`[DEBUG] Requesting ${method} ${path} with data: ${JSON.stringify(data)} and access token: ${accessToken}`);
         return this.axios.request({
             method: method,
             url: path,
