@@ -49,27 +49,26 @@ class TidyHQ {
 
         this.Rest = new Rest(this.axios, this.accessToken);
 
-        this.Association = new AssociationAPI(this.axios);
-        this.Categories = new CategoriesAPI(this.axios);
+        this.Association = new AssociationAPI(this.Rest);
+        this.Categories = new CategoriesAPI(this.Rest);
         this.Contacts = new ContactsAPI(this.Rest);
-        this.CustomFields = new CustomFieldsAPI(this.axios);
-        this.Deposits = new DepositsAPI(this.axios);
-        this.Emails = new EmailsAPI(this.axios);
-        this.Events = new EventsAPI(this.axios);
-        this.Expenses = new ExpensesAPI(this.axios);
-        this.Groups = new GroupsAPI(this.axios);
-        this.Invoices = new InvoicesAPI(this.axios);
-        this.Meetings = new MeetingsAPI(this.axios);
-        this.Memberships = new MembershipsAPI(this.axios);
-        this.MembershipLevels = new MembershipLevelsAPI(this.axios);
-        this.Organization = new OrganizationAPI(this.axios);
-        this.Tasks = new TasksAPI(this.axios);
-        this.Tickets = new TicketsAPI(this.axios);
-        this.Transactions = new TransactionsAPI(this.axios);
+        this.CustomFields = new CustomFieldsAPI(this.Rest);
+        this.Deposits = new DepositsAPI(this.Rest);
+        this.Emails = new EmailsAPI(this.Rest);
+        this.Events = new EventsAPI(this.Rest);
+        this.Expenses = new ExpensesAPI(this.Rest);
+        this.Groups = new GroupsAPI(this.Rest);
+        this.Invoices = new InvoicesAPI(this.Rest);
+        this.Meetings = new MeetingsAPI(this.Rest);
+        this.Memberships = new MembershipsAPI(this.Rest);
+        this.MembershipLevels = new MembershipLevelsAPI(this.Rest);
+        this.Organization = new OrganizationAPI(this.Rest);
+        this.Tasks = new TasksAPI(this.Rest);
+        this.Tickets = new TicketsAPI(this.Rest);
+        this.Transactions = new TransactionsAPI(this.Rest);
 
-        this.V2 = new V2(this.axios);
+        this.V2 = new V2(this.Rest);
     }
-
 
 }
 
