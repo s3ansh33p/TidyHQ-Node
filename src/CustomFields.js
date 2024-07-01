@@ -1,6 +1,6 @@
 /**
  * @fileoverview This file contains functions for interacting with Custom Fields in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
+ * @author Sean McGinty <newfolderlocation@gmail.com>
  * @version 1.1.0
  * @license GPL-3.0
  */
@@ -14,22 +14,23 @@ const { makeURLParameters } = require("./utils/Builder.js");
 class CustomFieldsAPI {
 
     /**
-     * @description This function is used to create a new instance of the CustomFieldsAPI class.
-     * @param {AxiosInstance} axios - The Axios instance to use for requests.
-     * @returns {object} - A new instance of the CustomFieldsAPI class.
+     * @param {Rest} rest - The rest instance to use for requests.
+     * @returns {CustomFieldsAPI}
      * @constructor
      */
-    constructor(axios) {
-        this.axios = axios;
+    constructor(rest) {
+        this.rest = rest;
     }
 
     /**
      * @description This function is used to get a list of custom fields from TidyHQ.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - An array of custom field objects.
      */
-    async getCustomFields() {
+    async getCustomFields(options = {}) {
         let customFields = [];
-        await this.axios.get(`/v1/custom_fields`).then((response) => {
+        await this.rest.get(`/v1/custom_fields`, options.access_token).then((response) => {
             customFields = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.getCustomFields: ${error}\n${error.response.data}`);
@@ -40,11 +41,13 @@ class CustomFieldsAPI {
     /**
      * @description This function is used to get a single custom field from TidyHQ.
      * @param {string} customFieldID - The ID of the CustomField to get
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - A CustomField object.
      **/
-    async getCustomField(customFieldID) {
+    async getCustomField(customFieldID, options = {}) {
         let customField = {};
-        await this.axios.get(`/v1/custom_fields/${customFieldID}`).then((response) => {
+        await this.rest.get(`/v1/custom_fields/${customFieldID}`, options.access_token).then((response) => {
             customField = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.getCustomField: ${error}\n${error.response.data}`);
@@ -55,10 +58,12 @@ class CustomFieldsAPI {
     /**
      * @description This function is used to get a single custom field from TidyHQ.
      * @param {string} name - The name of the custom field to get
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - A CustomField object.
      */
-    async getCustomFieldByName(name) {
-        let fields = await this.getCustomFields();
+    async getCustomFieldByName(name, options = {}) {
+        let fields = await this.getCustomFields(options);
         let field = fields.find((field) => field.title == name);
         // check if field exists
         if (field == undefined) throw new Error(`CustomFields.getCustomFieldByName: Custom field with name ${name} does not exist.`);
@@ -79,15 +84,17 @@ class CustomFieldsAPI {
      * @description This function is used to create a new custom field in TidyHQ.
      * @param {string} name - The name of the custom field to create.
      * @param {"string" | "text" | "dropdown" | "boolean" | "date"} type - The type of the custom field to create.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The newly created custom field object.
      */
-    async createCustomField(name, type) {
+    async createCustomField(name, type, options = {}) {
         if (!this.#_isValidType(type)) throw new Error(`CustomFields.createCustomField: Invalid type ${type}.`);
         let customField = {};
-        await this.axios.post(`/v1/custom_fields`, {
+        await this.rest.post(`/v1/custom_fields`, {
             title: name,
             type: type
-        }).then((response) => {
+        }, options.access_token).then((response) => {
             customField = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.createCustomField: ${error}\n${error.response.data}`);
@@ -98,7 +105,8 @@ class CustomFieldsAPI {
     /**
      * @description This function is used to update a custom field in TidyHQ.
      * @param {string} customFieldID - The ID of the custom field to update.
-     * @param {object} [options] - The options to update the custom field with. At least one option is required.
+     * @param {object} [options]
+     * @param {string} [options.access_token] - The access token to use. - The options to update the custom field with. At least one option is required.
      * @param {string} [options.name] - The new name of the custom field.
      * @param {"string" | "text" | "dropdown" | "boolean" | "date"} [options.type] - The new type of the custom field.
      * @returns {object} - The updated custom field object.
@@ -115,7 +123,7 @@ class CustomFieldsAPI {
         if (optionalParametersString == "") throw new Error("CustomFields.updateCustomField: No valid options provided.");
 
         let customField = {};
-        await this.axios.put(`/v1/custom_fields/${customFieldID}${optionalParametersString}`).then((response) => {
+        await this.rest.put(`/v1/custom_fields/${customFieldID}${optionalParametersString}`, {}, options.access_token).then((response) => {
             customField = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.updateCustomField: ${error}\n${error.response.data}`);
@@ -126,11 +134,13 @@ class CustomFieldsAPI {
     /**
      * @description This function is used to delete a custom field in TidyHQ.
      * @param {string} customFieldID - The ID of the custom field to delete.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {boolean} - Whether the custom field was deleted successfully.
      */
-    async deleteCustomField(customFieldID) {
+    async deleteCustomField(customFieldID, options = {}) {
         let success = false;
-        await this.axios.delete(`/v1/custom_fields/${customFieldID}`).then((response) => {
+        await this.rest.delete(`/v1/custom_fields/${customFieldID}`, options.access_token).then((response) => {
             success = true;
         }).catch((error) => {
             if (error.response.status == 404) {
@@ -145,11 +155,13 @@ class CustomFieldsAPI {
     /**
      * @description This function is used to get the choices for a dropdown custom field.
      * @param {string} customFieldID - The ID of the custom field to get the choices for.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object[]} - An array of choice objects.
      */
-    async getCustomFieldChoices(customFieldID) {
+    async getCustomFieldChoices(customFieldID, options = {}) {
         let options = [];
-        await this.axios.get(`/v1/custom_fields/${customFieldID}/choices`).then((response) => {
+        await this.rest.get(`/v1/custom_fields/${customFieldID}/choices`, options.access_token).then((response) => {
             options = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.getCustomFieldDropdownOptions: ${error}\n${error.response.data}`);
@@ -161,11 +173,13 @@ class CustomFieldsAPI {
      * @description This function is used to get a single choice for a dropdown custom field.
      * @param {string} customFieldID - The ID of the custom field to get the choice for.
      * @param {string} choiceID - The ID of the choice to get.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - A choice object.
      */
-    async getCustomFieldChoice(customFieldID, choiceID) {
+    async getCustomFieldChoice(customFieldID, choiceID, options = {}) {
         let option = {};
-        await this.axios.get(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`).then((response) => {
+        await this.rest.get(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`, options.access_token).then((response) => {
             option = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.getCustomFieldDropdownOption: ${error}\n${error.response.data}`);
@@ -177,13 +191,15 @@ class CustomFieldsAPI {
      * @description This function is used to get a single choice for a dropdown custom field by name.
      * @param {string} customFieldID - The ID of the custom field to get the choice for.
      * @param {string} name - The name of the choice to get.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - A choice object.
      */
-    async createCustomFieldChoice(customFieldID, name) {
+    async createCustomFieldChoice(customFieldID, name, options = {}) {
         let option = {};
-        await this.axios.post(`/v1/custom_fields/${customFieldID}/choices`, {
+        await this.rest.post(`/v1/custom_fields/${customFieldID}/choices`, {
             title: name
-        }).then((response) => {
+        }, options.access_token).then((response) => {
             option = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.createCustomFieldChoice: ${error}\n${error.response.data}`);
@@ -196,12 +212,13 @@ class CustomFieldsAPI {
      * @param {string} customFieldID - The ID of the custom field to update the choice for.
      * @param {string} choiceID - The ID of the choice to update.
      * @param {string} name - The new name of the choice.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The updated choice object.
      */
-    async updateCustomFieldChoice(customFieldID, choiceID, name) {
-
+    async updateCustomFieldChoice(customFieldID, choiceID, name, options = {}) {
         let option = {};
-        await this.axios.put(`/v1/custom_fields/${customFieldID}/choices/${choiceID}&title=${name}`).then((response) => {
+        await this.rest.put(`/v1/custom_fields/${customFieldID}/choices/${choiceID}&title=${name}`, {}, options.access_token).then((response) => {
             option = response.data;
         }).catch((error) => {
             throw new Error(`CustomFields.updateCustomFieldChoice: ${error}\n${error.response.data}`);
@@ -213,11 +230,13 @@ class CustomFieldsAPI {
      * @description This function is used to delete a choice for a dropdown custom field.
      * @param {string} customFieldID - The ID of the custom field to delete the choice for.
      * @param {string} choiceID - The ID of the choice to delete.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {boolean} - Whether the choice was deleted successfully.
      */
-    async deleteCustomFieldChoice(customFieldID, choiceID) {
+    async deleteCustomFieldChoice(customFieldID, choiceID, options = {}) {
         let success = false;
-        await this.axios.delete(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`).then((response) => {
+        await this.rest.delete(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`, options.access_token).then((response) => {
             success = true;
         }).catch((error) => {
             if (error.response.status == 404) {

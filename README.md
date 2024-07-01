@@ -1,7 +1,7 @@
 # TidyHQ API for NodeJS
 
 This is a NodeJS wrapper for the TidyHQ API. It is a work in progress and is not yet complete.
-The [ComSSA ticketing system](https://github.com/s3ansh33p/TidyHQ-App) will be built on top of this API, though other applications may find it useful.
+Refer to the [TidyHQ V1 API Documentation](https://dev.tidyhq.com/) and [TidyHQ V2 API Documentation](https://tidyhq.readme.io/).
 
 ## Support for V2 API
 

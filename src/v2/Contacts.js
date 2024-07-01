@@ -1,6 +1,6 @@
 /**
  * @fileoverview This file contains functions for interacting with Contacts in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
+ * @author Sean McGinty <newfolderlocation@gmail.com>
  * @version 2.1.0
  * @license GPL-3.0
  */
@@ -12,22 +12,22 @@ const { makeURLParameters } = require("../utils/Builder.js");
  * @description This class is used to interact with Contacts in TidyHQ.
  * @class
  */
-class ContactsAPI {
+class V2_ContactsAPI {
 
     /**
-     * @description This function is used to create a new instance of the ContactsAPI class.
-     * @param {AxiosInstance} axios - The Axios instance to use for requests.
-     * @returns {object} - A new instance of the ContactsAPI class.
+     * @description This function is used to create a new instance of the V2_ContactsAPI class.
+     * @param {Rest} rest - The rest instance to use for requests.
+     * @returns {object} - A new instance of the V2_ContactsAPI class.
      * @constructor
      */
-    constructor(axios) {
-        this.axios = axios;
+    constructor(rest) {
+        this.rest = rest;
     }
 
     /**
      * @description This function is used to get a list of contacts from TidyHQ.
      * @link https://tidyhq.readme.io/reference/get-contacts
-     * @param {object} [options = {}] - The options to use.
+     * @param {object} [options = {}]
      * @param {Date} [options.updated_before] - ISO8601 formatted timestamp, only returns results last updated before the given time.
      * @param {Date} [options.updated_since] - ISO8601 formatted timestamp, only returns results last updated since the given time.
      * @param {number} [options.limit] - The maximum number of contacts per page to return.
@@ -44,7 +44,7 @@ class ContactsAPI {
     async getContacts(options = {}) {
         let optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset", "registered", "all", "ids[]", "scope", "search_terms", "filter_equals[][]"], options)
         let contacts = [];
-        await this.axios.get(`/v2/contacts${optionalParametersString}`).then((response) => {
+        await this.rest.get(`/v2/contacts${optionalParametersString}`, options.access_token).then((response) => {
             contacts = response.data;
         }).catch((error) => {
             console.log(error);
@@ -123,11 +123,13 @@ class ContactsAPI {
      * @param {Date} [contact.notes.created_at] - The creation date of a note.
      * @param {Date} [contact.notes.updated_at] - The last updated date of a note.
      * @param {object} [contact.notes.author] - The author of a note. TODO: Check this vs docs
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The created contact.
      */
-    async createContact(contact) {
+    async createContact(contact, options = {}) {
         let createdContact = {};
-        await this.axios.post("/v2/contacts", contact).then((response) => {
+        await this.rest.post("/v2/contacts", contact, options.access_token).then((response) => {
             createdContact = response.data;
         }).catch((error) => {
             throw new Error(`V2.Contacts.createContact: ${error}\n${error.response.data}`);
@@ -137,12 +139,14 @@ class ContactsAPI {
 
     /**
      * @description This function is used to get a single contact from TidyHQ.
-     * @param {string} [contactID="me"] - The ID of the contact to get (me / default returns the contact of the user who authorized the application)
+     * @param {string} [contactID = "me"] - The ID of the contact to get (me / default returns the contact of the user who authorized the application)
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - A contact object.
      **/
-    async getContact(contactID = "me") {
+    async getContact(contactID = "me", options = {}) {
         let contact = {};
-        await this.axios.get(`/v2/contacts/${contactID}`).then((response) => {
+        await this.rest.get(`/v2/contacts/${contactID}`, options.access_token).then((response) => {
             contact = response.data;
         }).catch((error) => {
             throw new Error(`V2.Contacts.getContact: ${error}\n${error.response.data}`);
@@ -154,13 +158,15 @@ class ContactsAPI {
      * @description Adds a note to a specified contact.
      * @param {string} contact_id - The ID of the contact to create the note for.
      * @param {string} note - The note to create.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {boolean} - Success or failure.
      */
-    async createContactNote(contact_id, note) {
+    async createContactNote(contact_id, note, options = {}) {
         let success = false;
-        await this.axios.post(`/v2/contacts/${contact_id}/notes`, {
+        await this.rest.post(`/v2/contacts/${contact_id}/notes`, {
             text: note
-        }).then((response) => {
+        }, options.access_token).then((response) => {
             success = true;
         }).catch((error) => {
             throw new Error(`V2.Contacts.createContactNote: ${error}\n${error.response.data}`);
@@ -172,11 +178,13 @@ class ContactsAPI {
      * @description Deletes a specified note from a specified contact.
      * @param {string} contact_id - The ID of the contact to delete the note from.
      * @param {string} note_id - The ID of the note to delete.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {boolean} - Success or failure.
      */
-    async deleteContactNote(contact_id, note_id) {
+    async deleteContactNote(contact_id, note_id, options = {}) {
         let success = false;
-        await this.axios.delete(`/v2/contacts/${contact_id}/notes/${note_id}`).then((response) => {
+        await this.rest.delete(`/v2/contacts/${contact_id}/notes/${note_id}`, {}, options.access_token).then((response) => {
             success = true;
         }).catch((error) => {
             throw new Error(`V2.Contacts.deleteContactNote: ${error}\n${error.response.data}`);
@@ -189,11 +197,13 @@ class ContactsAPI {
      * @param {string} contact_id - The ID of the contact to update.
      * @param {object} contact - The new contact data.
      * @param {string} [contact.contact_id_number] - The contact ID number of the contact. Custom ID numbers must be enabled first in the organization settings.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The updated contact.
      */
-    async updateContact(contact_id, contact) {
+    async updateContact(contact_id, contact, options = {}) {
         let updatedContact = {};
-        await this.axios.patch(`/v2/contacts/${contact_id}`, contact).then((response) => {
+        await this.rest.patch(`/v2/contacts/${contact_id}`, contact, options.access_token).then((response) => {
             updatedContact = response.data;
         }).catch((error) => {
             console.log(error.response.data)
@@ -206,7 +216,8 @@ class ContactsAPI {
      * @description Gets all memberships for a given single contact.
      * @link https://tidyhq.readme.io/reference/get-contact-memberships
      * @param {string} contact_id - The ID of the contact to find memberships for.
-     * @param {object} [options = {}] - The options to use.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @param {Date} [options.updated_before] - ISO8601 formatted timestamp, only returns results last updated before the given time.
      * @param {Date} [options.updated_since] - ISO8601 formatted timestamp, only returns results last updated since the given time.
      * @param {number} [options.limit] - The maximum number of contacts per page to return.
@@ -216,7 +227,7 @@ class ContactsAPI {
     async getContactMemberships(contact_id, options = {}) {
         let optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset"], options)
         let memberships = [];
-        await this.axios.get(`/v2/contacts/${contact_id}/memberships${optionalParametersString}`).then((response) => {
+        await this.rest.get(`/v2/contacts/${contact_id}/memberships${optionalParametersString}`, options.access_token).then((response) => {
             memberships = response.data;
         }).catch((error) => {
             throw new Error(`V2.Contacts.getContactMemberships: ${error}\n${error.response.data}`);
@@ -226,4 +237,4 @@ class ContactsAPI {
 
 }
 
-module.exports = { ContactsAPI };
+module.exports = { V2_ContactsAPI };

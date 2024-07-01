@@ -1,6 +1,6 @@
 /**
  * @fileoverview This file contains the main class for the TidyHQ API.
- * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
+ * @author Sean McGinty <newfolderlocation@gmail.com>
  * @version 1.1.0
  * @license GPL-3.0
  */
@@ -26,6 +26,7 @@ const { TicketsAPI } = require("./src/Tickets");
 const { TransactionsAPI } = require("./src/Transactions");
 
 const { V2 } = require("./src/v2/index");
+const { Rest } = require("./src/utils/Rest");
 
 /**
  * @description This class is used to interact with the TidyHQ API.
@@ -46,9 +47,11 @@ class TidyHQ {
             }
         });
 
+        this.Rest = new Rest(this.axios, this.accessToken);
+
         this.Association = new AssociationAPI(this.axios);
         this.Categories = new CategoriesAPI(this.axios);
-        this.Contacts = new ContactsAPI(this.axios);
+        this.Contacts = new ContactsAPI(this.Rest);
         this.CustomFields = new CustomFieldsAPI(this.axios);
         this.Deposits = new DepositsAPI(this.axios);
         this.Emails = new EmailsAPI(this.axios);
@@ -67,27 +70,6 @@ class TidyHQ {
         this.V2 = new V2(this.axios);
     }
 
-    /**
-     * @description Global request function for the TidyHQ API.
-     * @param {string} path
-     * @param {string} query
-     */
-    async get(path, query = "") {
-        let url = this.host + "/" + path + query;
-        let data = {};
-        let status = 400;
-        await axios.get(url).then((response) => {
-            data = response.data;
-            status = response.status;
-        }).catch((error) => {
-            data = error.response.data;
-            status = error.response.status;
-        });
-        return {
-            data: data,
-            status: status
-        };
-    }
 
 }
 

@@ -1,6 +1,6 @@
 /**
  * @fileoverview This file contains OAuth functions for the application.
- * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
+ * @author Sean McGinty <newfolderlocation@gmail.com>
  * @version 1.1.0
  * @license GPL-3.0
  */
@@ -26,7 +26,7 @@ async function authorize(client_id, redirect_uri, host = "https://accounts.tidyh
 
     // finally, we can make the request
     let code = "";
-    await this.axios.get(`${host}/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`).then((response) => {
+    await axios.get(`${host}/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`).then((response) => {
         code = response.data;
     }).catch((error) => {
         throw new Error(`OAuth.authorize: ${error}\n${error.response.data}`);

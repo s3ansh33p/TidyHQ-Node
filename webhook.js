@@ -1,6 +1,6 @@
 /**
  * @fileoverview This file contains a wrapper for a TidyHQ Webhook.
- * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
+ * @author Sean McGinty <newfolderlocation@gmail.com>
  * @version 1.0.0
  * @license GPL-3.0
  */

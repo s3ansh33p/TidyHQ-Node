@@ -1,6 +1,6 @@
 /**
  * @fileoverview This file contains functions for building strings.
- * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
+ * @author Sean McGinty <newfolderlocation@gmail.com>
  * @version 2.0.0
  * @license GPL-3.0
  */

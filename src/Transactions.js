@@ -1,6 +1,6 @@
 /**
  * @fileoverview This file contains functions for interacting with Transactions in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
+ * @author Sean McGinty <newfolderlocation@gmail.com>
  * @version 1.1.0
  * @license GPL-3.0
  */
@@ -12,22 +12,23 @@
 class TransactionsAPI {
 
     /**
-     * @description This function is used to create a new instance of the TransactionsAPI class.
-     * @param {AxiosInstance} axios - The Axios instance to use for requests.
-     * @returns {object} - A new instance of the TransactionsAPI class.
+     * @param {Rest} rest - The rest instance to use for requests.
+     * @returns {TransactionsAPI}
      * @constructor
      */
-    constructor(axios) {
-        this.axios = axios;
+    constructor(rest) {
+        this.rest = rest;
     }
 
     /**
      * @description This function is used to get a list of all transactions.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The list of transactions.
      */
-    async getTransactions() {
+    async getTransactions(options = {}) {
         let transactions = [];
-        await this.axios.get(`/v1/transactions`).then((response) => {
+        await this.rest.get(`/v1/transactions`, options.access_token).then((response) => {
             transactions = response.data;
         }).catch((error) => {
             throw new Error(`Transactions.getTransactions: ${error}\n${error.response.data}`);
@@ -38,11 +39,13 @@ class TransactionsAPI {
     /**
      * @description This function is used to get a single transaction.
      * @param {string} id - The ID of the transaction.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The transaction.
      */
-    async getTransaction(id) {
+    async getTransaction(id, options = {}) {
         let transaction = {};
-        await this.axios.get(`/v1/transactions/${id}`).then((response) => {
+        await this.rest.get(`/v1/transactions/${id}`, options.access_token).then((response) => {
             transaction = response.data;
         }).catch((error) => {
             throw new Error(`Transactions.getTransaction: ${error}\n${error.response.data}`);

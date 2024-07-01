@@ -12,22 +12,23 @@ const { makeURLParameters } = require("../utils/Builder.js");
  * @description This class is used to interact with Memberships in TidyHQ.
  * @class
  */
-class MembershipAPI {
+class V2_MembershipAPI {
 
     /**
-     * @description This function is used to create a new instance of the MembershipAPI class.
-     * @param {AxiosInstance} axios - The Axios instance to use for requests.
-     * @returns {object} - A new instance of the MembershipAPI class.
+     * @description This function is used to create a new instance of the V2_MembershipAPI class.
+     * @param {Rest} rest - The rest instance to use for requests.
+     * @returns {object} - A new instance of the V2_MembershipAPI class.
      * @constructor
      */
-    constructor(axios) {
-        this.axios = axios;
+    constructor(rest) {
+        this.rest = rest;
     }
 
     /**
      * @description This function is used to get a list of memberships from TidyHQ.
      * @link https://tidyhq.readme.io/reference/get-memberships
-     * @param {object} [options = {}] - The options to use.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @param {Date} [options.updated_before] - ISO8601 formatted timestamp, only returns results last updated before the given time.
      * @param {Date} [options.updated_since] - ISO8601 formatted timestamp, only returns results last updated since the given time.
      * @param {number} [options.limit] - The maximum number of memberships per page to return.
@@ -40,7 +41,7 @@ class MembershipAPI {
     async getMemberships(options = {}) {
         let optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset", "registered", "active"], options)
         let memberships = [];
-        await this.axios.get(`/v2/memberships${optionalParametersString}`).then((response) => {
+        await this.rest.get(`/v2/memberships${optionalParametersString}`, options.access_token).then((response) => {
             contacts = response.data;
         }).catch((error) => {
             console.log(error);
@@ -51,4 +52,4 @@ class MembershipAPI {
 
 }
 
-module.exports = { MembershipAPI };
+module.exports = { V2_MembershipAPI };

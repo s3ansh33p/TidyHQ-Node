@@ -1,6 +1,6 @@
 /**
  * @fileoverview This file contains functions for interacting with Webhooks in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
+ * @author Sean McGinty <newfolderlocation@gmail.com>
  * @version 2.1.0
  * @license GPL-3.0
  */
@@ -11,25 +11,27 @@ const axios = require("axios");
  * @description This class is used to interact with Webhooks in TidyHQ.
  * @class
  */
-class WebhooksAPI {
+class V2_WebhooksAPI {
 
     /**
-     * @description This function is used to create a new instance of the WebhooksAPI class.
-     * @param {AxiosInstance} axios - The Axios instance to use for requests.
-     * @returns {object} - A new instance of the WebhooksAPI class.
+     * @description This function is used to create a new instance of the V2_WebhooksAPI class.
+     * @param {Rest} rest - The rest instance to use for requests.
+     * @returns {object} - A new instance of the V2_WebhooksAPI class.
      * @constructor
      */
-    constructor(axios) {
-        this.axios = axios;
+    constructor(rest) {
+        this.rest = rest;
     }
 
     /**
      * @description This function is used to get a list of all Webhooks.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The list of Webhooks.
      */
-    async getWebhooks() {
+    async getWebhooks(options = {}) {
         let webhooks = [];
-        await this.axios.get(`/v2/webhooks`).then((response) => {
+        await this.rest.get(`/v2/webhooks`, options.access_token).then((response) => {
             webhooks = response.data;
         }).catch((error) => {
             throw new Error(`V2.Webhooks.getWebhooks: ${error}\n${error.response.data}`);
@@ -40,11 +42,13 @@ class WebhooksAPI {
     /**
      * @description This function is used to get a Webhook by its ID.
      * @param {string} id - The ID of the Webhook.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The Webhook.
      */
-    async getWebhook(id) {
+    async getWebhook(id, options = {}) {
         let webhook = {};
-        await this.axios.get(`/v2/webhooks/${id}`).then((response) => {
+        await this.rest.get(`/v2/webhooks/${id}`, options.access_token).then((response) => {
             webhook = response.data;
         }).catch((error) => {
             throw new Error(`V2.Webhooks.getWebhook: ${error}\n${error.response.data}`);
@@ -57,18 +61,20 @@ class WebhooksAPI {
      * @param {string} url - The URL of the Webhook to listen to.
      * @param {string} matching_kind - The kind of event to listen for.
      * @param {string} description - The description of the Webhook.
-     * @param {boolean} allow_state_changes - If the Webhook should allow state changes, or terminate on the first state change.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
+     * @param {boolean} [options.allow_state_changes] - If the Webhook should allow state changes, or terminate on the first state change.
      * @returns {object} - The new Webhook.
      * @todo Find out what allow_state_changes does.
      */
-    async createWebhook(url, matching_kind, description, allow_state_changes = true) {
+    async createWebhook(url, matching_kind, description, options = {}) {
         let webhook = {};
-        await this.axios.post(`/v2/webhooks`, {
+        await this.rest.post(`/v2/webhooks`, {
             "url": url,
             "matching_kind": matching_kind,
             "description": description,
-            "allow_state_changes": allow_state_changes
-        }).then((response) => {
+            "allow_state_changes": options.allow_state_changes
+        }, options.access_token).then((response) => {
             webhook = response.data;
         }).catch((error) => {
             throw new Error(`V2.Webhooks.createWebhook: ${error}\n${error.response.data}`);
@@ -79,12 +85,14 @@ class WebhooksAPI {
     /**
      * @description This function is used to activate a Webhook.
      * @param {string} id - The ID of the Webhook.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {boolean} - Whether the request was successful or not.
      */
-    async activateWebhook(id) {
+    async activateWebhook(id, options) {
         let success = false;
         // if status code is 204, then success
-        await this.axios.post(`/v2/webhooks/${id}/activate`).then((response) => {
+        await this.rest.post(`/v2/webhooks/${id}/activate`, {}, options.access_token).then((response) => {
             if (response.status == 204) {
                 success = true;
             }
@@ -98,12 +106,14 @@ class WebhooksAPI {
     /**
      * @description This function is used to deactivate a Webhook.
      * @param {string} id - The ID of the Webhook.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {boolean} - Whether the request was successful or not.
      */
-    async deactivateWebhook(id) {
+    async deactivateWebhook(id, options = {}) {
         let success = false;
         // if status code is 204, then success
-        await this.axios.post(`/v2/webhooks/${id}/deactivate`).then((response) => {
+        await this.rest.post(`/v2/webhooks/${id}/deactivate`, {}, options.access_token).then((response) => {
             if (response.status == 204) {
                 success = true;
             }
@@ -117,17 +127,19 @@ class WebhooksAPI {
     /**
      * @description This function is used to delete a Webhook.
      * @param {string} id - The ID of the Webhook.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {boolean} - Whether the request was successful or not.
      */
-    async deleteWebhook(id) {
+    async deleteWebhook(id, options = {}) {
         let success = false;
         // if status code is 204, then success
-        await this.axios.delete(`/v2/webhooks/${id}`).then((response) => {
+        await this.rest.delete(`/v2/webhooks/${id}`, {}, options.access_token).then((response) => {
             if (response.status == 204) {
                 success = true;
             }
         }).catch((error) => {
-            throw new Error(`V2.Webhooks.deleteWebhook: ${error}\n${error.response.data}`);
+            // throw new Error(`V2.Webhooks.deleteWebhook: ${error}\n${error.response.data}`);
             success = false;
         });
         return success;
@@ -135,4 +147,4 @@ class WebhooksAPI {
 
 }
 
-module.exports = { WebhooksAPI };
+module.exports = { V2_WebhooksAPI };

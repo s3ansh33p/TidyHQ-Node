@@ -1,0 +1,54 @@
+{
+  "source": {
+    "include": [".", "README.md"],
+    "exclude": ["node_modules", "docs"],
+    "includePattern": ".+\\.js?$"
+  },
+  "opts": {
+    "recurse": true,
+    "destination": "./docs",
+    "template": "node_modules/clean-jsdoc-theme",
+    "theme_opts": {
+        "default_theme": "dark",
+        "homepageTitle": "TidyHQ-Node Documentation",
+        "sections": ["Classes", "Global"],
+        "include_css": ["./assets/index.css"],
+        "footer": "Made with ❤︎ by Sean McGinty",
+        "menu": [
+            {
+                "title": "Home",
+                "link": "/"
+            },
+            {
+                "title": "GitHub",
+                "link": "https://github.com/s3ansh33p/tidyhq-node",
+                "target": "_blank"
+            },
+            {
+                "title": "TidyHQ V1 API",
+                "link": "https://dev.tidyhq.com",
+                "target": "_blank"
+            },
+            {
+                "title": "TidyHQ V2 API",
+                "link": "https://tidyhq.readme.io",
+                "target": "_blank"
+            }
+        ],
+        "meta": [
+            {
+                "name": "author",
+                "content": "Sean McGinty"
+            },
+            {
+                "name": "description",
+                "content": "Node.js module to interact with the TidyHQ API"
+            }
+        ]
+    }
+  },
+    "markdown": {
+        "hardwrap": false,
+        "idInHeadings": true
+    }
+}

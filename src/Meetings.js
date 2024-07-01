@@ -1,6 +1,6 @@
 /**
  * @fileoverview This file contains functions for interacting with Meetings in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
+ * @author Sean McGinty <newfolderlocation@gmail.com>
  * @version 1.1.0
  * @license GPL-3.0
  */
@@ -14,28 +14,28 @@ const { makeURLParameters } = require("./utils/Builder.js");
 class MeetingsAPI {
 
     /**
-     * @description This function is used to create a new instance of the MeetingsAPI class.
-     * @param {AxiosInstance} axios - The Axios instance to use for requests.
-     * @returns {object} - A new instance of the MeetingsAPI class.
+     * @param {Rest} rest - The rest instance to use for requests.
+     * @returns {MeetingsAPI}
      * @constructor
      */
-    constructor(axios) {
-        this.axios = axios;
+    constructor(rest) {
+        this.rest = rest;
     }
 
     /**
      * @description This function is used to get a list of all meetings.
      * @param {object} path - The path for the request.
-     * @param {object} [options] - The options for the request.
+     * @param {object} [options]
+     * @param {string} [options.access_token] - The access token to use. - The options for the request.
      * @param {string} [options.limit] - The number of results to return.
      * @param {string} [options.offset] - The number of results to skip.
      * @returns {object} - The list of meetings.
      * @private
      */
-    async #_getMeetings(path, options = {}) {
+    async #_getMeetings(path, options) {
         let optionalParametersString = makeURLParameters(["limit", "offset"], options)
         let meetings = [];
-        await this.axios.get(`/v1/${path}${optionalParametersString}`).then((response) => {
+        await this.rest.get(`/v1/${path}${optionalParametersString}`, options.access_token).then((response) => {
             meetings = response.data;
         }).catch((error) => {
             throw new Error(`Meetings.getMeetings: ${error}\n${error.response.data}`);
@@ -45,7 +45,8 @@ class MeetingsAPI {
 
     /**
      * @description This function is used to get a list of all meetings.
-     * @param {object} [options] - The options for the request.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use. - The options for the request.
      * @param {string} [options.limit] - The number of results to return.
      * @param {string} [options.offset] - The number of results to skip.
      * @returns {object} - The list of meetings.
@@ -57,7 +58,8 @@ class MeetingsAPI {
     /**
      * @description This function is used to get meetings for an organization.
      * @param {string} organization_id - The ID of the organization.
-     * @param {object} [options] - The options for the request.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use. - The options for the request.
      * @param {string} [options.limit] - The number of results to return.
      * @param {string} [options.offset] - The number of results to skip.
      * @returns {object} - The list of meetings.
@@ -69,11 +71,13 @@ class MeetingsAPI {
     /**
      * @description This function is used to get a single meeting.
      * @param {string} meeting_id - The ID of the meeting.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The meeting.
      */
-    async getMeeting(meeting_id) {
+    async getMeeting(meeting_id, options = {}) {
         let meeting = {};
-        await this.axios.get(`/v1/meetings/${meeting_id}`).then((response) => {
+        await this.rest.get(`/v1/meetings/${meeting_id}`, options.access_token).then((response) => {
             meeting = response.data;
         }).catch((error) => {
             throw new Error(`Meetings.getMeeting: ${error}\n${error.response.data}`);
@@ -85,11 +89,13 @@ class MeetingsAPI {
      * @description This function is used to get a single meeting for an organization.
      * @param {string} organization_id - The ID of the organization.
      * @param {string} meeting_id - The ID of the meeting.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The meeting.
      */
-    async getOrganizationMeeting(organization_id, meeting_id) {
+    async getOrganizationMeeting(organization_id, meeting_id, options = {}) {
         let meeting = {};
-        await this.axios.get(`/v1/association/organizations/${organization_id}/meetings/${meeting_id}`).then((response) => {
+        await this.rest.get(`/v1/association/organizations/${organization_id}/meetings/${meeting_id}`, options.access_token).then((response) => {
             meeting = response.data;
         }).catch((error) => {
             throw new Error(`Meetings.getOrganizationMeeting: ${error}\n${error.response.data}`);

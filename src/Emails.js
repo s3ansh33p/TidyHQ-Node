@@ -1,6 +1,6 @@
 /**
  * @fileoverview This file contains functions for interacting with Emails in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>, ComSSA 2023
+ * @author Sean McGinty <newfolderlocation@gmail.com>
  * @version 1.1.0
  * @license GPL-3.0
  */
@@ -13,23 +13,24 @@
 class EmailsAPI {
 
     /**
-     * @description This function is used to create a new instance of the EmailsAPI class.
-     * @param {AxiosInstance} axios - The Axios instance to use for requests.
-     * @returns {object} - A new instance of the EmailsAPI class.
+     * @param {Rest} rest - The rest instance to use for requests.
+     * @returns {EmailsAPI}
      * @constructor
      */
-    constructor(axios) {
-        this.axios = axios;
+    constructor(rest) {
+        this.rest = rest;
     }
 
     /**
      * @description This function is used to get the emails associated with the access token.
-     * @param {string} email_id - The ID of the event.
+     * @param {string} email_id - The ID of the email.
+     * @param {object} [options]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The emails.
      */
-    async #_getEmails(email_id = "") {
+    async #_getEmails(email_id, options) {
         let emails = [];
-        await this.axios.get(`/v1/emails/${email_id}`).then((response) => {
+        await this.rest.get(`/v1/emails/${email_id}`, options.access_token).then((response) => {
             emails = response.data;
         }).catch((error) => {
             throw new Error(`Emails.getEmails: ${error}\n${error.response.data}`);
@@ -39,19 +40,23 @@ class EmailsAPI {
 
     /**
      * @description This function is used to get the emails associated with the access token.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The emails.
      */
-    async getEmails() {
-        return await this.#_getEmails();
+    async getEmails(options = {}) {
+        return await this.#_getEmails("", options);
     }
 
     /**
      * @description This function is used to get a specific email associated with the access token.
      * @param {string} email_id - The ID of the email.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The email.
      */
-    async getEmail(email_id) {
-        return await this.#_getEmails(email_id);
+    async getEmail(email_id, options = {}) {
+        return await this.#_getEmails(email_id, options);
     }
 
     /**
@@ -60,11 +65,13 @@ class EmailsAPI {
      * @param {string} email.subject - The subject of the email.
      * @param {string} email.body - The body of the email.
      * @param {array} email.contacts - The contacts to send the email to.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
      * @returns {object} - The email.
      */
-    async createEmail(email) {
+    async createEmail(email, options = {}) {
         let newEmail = [];
-        await this.axios.post(`/v1/emails`, email).then((response) => {
+        await this.rest.post(`/v1/emails`, email, options.access_token).then((response) => {
             newEmail = response.data;
         }).catch((error) => {
             throw new Error(`Emails.createEmail: ${error}\n${error.response.data}`);
