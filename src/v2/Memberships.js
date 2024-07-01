@@ -37,7 +37,7 @@ class V2_MembershipAPI {
      * @private
      */
     async getMemberships(options = {}) {
-        const optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset", "registered", "active"], options)
+        const optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset", "all", "active"], options)
         return await this.rest.get(`/v2/memberships${optionalParametersString}`, options.access_token);
     }
 
