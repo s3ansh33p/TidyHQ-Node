@@ -1,5 +1,5 @@
 {
-  "name": "tidyhq-comssa",
+  "name": "tidyhq",
   "version": "1.0.0",
   "description": "Interact with the TidyHQ",
   "main": "index.js",

@@ -14,12 +14,17 @@ const { V2_WebhooksAPI } = require("./Webhooks");
  * @link https://tidyhq.readme.io/reference
  */
 class V2 {
-    constructor(axios) {
-        this.axios = axios;
+    /**
+     * @param {Rest} rest - The rest instance to use for requests.
+     * @returns {V2}
+     * @constructor
+     */
+    constructor(Rest) {
+        this.Rest = Rest;
 
-        this.Contacts = new V2_ContactsAPI(this.axios);
-        this.Organization = new V2_OrganizationAPI(this.axios);
-        this.Webhooks = new V2_WebhooksAPI(this.axios);
+        this.Contacts = new V2_ContactsAPI(this.Rest);
+        this.Organization = new V2_OrganizationAPI(this.Rest);
+        this.Webhooks = new V2_WebhooksAPI(this.Rest);
     }
 
 }
