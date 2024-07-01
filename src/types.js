@@ -23,7 +23,7 @@
  * @typedef {Object} V2_ContactGroup
  * @property {number} id - Alphanumeric ID associated with the group.
  * @property {string} label - Label of the group.
- * @property {string[]} group_id_reference - Reference to the group ID in V1 API.
+ * @property {string} group_id_reference - Reference to the group ID in V1 API.
  * @property {string} description - Description of the group.
  * @property {Date} created_at - Creation date and time of the group.
  * @property {Date} updated_at - Last update date and time of the group.

@@ -120,7 +120,7 @@ class V2_ContactsAPI {
      * @param {Date} [options.updated_since] - ISO8601 formatted timestamp, only returns results last updated since the given time.
      * @param {number} [options.limit] - The maximum number of contacts per page to return.
      * @param {number} [options.offset] - The number of contacts to skip.
-     * @returns {Promise<ApiResponse>} - An array of memberships. [!] Type
+     * @returns {Promise<ApiV2MembershipsResponse>} - An array of memberships.
      */
     async getContactMemberships(contact_id, options = {}) {
         const optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset"], options)
