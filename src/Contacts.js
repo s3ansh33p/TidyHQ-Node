@@ -35,7 +35,7 @@ class ContactsAPI {
      * @param {number[]} [options.ids] - An array of contact IDs to get.
      * @param {string[]} [options.fields] - An array of fields to get.
      * @param {string[]} [options.filter] - An array of filters to use.
-     * @returns {Promise<ApiContactsResponse>} - An array of contact objects.
+     * @returns {Promise<TidyAPI_V1_Contacts>} - An array of contacts.
      */
     async #_getContacts(path, options) {
         const optionalParametersString = makeURLParameters(["limit", "offset", "search_terms", "show_all", "updated_since", "ids[]", "fields[]", "filter[[]]"], options)
@@ -54,7 +54,7 @@ class ContactsAPI {
      * @param {number[]} [options.ids] - An array of contact IDs to get.
      * @param {string[]} [options.fields] - An array of fields to get.
      * @param {string[]} [options.filter] - An array of filters to use.
-     * @returns {Promise<ApiContactsResponse>} - An array of contact objects.
+     * @returns {Promise<TidyAPI_V1_Contacts>} - An array of contacts.
      */
     async getContacts(options = {}) {
         return this.#_getContacts("contacts", options);
@@ -73,7 +73,7 @@ class ContactsAPI {
      * @param {number[]} [options.ids] - An array of contact IDs to get.
      * @param {string[]} [options.fields] - An array of fields to get.
      * @param {string[]} [options.filter] - An array of filters to use.
-     * @returns {Promise<ApiContactsResponse>} - An array of contact objects.
+     * @returns {Promise<TidyAPI_V1_Contacts>} - An array of contacts.
      */
     async getContactsInGroup(group_id, options = {}) {
         return this.#_getContacts(`groups/${group_id}/contacts`, options);
@@ -84,7 +84,7 @@ class ContactsAPI {
      * @param {number|string} [contactID = "me"] - The ID of the contact to get ("me" returns the contact of the user who authorized the application)
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiContactResponse>} - A contact object.
+     * @returns {Promise<TidyAPI_V1_Contact>} - A contact.
      **/
     async getContact(contactID = "me", options = {}) {
         return await this.rest.get(`/v1/contacts/${contactID}`, options.access_token);

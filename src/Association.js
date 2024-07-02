@@ -25,7 +25,7 @@ class AssociationAPI {
      * @description This function is used to get the organizations that fall under the association associated with the access token.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiOrganizationsResponse>} - The list of organizations.
+     * @returns {Promise<TidyAPI_V1_Organizations>} - The list of organizations.
      */
     async getOrganizations(options = {}) {
         return await this.rest.get(`/v1/association/organizations`, options.access_token);
@@ -36,7 +36,7 @@ class AssociationAPI {
      * @param {string} id - The ID of the organization.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiOrganizationResponse>} - The organization.
+     * @returns {Promise<TidyAPI_V1_Organization>} - The organization.
      */
     async getOrganization(id, options = {}) {
         return await this.rest.get(`/v1/association/organizations/${id}`, options.access_token);
@@ -47,7 +47,7 @@ class AssociationAPI {
      * @param {string} organization_id - The ID of the organization.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiOrganizationContactsResponse>} - The list of contacts.
+     * @returns {Promise<TidyAPI_V1_OrganizationContacts>} - The list of contacts.
      */
     async getOrganizationContacts(organization_id, options = {}) {
         return await this.rest.get(`/v1/association/organizations/${organization_id}/contacts`, options.access_token);
@@ -58,7 +58,12 @@ class AssociationAPI {
      * @param {string} organization_id - The ID of the organization.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<object>} - The list of events. [!] Type
+     * @param {number} [options.limit] - The maximum number of contacts to return.
+     * @param {number} [options.offset] - The number of contacts to skip.
+     * @param {string} [options.start_at] - The start date of the events to return in ISO 8601 format.
+     * @param {string} [options.end_at] - The end date of the events to return in ISO 8601 format.
+     * @param {boolean} [options.public] - Whether to return only public events or not.
+     * @returns {Promise<TidyAPI_V1_Events>} - The list of events.
      */
     async getOrganizationEvents(organization_id, options = {}) {
         return await this.rest.get(`/v1/association/organizations/${organization_id}/events`, options.access_token);
@@ -70,7 +75,7 @@ class AssociationAPI {
      * @param {string} event_id - The ID of the event.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<object>} - The event. [!] Type
+     * @returns {Promise<TidyAPI_V1_Event>} - The event.
      */
     async getOrganizationEvent(organization_id, event_id, options = {}) {
         return await this.rest.get(`/v1/association/organizations/${organization_id}/events/${event_id}`, options.access_token);

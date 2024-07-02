@@ -33,7 +33,7 @@ class V2_MembershipAPI {
      * @param {number} [options.offset] - The number of memberships to skip.
      * @param {boolean} [options.all] - When given, returns all (including inactive) - defaults to only returning visible / active.
      * @param {boolean} [options.active]  - When given, returns only users with active / inactive memberships (active is partial and activated status).
-     * @returns {Promise<ApiV2MembershipsResponse>} - An array of membership objects.
+     * @returns {Promise<TidyAPI_V2_Memberships>} - An array of membership objects.
      * @private
      */
     async getMemberships(options = {}) {

@@ -37,7 +37,7 @@ class V2_ContactsAPI {
      * @param {"contact_id_number" | "sports_australia_connect"} [options.scope] - If specified, applies ids to the specified type. If not given, will default to check the id reference or the id.
      * @param {string} [options.search_terms] - The search terms to use.
      * @param {string[]} [options.filter_equals] - An array of filters to use. Supports first_name, last_name, company, email_address, phone_number, kind, contact_id_number
-     * @returns {Promise<ApiV2ContactsResponse>} - An array of contact objects.
+     * @returns {Promise<TidyAPI_V2_Contacts>} - An array of contact objects.
      */
     async getContacts(options = {}) {
         let optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset", "registered", "all", "ids[]", "scope", "search_terms", "filter_equals[][]"], options)
@@ -48,10 +48,10 @@ class V2_ContactsAPI {
      * @todo REFACTOR TYPES AND TEST
      * @description Creates a new contact with the given data in TidyHQ.
      * @link https://tidyhq.readme.io/reference/create-contact
-     * @param {V2_Contact} contact - The contact to create.
+     * @param {Tidy_V2_Contact} contact - The contact to create.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiV2ContactResponse>} - The created contact.
+     * @returns {Promise<TidyAPI_V2_Contacts>} - The created contact.
      */
     async createContact(contact, options = {}) {
         return await this.rest.post("/v2/contacts", contact, options.access_token);
@@ -63,7 +63,7 @@ class V2_ContactsAPI {
      * @param {string} [contactID = "me"] - The ID of the contact to get (me / default returns the contact of the user who authorized the application)
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiV2ContactResponse>} - The contact object.
+     * @returns {Promise<TidyAPI_V2_Contacts>} - The contact object.
      **/
     async getContact(contactID = "me", options = {}) {
         return await this.rest.get(`/v2/contacts/${contactID}`, options.access_token);
@@ -76,7 +76,7 @@ class V2_ContactsAPI {
      * @param {string} note - The note to create.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiV2NoteResponse>} - The created note.
+     * @returns {Promise<TidyAPI_V2_Note>} - The created note.
      */
     async createContactNote(contact_id, note, options = {}) {
         return await this.rest.post(`/v2/contacts/${contact_id}/notes`, {
@@ -91,7 +91,7 @@ class V2_ContactsAPI {
      * @param {string} note_id - The ID of the note to delete.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiEmptyResponse>} - An empty response. 
+     * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response. 
      */
     async deleteContactNote(contact_id, note_id, options = {}) {
         return await this.rest.delete(`/v2/contacts/${contact_id}/notes/${note_id}`, {}, options.access_token);
@@ -101,10 +101,10 @@ class V2_ContactsAPI {
      * @description This function is used to update a contact in TidyHQ.
      * @link https://tidyhq.readme.io/reference/update-contact
      * @param {string} contact_id - The ID of the contact to update.
-     * @param {V2_Contact} contact - The new contact data.
+     * @param {Tidy_V2_Contact} contact - The new contact data.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiV2ContactResponse>} - The updated contact.
+     * @returns {Promise<TidyAPI_V2_Contact>} - The updated contact.
      */
     async updateContact(contact_id, contact, options = {}) {
         return await this.rest.patch(`/v2/contacts/${contact_id}`, contact, options.access_token);
@@ -120,7 +120,7 @@ class V2_ContactsAPI {
      * @param {string} [options.updated_since] - ISO8601 formatted timestamp, only returns results last updated since the given time.
      * @param {number} [options.limit] - The maximum number of contacts per page to return.
      * @param {number} [options.offset] - The number of contacts to skip.
-     * @returns {Promise<ApiV2MembershipsResponse>} - An array of memberships.
+     * @returns {Promise<TidyAPI_V2_Memberships>} - An array of memberships.
      */
     async getContactMemberships(contact_id, options = {}) {
         const optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset"], options)

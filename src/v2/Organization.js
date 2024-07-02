@@ -27,7 +27,7 @@ class V2_OrganizationAPI {
      * @link https://tidyhq.readme.io/reference/get-organization
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<V2OrganizationResponse>} - The organization.
+     * @returns {Promise<TidyAPI_V2_Organization>} - The organization.
      */
     async getOrganization(options = {}) {
         return await this.rest.get(`/v2/organization`, options.access_token);
@@ -42,7 +42,7 @@ class V2_OrganizationAPI {
      * @param {number} [options.offset] - The number of admins to skip.
      * @param {string} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
      * @param {string} [options.updated_before] - The timestamp of the last update in ISO 8601 format.
-     * @returns {Promise<ApiV2ContactsResponse>} - The admins.
+     * @returns {Promise<TidyAPI_V2_Contacts>} - The admins.
      */
     async getAdmins(options = {}) {
         const optionalParametersString = makeURLParameters(["limit", "offset", "updated_since", "updated_before"], options);
@@ -58,7 +58,7 @@ class V2_OrganizationAPI {
      * @param {number} [options.offset] - The number of roles to skip.
      * @param {string} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
      * @param {string} [options.updated_before] - The timestamp of the last update in ISO 8601 format.
-     * @returns {Promise<V2OrganizationRolesResponse>} - The roles.
+     * @returns {Promise<TidyAPI_V2_OrganizationRoles>} - The roles.
      */
     async getRoles(options = {}) {
         const optionalParametersString = makeURLParameters(["limit", "offset", "updated_since", "updated_before"], options);

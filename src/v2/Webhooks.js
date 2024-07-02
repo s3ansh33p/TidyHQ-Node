@@ -25,7 +25,7 @@ class V2_WebhooksAPI {
      * @description This function is used to get a list of all Webhooks.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiResponse>} - The list of Webhooks. [!] Type
+     * @returns {Promise<TidyAPI_Response>} - The list of Webhooks. [!] Type
      */
     async getWebhooks(options = {}) {
         return await this.rest.get(`/v2/webhooks`, options.access_token);
@@ -36,7 +36,7 @@ class V2_WebhooksAPI {
      * @param {string} id - The ID of the Webhook.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiResponse>} - The Webhook. [!] Type
+     * @returns {Promise<TidyAPI_Response>} - The Webhook. [!] Type
      */
     async getWebhook(id, options = {}) {
         return await this.rest.get(`/v2/webhooks/${id}`, options.access_token);
@@ -50,7 +50,7 @@ class V2_WebhooksAPI {
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {boolean} [options.allow_state_changes] - If the Webhook should allow state changes, or terminate on the first state change.
-     * @returns {Promise<ApiResponse>} - The new Webhook. [!] Type
+     * @returns {Promise<TidyAPI_Response>} - The new Webhook. [!] Type
      * @todo Find out what allow_state_changes does.
      */
     async createWebhook(url, matching_kind, description, options = {}) {
@@ -67,7 +67,7 @@ class V2_WebhooksAPI {
      * @param {string} id - The ID of the Webhook.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiEmptyResponse>} - An empty response.
+     * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response.
      */
     async activateWebhook(id, options) {
         return await this.rest.post(`/v2/webhooks/${id}/activate`, {}, options.access_token);
@@ -78,7 +78,7 @@ class V2_WebhooksAPI {
      * @param {string} id - The ID of the Webhook.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiEmptyResponse>} - An empty response.
+     * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response.
      */
     async deactivateWebhook(id, options = {}) {
         return await this.rest.post(`/v2/webhooks/${id}/deactivate`, {}, options.access_token);
@@ -89,7 +89,7 @@ class V2_WebhooksAPI {
      * @param {string} id - The ID of the Webhook.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiEmptyResponse>} - An empty response.
+     * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response.
      */
     async deleteWebhook(id, options = {}) {
         return await this.rest.delete(`/v2/webhooks/${id}`, {}, options.access_token);

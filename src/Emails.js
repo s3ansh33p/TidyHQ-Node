@@ -26,7 +26,7 @@ class EmailsAPI {
      * @param {string} email_id - The ID of the email.
      * @param {object} [options]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiResponse>} - The emails.
+     * @returns {Promise<TidyAPI_Response>} - The emails.
      */
     async #_getEmails(email_id, options) {
         return await this.rest.get(`/v1/emails/${email_id}`, options.access_token);
@@ -36,7 +36,7 @@ class EmailsAPI {
      * @description This function is used to get the emails associated with the access token.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiEmailsResponse>} - The emails.
+     * @returns {Promise<TidyAPI_V1_Emails>} - The emails.
      */
     async getEmails(options = {}) {
         return await this.#_getEmails("", options);
@@ -47,7 +47,7 @@ class EmailsAPI {
      * @param {string} email_id - The ID of the email.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiEmailResponse>} - The email.
+     * @returns {Promise<TidyAPI_V1_Email>} - The email.
      */
     async getEmail(email_id, options = {}) {
         return await this.#_getEmails(email_id, options);
@@ -61,7 +61,7 @@ class EmailsAPI {
      * @param {array} email.contacts - The contacts to send the email to.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiEmailResponse>} - The email.
+     * @returns {Promise<TidyAPI_V1_Email>} - The email.
      */
     async createEmail(email, options = {}) {
         return await this.rest.post(`/v1/emails`, email, options.access_token);

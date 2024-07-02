@@ -144,7 +144,7 @@
  */
 
 /**
- * @typedef {Object} Tidy_V2_OrganizationRoles
+ * @typedef {Object} Tidy_V2_OrganizationRole
  * @property {string} id - The unique identifier for the role.
  * @property {string} name - The name of the role.
  * @property {string} email_address - The email address to contact the members of this role.
@@ -612,7 +612,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V2_OrganizationRoles
- * @property {Tidy_V2_OrganizationRoles[]|TidyAPI_ErrorData} data - The roles.
+ * @property {Tidy_V2_OrganizationRole[]|TidyAPI_ErrorData} data - The roles.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.

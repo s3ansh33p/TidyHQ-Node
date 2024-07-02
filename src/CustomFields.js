@@ -26,7 +26,7 @@ class CustomFieldsAPI {
      * @description This function is used to get a list of custom fields from TidyHQ.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiCustomFieldsResponse>} - An array of custom fields.
+     * @returns {Promise<TidyAPI_V1_CustomFields>} - An array of custom fields.
      */
     async getCustomFields(options = {}) {
         return await this.rest.get(`/v1/custom_fields`, options.access_token);
@@ -37,7 +37,7 @@ class CustomFieldsAPI {
      * @param {string} customFieldID - The ID of the CustomField to get
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiCustomFieldResponse>} - The custom field.
+     * @returns {Promise<TidyAPI_V1_CustomField>} - The custom field.
      **/
     async getCustomField(customFieldID, options = {}) {
         return await this.rest.get(`/v1/custom_fields/${customFieldID}`, options.access_token);
@@ -58,7 +58,7 @@ class CustomFieldsAPI {
      * @param {CustomFieldType} type - The type of the custom field to create.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiCustomFieldResponse>} - The newly created custom field.
+     * @returns {Promise<TidyAPI_V1_CustomField>} - The newly created custom field.
      */
     async createCustomField(name, type, options = {}) {
         if (!this.#_isValidType(type)) throw new Error(`CustomFields.createCustomField: Invalid type ${type}.`);
@@ -75,7 +75,7 @@ class CustomFieldsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.name] - The new name of the custom field.
      * @param {"string" | "text" | "dropdown" | "boolean" | "date"} [options.type] - The new type of the custom field.
-     * @returns {Promise<ApiCustomFieldResponse>} - The updated custom field.
+     * @returns {Promise<TidyAPI_V1_CustomField>} - The updated custom field.
      */
     async updateCustomField(customFieldID, options) {
         if (!this.#_isValidType(options.type)) throw new Error(`CustomFields.updateCustomField: Invalid type ${options.type}.`);
@@ -94,7 +94,7 @@ class CustomFieldsAPI {
      * @param {string} customFieldID - The ID of the custom field to delete.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiEmptyResponse>} - An empty response.
+     * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response.
      */
     async deleteCustomField(customFieldID, options = {}) {
         return await this.rest.delete(`/v1/custom_fields/${customFieldID}`, options.access_token);
@@ -105,7 +105,7 @@ class CustomFieldsAPI {
      * @param {string} customFieldID - The ID of the custom field to get the choices for.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiCustomFieldChoicesResponse>} - An array of choice objects.
+     * @returns {Promise<TidyAPI_V1_CustomFieldChoices>} - An array of choice objects.
      */
     async getCustomFieldChoices(customFieldID, options = {}) {
         return await this.rest.get(`/v1/custom_fields/${customFieldID}/choices`, options.access_token);
@@ -117,7 +117,7 @@ class CustomFieldsAPI {
      * @param {string} choiceID - The ID of the choice to get.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiCustomFieldChoiceResponse>} - A choice object.
+     * @returns {Promise<TidyAPI_V1_CustomFieldChoice>} - A choice object.
      */
     async getCustomFieldChoice(customFieldID, choiceID, options = {}) {
         return await this.rest.get(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`, options.access_token);
@@ -129,7 +129,7 @@ class CustomFieldsAPI {
      * @param {string} name - The name of the choice to get.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiCustomFieldChoiceResponse>} - A choice object.
+     * @returns {Promise<TidyAPI_V1_CustomFieldChoice>} - A choice object.
      */
     async createCustomFieldChoice(customFieldID, name, options = {}) {
         return await this.rest.post(`/v1/custom_fields/${customFieldID}/choices`, {
@@ -144,7 +144,7 @@ class CustomFieldsAPI {
      * @param {string} name - The new name of the choice.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiCustomFieldChoiceResponse>} - The updated choice object.
+     * @returns {Promise<TidyAPI_V1_CustomFieldChoice>} - The updated choice object.
      */
     async updateCustomFieldChoice(customFieldID, choiceID, name, options = {}) {
         return await this.rest.put(`/v1/custom_fields/${customFieldID}/choices/${choiceID}&title=${name}`, {}, options.access_token);
@@ -156,7 +156,7 @@ class CustomFieldsAPI {
      * @param {string} choiceID - The ID of the choice to delete.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiEmptyResponse>} - An empty response.
+     * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response.
      */
     async deleteCustomFieldChoice(customFieldID, choiceID, options = {}) {
         return await this.rest.delete(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`, options.access_token);

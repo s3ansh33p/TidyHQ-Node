@@ -28,7 +28,7 @@ class CategoriesAPI {
      * @param {string} [options.access_token] - The access token to use. - The options for the request.
      * @param {string} [options.limit] - The number of results to return.
      * @param {string} [options.offset] - The number of results to skip.
-     * @returns {Promise<ApiCategoriesResponse>} - The list of categories.
+     * @returns {Promise<TidyAPI_V1_Categories>} - The list of categories.
      */
     async getCategories(options = {}) {
         const optionalParametersString = makeURLParameters(["limit", "offset"], options)

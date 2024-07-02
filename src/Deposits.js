@@ -29,7 +29,7 @@ class DepositsAPI {
      * @param {number} [options.offset] - The number of deposits to skip.
      * @param {"activated" | "cancelled" | "all"} [options.status] - The status of the deposit.
      * @param {string} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
-     * @returns {Promise<ApiDepositsResponse>} - An array of deposits.
+     * @returns {Promise<TidyAPI_V1_Deposits>} - An array of deposits.
      */
     async getDeposits(options = {}) {
         const data = {
@@ -47,7 +47,7 @@ class DepositsAPI {
      * @param {string} depositID - The ID of the deposit to get
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<ApiDepositResponse>} - An deposit object.
+     * @returns {Promise<TidyAPI_V1_Deposit>} - An deposit object.
      */
     async getDeposit(depositID, options = {}) {
         return await this.rest.get(`/v1/deposits/${depositID}`, options.access_token);
@@ -64,7 +64,7 @@ class DepositsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.description] - The description of the deposit.
      * @param {string} [options.metadata] - The metadata of the deposit.
-     * @returns {Promise<ApiDepositResponse>} - The newly created deposit.
+     * @returns {Promise<TidyAPI_V1_Deposit>} - The newly created deposit.
      */
     async createDeposit(name, amount, paid_date, category_id, contact_id, options = {}) {
         const access_token = options.access_token;
