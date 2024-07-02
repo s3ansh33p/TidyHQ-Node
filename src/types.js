@@ -7,7 +7,7 @@
 /* ========== V2_Contact ========== */
 
 /**
- * @typedef {Object} V2_ContactLink
+ * @typedef {Object} Tidy_V2_ContactLink
  * @property {number} contact_id - Alphanumeric ID associated with the contact this link is towards.
  * @property {string} relationship_type - The type of relationship (e.g., "Adult", "Child").
  * @property {string} title - The title of the contact link.
@@ -20,7 +20,7 @@
  */
 
 /**
- * @typedef {Object} V2_ContactGroup
+ * @typedef {Object} Tidy_V2_ContactGroup
  * @property {number} id - Alphanumeric ID associated with the group.
  * @property {string} label - Label of the group.
  * @property {string} group_id_reference - Reference to the group ID in V1 API.
@@ -32,7 +32,7 @@
  */
 
 /**
- * @typedef {Object} V2_ContactOrganization
+ * @typedef {Object} Tidy_V2_ContactOrganization
  * @property {string} id - Unique identifier for the organization.
  * @property {string} name - Name of the organization.
  * @property {string} domain_prefix - Domain prefix of the organization.
@@ -40,7 +40,7 @@
  */
 
 /**
- * @typedef {Object} V2_Contact
+ * @typedef {Object} Tidy_V2_Contact
  * @property {string} id - The unique alphanumeric identifier for the contact.
  * @property {number} contact_id_reference - Reference to the contact ID in V1 API.
  * @property {string} first_name - First name of the contact.
@@ -75,16 +75,16 @@
  * @property {string} contact_id_number - Contact ID number.
  * @property {string|null} profile_image - URL to the profile image of the contact.
  * @property {string} status - Status of the contact (e.g., active).
- * @property {V2_ContactOrganization} organization - Organization associated with the contact.
- * @property {V2_ContactGroup[]} groups - Groups associated with the contact.
- * @property {V2_ContactLink[]} contact_links - Links associated with the contact.
- * @property {V2_Note[]} notes - Notes associated with the contact.
+ * @property {Tidy_V2_ContactOrganization} organization - Organization associated with the contact.
+ * @property {Tidy_V2_ContactGroup[]} groups - Groups associated with the contact.
+ * @property {Tidy_V2_ContactLink[]} contact_links - Links associated with the contact.
+ * @property {Tidy_V2_Note[]} notes - Notes associated with the contact.
  */
 
 /* ========== V2_Memberships ========== */
 
 /**
- * @typedef {Object} V2_Membership
+ * @typedef {Object} Tidy_V2_Membership
  * @property {string} id - The unique identifier for the membership.
  * @property {string} created_at - The creation date and time of the membership.
  * @property {string} updated_at - The last update date and time of the membership.
@@ -99,13 +99,13 @@
  * @property {string[]} child_members_contact_ids - The IDs of the child members associated with the membership.
  * @property {string} start_date - The start date of the membership.
  * @property {string} end_date - The end date of the membership.
- * @property {V2_Note[]} notes - The notes associated with the membership.
+ * @property {Tidy_V2_Note[]} notes - The notes associated with the membership.
  */
 
 /* ========== V2_Note ========== */
 
 /**
- * @typedef {Object} V2_Note
+ * @typedef {Object} Tidy_V2_Note
  * @property {string} id - The unique identifier for the note.
  * @property {string} text - The content of the note.
  * @property {string} created_at - The creation date and time of the note.
@@ -116,7 +116,7 @@
 /* ========== V2_Organization ========== */
 
 /**
- * @typedef {Object} V2_Organization
+ * @typedef {Object} Tidy_V2_Organization
  * @property {string} id - The unique identifier for the organization.
  * @property {string} name - The name of the organization.
  * @property {string} domain_prefix - The domain prefix of the organization.
@@ -132,19 +132,19 @@
  * @property {string} facebook - The Facebook profile URL of the organization.
  * @property {string} currency - The currency used by the organization.
  * @property {string} time_zone - The time zone of the organization.
- * @property {OrganizationPublicContact[]} public_contacts - The public contacts of the organization.
+ * @property {Tidy_V1_OrganizationPublicContact[]} public_contacts - The public contacts of the organization.
  * @property {Object} logo_url - The URL to the logo of the organization.
  * @property {string} created_at - The creation date and time of the organization.
  * @property {string} updated_at - The last update date and time of the organization.
  * @property {Object} plan - The plan of the organization.
  * @property {string} plan.name - The name of the plan of the organization.
- * @property {OrganizationPlanQuota} plan.quota - The quota of the plan for the organization.
- * @property {OrganizationLink[]} parent_organizations - The parent organizations of the organization.
- * @property {OrganizationLink[]} child_organizations - The child organizations of the organization.
+ * @property {Tidy_V1_OrganizationPlanQuota} plan.quota - The quota of the plan for the organization.
+ * @property {Tidy_V1_OrganizationLink[]} parent_organizations - The parent organizations of the organization.
+ * @property {Tidy_V1_OrganizationLink[]} child_organizations - The child organizations of the organization.
  */
 
 /**
- * @typedef {Object} V2_OrganizationRoles
+ * @typedef {Object} Tidy_V2_OrganizationRoles
  * @property {string} id - The unique identifier for the role.
  * @property {string} name - The name of the role.
  * @property {string} email_address - The email address to contact the members of this role.
@@ -157,7 +157,7 @@
 /* ========== Categories ========== */
 
 /**
- * @typedef {Object} Category
+ * @typedef {Object} Tidy_V1_Category
  * @property {number} id - The unique identifier for the category.
  * @property {string} name - The name of the category.
  * @property {string} description - The description of the category.
@@ -168,26 +168,26 @@
 /* ========== Contact ========== */
 
 /**
- * @typedef {Object} ContactLink
+ * @typedef {Object} Tidy_V1_ContactLink
  * @property {number} contact_id - The contact ID of the linked contact.
  * @property {string} relationship_type - The type of relationship (e.g., "Adult", "Child").
  */
 
 /**
- * @typedef {Object} ContactGroup
+ * @typedef {Object} Tidy_V1_ContactGroup
  * @property {number} id - Unique identifier for the group.
  * @property {string} label - Label of the group.
  */
 
 /**
- * @typedef {Object} ContactOrganization
+ * @typedef {Object} Tidy_V1_ContactOrganization
  * @property {string} id - Unique identifier for the organization.
  * @property {string} name - Name of the organization.
  * @property {string} domain_prefix - Domain prefix of the organization.
  */
 
 /**
- * @typedef {Object} Contact
+ * @typedef {Object} Tidy_V1_Contact
  * @property {number} id - Unique identifier for the contact.
  * @property {string} first_name - First name of the contact.
  * @property {string} last_name - Last name of the contact.
@@ -222,10 +222,10 @@
  * @property {string} contact_id_number - Contact ID number.
  * @property {string|null} profile_image - URL to the profile image of the contact.
  * @property {string} status - Status of the contact (e.g., active).
- * @property {CustomField[]} custom_fields - Custom fields associated with the contact.
- * @property {ContactOrganization} organization - Organization associated with the contact.
- * @property {ContactGroup[]} groups - Groups associated with the contact.
- * @property {ContactLink[]} contact_links - Links associated with the contact.
+ * @property {Tidy_V1_CustomField[]} custom_fields - Custom fields associated with the contact.
+ * @property {Tidy_V1_ContactOrganization} organization - Organization associated with the contact.
+ * @property {Tidy_V1_ContactGroup[]} groups - Groups associated with the contact.
+ * @property {Tidy_V1_ContactLink[]} contact_links - Links associated with the contact.
  */
 
 /* ========== Custom Field ========== */
@@ -235,16 +235,16 @@
  */
 
 /**
- * @typedef {Object} CustomField
+ * @typedef {Object} Tidy_V1_CustomField
  * @property {string} id - The unique identifier for the custom field.
  * @property {string} title - The title of the custom field.
  * @property {CustomFieldType} type - The type of the custom field.
  * @property {string} created_at - The creation date and time of the custom field.
- * @property {CustomFieldChoice[]} [choices] - Optional. The choices for the custom field, applicable if the type is "dropdown".
+ * @property {Tidy_V1_CustomFieldChoice[]} [choices] - Optional. The choices for the custom field, applicable if the type is "dropdown".
  */
 
 /**
- * @typedef {Object} CustomFieldChoice
+ * @typedef {Object} Tidy_V1_CustomFieldChoice
  * @property {string} id - The unique identifier for the custom field choice.
  * @property {string} title - The title of the custom field choice.
  * @property {string} created_at - The creation date and time of the custom field choice.
@@ -267,7 +267,7 @@
 /* ========== Deposit ========== */
 
 /**
- * @typedef {Object} Deposit
+ * @typedef {Object} Tidy_V1_Deposit
  * @property {string} id - The unique identifier for the deposit.
  * @property {string} ref_no - The reference number of the deposit.
  * @property {number} contact_id - The ID of the contact associated with the deposit.
@@ -279,11 +279,11 @@
  * @property {number} amount - The amount of the deposit.
  * @property {Object|null} metadata - Additional metadata associated with the deposit.
  * @property {FinanceStatus} status - The status of the deposit.
- * @property {DepositPayment[]} payments - The payments associated with the deposit.
+ * @property {Tidy_V1_DepositPayment[]} payments - The payments associated with the deposit.
  */
 
 /**
- * @typedef {Object} DepositPayment
+ * @typedef {Object} Tidy_V1_DepositPayment
  * @property {string} id - The unique identifier for the payment.
  * @property {number} amount - The amount of the payment.
  * @property {PaymentType} type - The type of the payment.
@@ -298,7 +298,7 @@
 /* ========== Email ========== */
 
 /**
- * @typedef {Object} Email
+ * @typedef {Object} Tidy_V1_Email
  * @property {string} id - The unique identifier for the email.
  * @property {number} sender_id - The ID of the sender.
  * @property {number[]} recipient_ids - An array of IDs for the recipients.
@@ -315,10 +315,28 @@
  * @property {string} created_at - The creation timestamp of the email.
  */
 
+/* ========== Events ========== */
+
+/**
+ * @typedef {Object} Tidy_V1_Event
+ * @property {number} id - The unique identifier for the event.
+ * @property {string} name - The name of the event.
+ * @property {?string} location - The location of the event, if any.
+ * @property {string} start_at - The start time of the event.
+ * @property {string} end_at - The end time of the event.
+ * @property {string} body - The body text of the event, which may contain HTML.
+ * @property {string} created_at - The creation timestamp of the event.
+ * @property {number} category_id - The ID of the category this event belongs to.
+ * @property {boolean} public - Whether the event is public.
+ * @property {string} image_url - The URL of the event's image.
+ * @property {string} public_url - The public URL of the event.
+ * @property {boolean} archived - Whether the event has been archived.
+ */
+
 /* ========== Organization ========== */
 
 /**
- * @typedef {Object} OrganizationPublicContact
+ * @typedef {Object} Tidy_V1_OrganizationPublicContact
  * @property {string} name - The name of the contact.
  * @property {string} position - The position of the contact.
  * @property {string} email - The email address of the contact.
@@ -326,7 +344,7 @@
  */
 
 /**
- * @typedef {Object} OrganizationPlanQuota
+ * @typedef {Object} Tidy_V1_OrganizationPlanQuota
  * @property {Object} emails - The email quota.
  * @property {Object} emails.limit - The email limit.
  * @property {Object} emails.sent - The number of emails sent.
@@ -337,13 +355,13 @@
  */
 
 /**
- * @typedef {Object} OrganizationLink
+ * @typedef {Object} Tidy_V1_OrganizationLink
  * @property {string} id - The unique identifier for the organization.
  * @property {string} name - The name of the organization.
  */
 
 /**
- * @typedef {Object} Organization
+ * @typedef {Object} Tidy_V1_Organization
  * @property {string} id - The unique identifier for the organization.
  * @property {string} name - The name of the organization.
  * @property {string} domain_prefix - The domain prefix of the organization.
@@ -359,26 +377,26 @@
  * @property {string} facebook - The Facebook profile URL of the organization.
  * @property {string} currency - The currency used by the organization.
  * @property {string} time_zone - The time zone of the organization.
- * @property {OrganizationPublicContact[]} public_contacts - The public contacts of the organization.
+ * @property {Tidy_V1_OrganizationPublicContact[]} public_contacts - The public contacts of the organization.
  * @property {Object} logo_url - The URL to the logo of the organization.
  * @property {Object} plan - The plan of the organization.
  * @property {string} plan.name - The name of the plan of the organization.
- * @property {OrganizationPlanQuota} plan.quota - The quota of the plan for the organization.
- * @property {OrganizationLink[]} parent_organizations - The parent organizations of the organization.
- * @property {OrganizationLink[]} child_organizations - The child organizations of the organization.
+ * @property {Tidy_V1_OrganizationPlanQuota} plan.quota - The quota of the plan for the organization.
+ * @property {Tidy_V1_OrganizationLink[]} parent_organizations - The parent organizations of the organization.
+ * @property {Tidy_V1_OrganizationLink[]} child_organizations - The child organizations of the organization.
  */
 
 /* ========== Response ========== */
 
 /**
- * @typedef {Object} ApiErrorData
+ * @typedef {Object} TidyAPI_ErrorData
  * @property {string} message - The error message.
  * @property {Object} [errors] - Optional. Additional error information.
  */
 
 /**
- * @typedef {Object} ApiResponse
- * @property {Object|ApiErrorData} data - The payload returned from the request or error information.
+ * @typedef {Object} TidyAPI_Response
+ * @property {Object|TidyAPI_ErrorData} data - The payload returned from the request or error information.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -386,7 +404,7 @@
  */
 
 /**
- * @typedef {Object} ApiEmptyResponse
+ * @typedef {Object} TidyAPI_EmptyResponse
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -394,8 +412,8 @@
  */
 
 /**
- * @typedef {Object} ApiContactResponse
- * @property {Contact|ApiErrorData} data - The contact.
+ * @typedef {Object} TidyAPI_V1_Contact
+ * @property {Tidy_V1_Contact|TidyAPI_ErrorData} data - The contact.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -403,8 +421,8 @@
  */
 
 /**
- * @typedef {Object} ApiContactsResponse
- * @property {Contact[]|ApiErrorData} data - The contacts.
+ * @typedef {Object} TidyAPI_V1_Contacts
+ * @property {Tidy_V1_Contact[]|TidyAPI_ErrorData} data - The contacts.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -413,8 +431,8 @@
 
 
 /**
- * @typedef {Object} ApiCategoriesResponse
- * @property {Category[]|ApiErrorData} data - The categories.
+ * @typedef {Object} TidyAPI_V1_Categories
+ * @property {Tidy_V1_Category[]|TidyAPI_ErrorData} data - The categories.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -422,8 +440,8 @@
  */
 
 /**
- * @typedef {Object} ApiCustomFieldResponse
- * @property {CustomField|ApiErrorData} data - The custom field.
+ * @typedef {Object} TidyAPI_V1_CustomField
+ * @property {Tidy_V1_CustomField|TidyAPI_ErrorData} data - The custom field.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -431,8 +449,8 @@
  */
 
 /**
- * @typedef {Object} ApiCustomFieldsResponse
- * @property {CustomField[]|ApiErrorData} data - The custom fields.
+ * @typedef {Object} TidyAPI_V1_CustomFields
+ * @property {Tidy_V1_CustomField[]|TidyAPI_ErrorData} data - The custom fields.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -440,8 +458,8 @@
  */
 
 /**
- * @typedef {Object} ApiCustomFieldChoiceResponse
- * @property {CustomFieldChoice|ApiErrorData} data - The custom field.
+ * @typedef {Object} TidyAPI_V1_CustomFieldChoice
+ * @property {Tidy_V1_CustomFieldChoice|TidyAPI_ErrorData} data - The custom field.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -449,8 +467,8 @@
  */
 
 /**
- * @typedef {Object} ApiCustomFieldChoicesResponse
- * @property {CustomFieldChoice[]|ApiErrorData} data - The custom fields.
+ * @typedef {Object} TidyAPI_V1_CustomFieldChoices
+ * @property {Tidy_V1_CustomFieldChoice[]|TidyAPI_ErrorData} data - The custom fields.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -458,8 +476,8 @@
  */
 
 /**
- * @typedef {Object} ApiDepositResponse
- * @property {Deposit|ApiErrorData} data - The deposit.
+ * @typedef {Object} TidyAPI_V1_Deposit
+ * @property {Tidy_V1_Deposit|TidyAPI_ErrorData} data - The deposit.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -467,8 +485,8 @@
  */
 
 /**
- * @typedef {Object} ApiDepositsResponse
- * @property {Deposit[]|ApiErrorData} data - The deposits.
+ * @typedef {Object} TidyAPI_V1_Deposits
+ * @property {Tidy_V1_Deposit[]|TidyAPI_ErrorData} data - The deposits.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -476,8 +494,8 @@
  */
 
 /**
- * @typedef {Object} ApiEmailResponse
- * @property {Email|ApiErrorData} data - The email.
+ * @typedef {Object} TidyAPI_V1_Email
+ * @property {Tidy_V1_Email|TidyAPI_ErrorData} data - The email.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -485,8 +503,8 @@
  */
 
 /**
- * @typedef {Object} ApiEmailsResponse
- * @property {Email[]|ApiErrorData} data - The emails.
+ * @typedef {Object} TidyAPI_V1_Emails
+ * @property {Tidy_V1_Email[]|TidyAPI_ErrorData} data - The emails.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -494,8 +512,8 @@
  */
 
 /**
- * @typedef {Object} ApiOrganizationResponse
- * @property {Organization|ApiErrorData} data - The organization.
+ * @typedef {Object} TidyAPI_V1_Event
+ * @property {Tidy_V1_Event|TidyAPI_ErrorData} data - The event.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -503,8 +521,8 @@
  */
 
 /**
- * @typedef {Object} ApiOrganizationsResponse
- * @property {Organization[]|ApiErrorData} data - The organizations.
+ * @typedef {Object} TidyAPI_V1_Events
+ * @property {Tidy_V1_Event[]|TidyAPI_ErrorData} data - The events.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -512,8 +530,8 @@
  */
 
 /**
- * @typedef {Object} ApiOrganizationContactsResponse
- * @property {OrganizationPublicContact[]|ApiErrorData} data - The organizations.
+ * @typedef {Object} TidyAPI_V1_Organization
+ * @property {Tidy_V1_Organization|TidyAPI_ErrorData} data - The organization.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -521,8 +539,8 @@
  */
 
 /**
- * @typedef {Object} ApiV2ContactResponse
- * @property {V2_Contact|ApiErrorData} data - The contact.
+ * @typedef {Object} TidyAPI_V1_Organizations
+ * @property {Tidy_V1_Organization[]|TidyAPI_ErrorData} data - The organizations.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -530,8 +548,8 @@
  */
 
 /**
- * @typedef {Object} ApiV2ContactsResponse
- * @property {V2_Contact[]|ApiErrorData} data - The contacts.
+ * @typedef {Object} TidyAPI_V1_OrganizationContacts
+ * @property {Tidy_V1_OrganizationPublicContact[]|TidyAPI_ErrorData} data - The organizations.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -539,8 +557,8 @@
  */
 
 /**
- * @typedef {Object} ApiV2MembershipResponse
- * @property {V2_Membership|ApiErrorData} data - The membership.
+ * @typedef {Object} TidyAPI_V2_Contact
+ * @property {Tidy_V2_Contact|TidyAPI_ErrorData} data - The contact.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -548,8 +566,8 @@
  */
 
 /**
- * @typedef {Object} ApiV2MembershipsResponse
- * @property {V2_Membership[]|ApiErrorData} data - The memberships.
+ * @typedef {Object} TidyAPI_V2_Contacts
+ * @property {Tidy_V2_Contact[]|TidyAPI_ErrorData} data - The contacts.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -557,8 +575,8 @@
  */
 
 /**
- * @typedef {Object} ApiV2NoteResponse
- * @property {V2_Note|ApiErrorData} data - The note.
+ * @typedef {Object} TidyAPI_V2_Membership
+ * @property {Tidy_V2_Membership|TidyAPI_ErrorData} data - The membership.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -566,8 +584,8 @@
  */
 
 /**
- * @typedef {Object} ApiV2OrganizationResponse
- * @property {V2_Organization|ApiErrorData} data - The organization.
+ * @typedef {Object} TidyAPI_V2_Memberships
+ * @property {Tidy_V2_Membership[]|TidyAPI_ErrorData} data - The memberships.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -575,8 +593,26 @@
  */
 
 /**
- * @typedef {Object} ApiV2OrganizationRolesResponse
- * @property {V2_OrganizationRoles[]|ApiErrorData} data - The roles.
+ * @typedef {Object} TidyAPI_V2_Note
+ * @property {Tidy_V2_Note|TidyAPI_ErrorData} data - The note.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V2_Organization
+ * @property {Tidy_V2_Organization|TidyAPI_ErrorData} data - The organization.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V2_OrganizationRoles
+ * @property {Tidy_V2_OrganizationRoles[]|TidyAPI_ErrorData} data - The roles.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
