@@ -70,8 +70,6 @@ class ExpensesAPI {
     async createExpense(name, amount, due_date, category_id, contact_id, options = {}) {
         const access_token = options.access_token;
         delete options.access_token;
-        
-        let success = false;
 
         const validOptions = ["description", "metadata"];
         let keys = Object.keys(options);
@@ -116,10 +114,9 @@ class ExpensesAPI {
 
         if (!this.#_isValidType(options.payment_type)) throw new Error(`Expenses.addPayment: Invalid payment type ${options.payment_type}.`);
         
-        const optionalParametersString = makeURLParameters(["amount", "payment_type", "date"], options);
-        if (optionalParametersString == "") throw new Error("Expenses.addPayment: No valid options provided.");
+        if (Object.keys(options).length == 0) throw new Error("Expenses.addPayment: No valid options provided.");
 
-        return await this.rest.post(`/v1/expenses/${expenseID}/payments${optionalParametersString}`, {}, access_token);
+        return await this.rest.post(`/v1/expenses/${expenseID}/payments`, options, access_token);
     }
 
     /**

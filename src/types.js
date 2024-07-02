@@ -11,7 +11,7 @@
  * @property {number} contact_id - Alphanumeric ID associated with the contact this link is towards.
  * @property {string} relationship_type - The type of relationship (e.g., "Adult", "Child").
  * @property {string} title - The title of the contact link.
- * @property {Object} metadata - Optional arbitrary metadata attached to the object.
+ * @property {string|null} metadata - Optional arbitrary metadata attached to the object.
  * @property {string} created_at - Creation date and time of the contact link.
  * @property {string} updated_at - Last update date and time of the contact link.
  * @property {string} display_name - Humanized version of the type field, suitable for display.
@@ -286,7 +286,7 @@
  * @property {number} category_id - The category ID of the deposit.
  * @property {string} currency - The currency of the deposit amount.
  * @property {number} amount - The amount of the deposit.
- * @property {Object|null} metadata - Additional metadata associated with the deposit.
+ * @property {string|null} metadata - Additional metadata associated with the deposit.
  * @property {Tidy_V1_FinanceStatus} status - The status of the deposit.
  * @property {Tidy_V1_Payment[]} payments - The payments associated with the deposit.
  */
@@ -307,12 +307,31 @@
  * @property {number} amount_paid - The amount that has been paid towards the expense.
  * @property {number} amount_due - The amount that is still due.
  * @property {boolean} paid - Whether the expense has been fully paid or not.
- * @property {Object|null} metadata - Additional metadata associated with the expense.
+ * @property {string|null} metadata - Additional metadata associated with the expense.
  * @property {Tidy_V1_FinanceStatus} status - The status of the expense.
  * @property {Tidy_V1_Payment[]} payments - The payments associated with the expense.
  */
 
 /* ========== Invoice ========== */
+
+/**
+ * @typedef {Object} Tidy_V1_Invoice
+ * @property {string} id - The unique identifier for the invoice.
+ * @property {string} ref_no - The reference number of the invoice.
+ * @property {number} contact_id - The ID of the contact associated with the invoice.
+ * @property {"invoice"} type - The type of the transaction.
+ * @property {string} name - The name of the invoice.
+ * @property {string|null} description - The description of the invoice.
+ * @property {string} due_date - The due date of the invoice.
+ * @property {number} category_id - The category ID of the invoice.
+ * @property {number} amount - The total amount of the invoice.
+ * @property {number} amount_paid - The amount that has been paid towards the invoice.
+ * @property {number} amount_due - The amount that is still due.
+ * @property {boolean} paid - Whether the invoice has been fully paid or not.
+ * @property {string|null} metadata - Additional metadata associated with the invoice.
+ * @property {Tidy_V1_FinanceStatus} status - The status of the invoice.
+ * @property {Tidy_V1_Payment[]} payments - The payments associated with the invoice.
+ */
 
 /* ========== Email ========== */
 
@@ -362,6 +381,41 @@
  * @property {string} created_at - The creation timestamp of the group.
  * @property {number} contacts_count - The number of contacts associated with the group.
  * @property {string} logo_image - The URL path to the group's logo image.
+ */
+
+/* ========== Meeting ========== */
+
+/**
+ * @typedef {Object} Tidy_V1_Meeting
+ * @property {number} id - The unique identifier for the meeting.
+ * @property {string} name - The name of the meeting.
+ * @property {string} body - The body text of the meeting.
+ * @property {string} date - The date and time of the meeting in ISO 8601 format.
+ * @property {string} location - The location of the meeting.
+ * @property {Tidy_V1_MeetingTopic[]} topics - An array of topics discussed in the meeting.
+ * @property {number[]} attendees - An array of IDs representing the attendees of the meeting.
+ * @property {number[]} apologies - An array of IDs representing the people who apologized for not attending the meeting.
+ * @property {number[]} minute_takers - An array of IDs representing the minute takers of the meeting.
+ * @property {boolean} public - Whether the meeting is public.
+ * @property {string} created_at - The creation timestamp of the meeting.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_MeetingTopic
+ * @property {number} owner_id - The ID of the owner of the topic.
+ * @property {string} title - The title of the topic.
+ * @property {string} date - The date of the topic.
+ * @property {string} category - The category of the topic.
+ * @property {Tidy_V1_Task|null} task - The task associated with the topic.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_Task
+ * @property {number} id - The unique identifier for the task.
+ * @property {string} title - The title of the task.
+ * @property {string|null} description - The description of the task.
+ * @property {string} due_date - The due date of the task in ISO 8601 format.
+ * @property {string} created_at - The creation timestamp of the task.
  */
 
 /* ========== Organization ========== */
@@ -590,6 +644,42 @@
 /**
  * @typedef {Object} TidyAPI_V1_Groups
  * @property {Tidy_V1_Group[]|TidyAPI_Data} data - The groups.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Invoice
+ * @property {Tidy_V1_Invoice|TidyAPI_Data} data - The invoice.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Invoices
+ * @property {Tidy_V1_Invoice[]|TidyAPI_Data} data - The invoices.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Meeting
+ * @property {Tidy_V1_Meeting|TidyAPI_Data} data - The meeting.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Meetings
+ * @property {Tidy_V1_Meeting[]|TidyAPI_Data} data - The meetings.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.

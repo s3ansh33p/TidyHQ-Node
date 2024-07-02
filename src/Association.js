@@ -86,16 +86,12 @@ class AssociationAPI {
      * @param {string} organization_id - The ID of the organization.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<object>} - The list of meetings. [!] Type
+     * @param {string} [options.limit] - The number of results to return.
+     * @param {string} [options.offset] - The number of results to skip.
+     * @returns {Promise<TidyAPI_V1_Meetings>} - The list of meetings.
      */
     async getOrganizationMeetings(organization_id, options = {}) {
-        let meetings = [];
-        await this.rest.get(`/v1/association/organizations/${organization_id}/meetings`, options.access_token).then((response) => {
-            meetings = response.data;
-        }).catch((error) => {
-            throw new Error(`Association.getOrganizationMeetings: ${error}\n${error.response.data}`);
-        });
-        return meetings;
+        return await this.rest.get(`/v1/association/organizations/${organization_id}/meetings`, options.access_token);
     }
 
     /**
@@ -104,16 +100,10 @@ class AssociationAPI {
      * @param {string} meeting_id - The ID of the meeting.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<object>} - The meeting. [!] Type
+     * @returns {Promise<TidyAPI_V1_Meeting>} - The meeting.
      */
     async getOrganizationMeeting(organization_id, meeting_id, options = {}) {
-        let meeting = [];
-        await this.rest.get(`/v1/association/organizations/${organization_id}/meetings/${meeting_id}`, options.access_token).then((response) => {
-            meeting = response.data;
-        }).catch((error) => {
-            throw new Error(`Association.getOrganizationMeeting: ${error}\n${error.response.data}`);
-        });
-        return meeting;
+        return await this.rest.get(`/v1/association/organizations/${organization_id}/meetings/${meeting_id}`, options.access_token);
     }
 
 }
