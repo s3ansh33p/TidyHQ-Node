@@ -253,15 +253,24 @@
 /* ========== Finance ========== */
 
 /**
- * @typedef {"cash"|"card"|"cheque"|"bank"|"other"} PaymentType
+ * @typedef {"cash"|"card"|"cheque"|"bank"|"other"} Tidy_V1_PaymentType
  */
 
 /**
- * @typedef {"paid"|"cancelled"} PaymentStatus
+ * @typedef {"paid"|"cancelled"} Tidy_V1_PaymentStatus
  */
 
 /**
- * @typedef {"activated"|"cancelled"} FinanceStatus
+ * @typedef {"activated"|"cancelled"} Tidy_V1_FinanceStatus
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_Payment
+ * @property {string} id - The unique identifier for the payment.
+ * @property {number} amount - The amount of the payment.
+ * @property {Tidy_V1_PaymentType} type - The type of the payment.
+ * @property {string} paid_at - The timestamp when the payment was made.
+ * @property {Tidy_V1_PaymentStatus} status - The status of the payment.
  */
 
 /* ========== Deposit ========== */
@@ -278,20 +287,30 @@
  * @property {string} currency - The currency of the deposit amount.
  * @property {number} amount - The amount of the deposit.
  * @property {Object|null} metadata - Additional metadata associated with the deposit.
- * @property {FinanceStatus} status - The status of the deposit.
- * @property {Tidy_V1_DepositPayment[]} payments - The payments associated with the deposit.
- */
-
-/**
- * @typedef {Object} Tidy_V1_DepositPayment
- * @property {string} id - The unique identifier for the payment.
- * @property {number} amount - The amount of the payment.
- * @property {PaymentType} type - The type of the payment.
- * @property {string} paid_at - The timestamp when the payment was made.
- * @property {PaymentStatus} status - The status of the payment.
+ * @property {Tidy_V1_FinanceStatus} status - The status of the deposit.
+ * @property {Tidy_V1_Payment[]} payments - The payments associated with the deposit.
  */
 
 /* ========== Expense ========== */
+
+/**
+ * @typedef {Object} Tidy_V1_Expense
+ * @property {string} id - The unique identifier for the expense.
+ * @property {string} ref_no - The reference number of the expense.
+ * @property {number} contact_id - The ID of the contact associated with the expense.
+ * @property {"expense"} type - The type of the transaction.
+ * @property {string} name - The name of the expense.
+ * @property {string|null} description - The description of the expense.
+ * @property {string} due_date - The due date of the expense.
+ * @property {number} category_id - The category ID of the expense.
+ * @property {number} amount - The total amount of the expense.
+ * @property {number} amount_paid - The amount that has been paid towards the expense.
+ * @property {number} amount_due - The amount that is still due.
+ * @property {boolean} paid - Whether the expense has been fully paid or not.
+ * @property {Object|null} metadata - Additional metadata associated with the expense.
+ * @property {Tidy_V1_FinanceStatus} status - The status of the expense.
+ * @property {Tidy_V1_Payment[]} payments - The payments associated with the expense.
+ */
 
 /* ========== Invoice ========== */
 
@@ -321,7 +340,7 @@
  * @typedef {Object} Tidy_V1_Event
  * @property {number} id - The unique identifier for the event.
  * @property {string} name - The name of the event.
- * @property {?string} location - The location of the event, if any.
+ * @property {string|null} location - The location of the event.
  * @property {string} start_at - The start time of the event.
  * @property {string} end_at - The end time of the event.
  * @property {string} body - The body text of the event, which may contain HTML.
@@ -331,6 +350,18 @@
  * @property {string} image_url - The URL of the event's image.
  * @property {string} public_url - The public URL of the event.
  * @property {boolean} archived - Whether the event has been archived.
+ */
+
+/* ========== Group ========== */
+
+/**
+ * @typedef {Object} Tidy_V1_Group
+ * @property {number} id - The unique identifier for the group.
+ * @property {string} label - The label or name of the group.
+ * @property {string|null} description - The description of the group.
+ * @property {string} created_at - The creation timestamp of the group.
+ * @property {number} contacts_count - The number of contacts associated with the group.
+ * @property {string} logo_image - The URL path to the group's logo image.
  */
 
 /* ========== Organization ========== */
@@ -389,14 +420,14 @@
 /* ========== Response ========== */
 
 /**
- * @typedef {Object} TidyAPI_ErrorData
- * @property {string} message - The error message.
- * @property {Object} [errors] - Optional. Additional error information.
+ * @typedef {Object} TidyAPI_Data
+ * @property {string} message - The message.
+ * @property {Object} [errors] - Optional for error responses. 
  */
 
 /**
  * @typedef {Object} TidyAPI_Response
- * @property {Object|TidyAPI_ErrorData} data - The payload returned from the request or error information.
+ * @property {TidyAPI_Data} data - The payload returned from the request or error information.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -413,7 +444,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_Contact
- * @property {Tidy_V1_Contact|TidyAPI_ErrorData} data - The contact.
+ * @property {Tidy_V1_Contact|TidyAPI_Data} data - The contact.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -422,7 +453,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_Contacts
- * @property {Tidy_V1_Contact[]|TidyAPI_ErrorData} data - The contacts.
+ * @property {Tidy_V1_Contact[]|TidyAPI_Data} data - The contacts.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -432,7 +463,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_Categories
- * @property {Tidy_V1_Category[]|TidyAPI_ErrorData} data - The categories.
+ * @property {Tidy_V1_Category[]|TidyAPI_Data} data - The categories.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -441,7 +472,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_CustomField
- * @property {Tidy_V1_CustomField|TidyAPI_ErrorData} data - The custom field.
+ * @property {Tidy_V1_CustomField|TidyAPI_Data} data - The custom field.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -450,7 +481,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_CustomFields
- * @property {Tidy_V1_CustomField[]|TidyAPI_ErrorData} data - The custom fields.
+ * @property {Tidy_V1_CustomField[]|TidyAPI_Data} data - The custom fields.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -459,7 +490,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_CustomFieldChoice
- * @property {Tidy_V1_CustomFieldChoice|TidyAPI_ErrorData} data - The custom field.
+ * @property {Tidy_V1_CustomFieldChoice|TidyAPI_Data} data - The custom field.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -468,7 +499,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_CustomFieldChoices
- * @property {Tidy_V1_CustomFieldChoice[]|TidyAPI_ErrorData} data - The custom fields.
+ * @property {Tidy_V1_CustomFieldChoice[]|TidyAPI_Data} data - The custom fields.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -477,7 +508,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_Deposit
- * @property {Tidy_V1_Deposit|TidyAPI_ErrorData} data - The deposit.
+ * @property {Tidy_V1_Deposit|TidyAPI_Data} data - The deposit.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -486,7 +517,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_Deposits
- * @property {Tidy_V1_Deposit[]|TidyAPI_ErrorData} data - The deposits.
+ * @property {Tidy_V1_Deposit[]|TidyAPI_Data} data - The deposits.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -495,7 +526,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_Email
- * @property {Tidy_V1_Email|TidyAPI_ErrorData} data - The email.
+ * @property {Tidy_V1_Email|TidyAPI_Data} data - The email.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -504,7 +535,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_Emails
- * @property {Tidy_V1_Email[]|TidyAPI_ErrorData} data - The emails.
+ * @property {Tidy_V1_Email[]|TidyAPI_Data} data - The emails.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -513,7 +544,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_Event
- * @property {Tidy_V1_Event|TidyAPI_ErrorData} data - The event.
+ * @property {Tidy_V1_Event|TidyAPI_Data} data - The event.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -522,7 +553,43 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_Events
- * @property {Tidy_V1_Event[]|TidyAPI_ErrorData} data - The events.
+ * @property {Tidy_V1_Event[]|TidyAPI_Data} data - The events.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Expense
+ * @property {Tidy_V1_Expense|TidyAPI_Data} data - The expense.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Expenses
+ * @property {Tidy_V1_Expense[]|TidyAPI_Data} data - The expenses.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Group
+ * @property {Tidy_V1_Group|TidyAPI_Data} data - The group.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Groups
+ * @property {Tidy_V1_Group[]|TidyAPI_Data} data - The groups.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -531,7 +598,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_Organization
- * @property {Tidy_V1_Organization|TidyAPI_ErrorData} data - The organization.
+ * @property {Tidy_V1_Organization|TidyAPI_Data} data - The organization.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -540,7 +607,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_Organizations
- * @property {Tidy_V1_Organization[]|TidyAPI_ErrorData} data - The organizations.
+ * @property {Tidy_V1_Organization[]|TidyAPI_Data} data - The organizations.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -549,7 +616,16 @@
 
 /**
  * @typedef {Object} TidyAPI_V1_OrganizationContacts
- * @property {Tidy_V1_OrganizationPublicContact[]|TidyAPI_ErrorData} data - The organizations.
+ * @property {Tidy_V1_OrganizationPublicContact[]|TidyAPI_Data} data - The organizations.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Payment
+ * @property {Tidy_V1_Payment|TidyAPI_Data} data - The organizations.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -558,7 +634,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V2_Contact
- * @property {Tidy_V2_Contact|TidyAPI_ErrorData} data - The contact.
+ * @property {Tidy_V2_Contact|TidyAPI_Data} data - The contact.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -567,7 +643,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V2_Contacts
- * @property {Tidy_V2_Contact[]|TidyAPI_ErrorData} data - The contacts.
+ * @property {Tidy_V2_Contact[]|TidyAPI_Data} data - The contacts.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -576,7 +652,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V2_Membership
- * @property {Tidy_V2_Membership|TidyAPI_ErrorData} data - The membership.
+ * @property {Tidy_V2_Membership|TidyAPI_Data} data - The membership.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -585,7 +661,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V2_Memberships
- * @property {Tidy_V2_Membership[]|TidyAPI_ErrorData} data - The memberships.
+ * @property {Tidy_V2_Membership[]|TidyAPI_Data} data - The memberships.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -594,7 +670,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V2_Note
- * @property {Tidy_V2_Note|TidyAPI_ErrorData} data - The note.
+ * @property {Tidy_V2_Note|TidyAPI_Data} data - The note.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -603,7 +679,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V2_Organization
- * @property {Tidy_V2_Organization|TidyAPI_ErrorData} data - The organization.
+ * @property {Tidy_V2_Organization|TidyAPI_Data} data - The organization.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -612,7 +688,7 @@
 
 /**
  * @typedef {Object} TidyAPI_V2_OrganizationRoles
- * @property {Tidy_V2_OrganizationRole[]|TidyAPI_ErrorData} data - The roles.
+ * @property {Tidy_V2_OrganizationRole[]|TidyAPI_Data} data - The roles.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.

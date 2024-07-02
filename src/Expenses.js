@@ -1,10 +1,11 @@
 /**
  * @fileoverview This file contains functions for interacting with Expenses in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 1.1.0
+ * @version 1.2.0
  * @license GPL-3.0
  */
 
+const { Rest } = require("./utils/Rest.js");
 const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
@@ -15,7 +16,6 @@ class ExpensesAPI {
 
     /**
      * @param {Rest} rest - The rest instance to use for requests.
-     * @returns {ExpensesAPI}
      * @constructor
      */
     constructor(rest) {
@@ -30,21 +30,17 @@ class ExpensesAPI {
      * @param {number} [options.offset] - The number of expenses to skip.
      * @param {"activated" | "cancelled" | "all"} [options.status] - The status of the expense.
      * @param {string} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
-     * @returns {object} - An array of expenses.
+     * @returns {Promise<TidyAPI_V1_Expenses>} - An array of expenses.
      */
     async getExpenses(options = {}) {
-        let expenses = [];
-        if (options.status == "all") {
-            options.status = "activated,cancelled";
+        const data = {
+            limit: options.limit,
+            offset: options.offset,
+            status: options.status == "all" ? "activated,cancelled" : options.status,
+            updated_since: options.updated_since
         }
-        let optionalParametersString = makeURLParameters(["limit", "offset", "status", "updated_since"], options);
-
-        await this.rest.get(`/v1/expenses${optionalParametersString}`, options.access_token).then((response) => {
-            expenses = response.data;
-        }).catch((error) => {
-            throw new Error(`Expenses.getExpenses: ${error}\n${error.response.data}`);
-        });
-        return expenses;
+        const optionalParametersString = makeURLParameters(["limit", "offset", "status", "updated_since"], data);
+        return await this.rest.get(`/v1/expenses${optionalParametersString}`, options.access_token);
     }
         
     /**
@@ -52,31 +48,24 @@ class ExpensesAPI {
      * @param {string} expenseID - The ID of the expense to get
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {object} - An Expense object.
+     * @returns {Promise<TidyAPI_V1_Expense>} - An Expense object.
      */
     async getExpense(expenseID, options = {}) {
-        let expense = {};
-
-        await this.rest.get(`/v1/expenses/${expenseID}`, options.access_token).then((response) => {
-            expense = response.data;
-        }).catch((error) => {
-            throw new Error(`Expenses.getExpense: ${error}\n${error.response.data}`);
-        });
-        return expense;
+        return await this.rest.get(`/v1/expenses/${expenseID}`, options.access_token);
     }
 
     /**
      * @description This function is used to create a new expense in TidyHQ.
      * @param {string} name - The name of the expense.
-     * @param {decimal} amount - The amount of the expense.
+     * @param {number} amount - The amount of the expense.
      * @param {string} due_date - The due date of the expense in ISO 8601 format.
-     * @param {category_id} category_id - The category of the expense.
-     * @param {contact_id} contact_id - The source of the expense.
+     * @param {string} category_id - The category of the expense.
+     * @param {string} contact_id - The source of the expense.
      * @param {object} [options = {}] - The options to create the expense with.
      * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.description] - The description of the expense.
      * @param {string} [options.metadata] - The metadata of the expense.
-     * @returns {boolean} - Success or failure.
+     * @returns {Promise<TidyAPI_V1_Expense>} - The newly created expense.
      */
     async createExpense(name, amount, due_date, category_id, contact_id, options = {}) {
         const access_token = options.access_token;
@@ -92,54 +81,45 @@ class ExpensesAPI {
             }
         }
         
-        await this.rest.post(`/v1/expenses`, {
+        return await this.rest.post(`/v1/expenses`, {
             name,
             amount,
             due_date,
             category_id,
             contact_id,
             ...options
-        }, access_token).then((response) => {
-            if (response.status == 201) {
-                success = true;
-            }
-        }).catch((error) => {
-            console.log(error.response.data);
-            throw new Error(`Expenses.createExpense: ${error}\n${error.response.data}`);
-        });
+        }, access_token);
+    }
 
-        return success;
+    /**
+     * @description Helper function to determine if a payment type is valid.
+     * @param {string} type - The type to check.
+     * @returns {boolean} - Whether the type is valid or not.
+     */
+    #_isValidType(type) {
+        return ["cash", "card", "cheque", "bank", "other"].includes(type);
     }
 
     /**
      * @description This function is used to add a payment to an expense.
      * @param {string} expenseID - The ID of the expense.
-     * @param {object} [options]. - The options to create the payment with. At least one option is required that isn't the access_token.
+     * @param {object} [options] - The options to create the payment with. At least one option is required that isn't the access_token.
      * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.amount] - The amount of the payment expressed as a decimal.
-     * @param {"cash" | "card" | "cheque" | "bank" | "other"} [options.payment_type] - The type of payment.
+     * @param {Tidy_V1_PaymentType} [options.payment_type] - The type of payment.
      * @param {string} [options.date] - The date of the payment in ISO 8601 format.
-     * @returns {boolean} - Success or failure.
+     * @returns {Promise<TidyAPI_V1_Payment>} - The newly created payment.
      */
     async addPayment(expenseID, options) {
         const access_token = options.access_token;
         delete options.access_token;
 
-        let success = "";
-        if (options.payment_type != undefined) {
-            if (!["cash", "card", "cheque", "bank", "other"].includes(options.payment_type)) throw new Error(`Expenses.addPayment: Invalid payment type ${options.payment_type}.`);
-        }
-        let optionalParametersString = makeURLParameters(["amount", "payment_type", "date"], options);
+        if (!this.#_isValidType(options.payment_type)) throw new Error(`Expenses.addPayment: Invalid payment type ${options.payment_type}.`);
+        
+        const optionalParametersString = makeURLParameters(["amount", "payment_type", "date"], options);
         if (optionalParametersString == "") throw new Error("Expenses.addPayment: No valid options provided.");
 
-        await this.rest.post(`/v1/expenses/${expenseID}/payments${optionalParametersString}`, {}, options.access_token).then((response) => {
-            if (response.status == 201) {
-                success = true;
-            }
-        }).catch((error) => {
-            throw new Error(`Expenses.addPayment: ${error}\n${error.response.data}`);
-        });
-        return success;
+        return await this.rest.post(`/v1/expenses/${expenseID}/payments${optionalParametersString}`, {}, access_token);
     }
 
     /**
@@ -147,18 +127,10 @@ class ExpensesAPI {
      * @param {string} expenseID - The ID of the expense.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {boolean} - Success or failure.
+     * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
     async deleteExpense(expenseID, options = {}) {
-        let success = false;
-        await this.rest.delete(`/v1/expenses/${expenseID}`, {}, options.access_token).then((response) => {
-            if (response.status == 200) {
-                success = true;
-            }
-        }).catch((error) => {
-            throw new Error(`Expenses.deleteExpense: ${error}\n${error.response.data}`);
-        });
-        return success;
+        return await this.rest.delete(`/v1/expenses/${expenseID}`, {}, options.access_token);
     }
 }
 
