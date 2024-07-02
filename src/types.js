@@ -418,6 +418,121 @@
  * @property {string} created_at - The creation timestamp of the task.
  */
 
+/* ========== Membership Level ========== */
+
+/**
+ * @typedef {Object} Tidy_V1_MembershipLevel
+ * @property {number} id - The unique identifier for the membership level.
+ * @property {string} name - The name of the membership level.
+ * @property {string} description - The description of the membership level.
+ * @property {number} duration - The duration of the membership level.
+ * @property {string} unit_period - The unit of period for the duration (e.g., "month").
+ * @property {boolean} fixed - Whether the membership level has a fixed start date.
+ * @property {string|null} start_at - The start date of the membership level, if fixed.
+ * @property {boolean} enabled - Whether the membership level is enabled.
+ * @property {string|null} active_since - The date since the membership level has been active.
+ * @property {string} amount - The amount associated with the membership level.
+ * @property {boolean} bundle - Whether the membership level is part of a bundle.
+ * @property {Tidy_V1_BundleAmount[]|null} bundle_amounts - The bundle amounts, applicable if the membership level is part of a bundle.
+ * @property {boolean} deleted - Whether the membership level is marked as deleted.
+ * @property {string} plan_type - The type of plan (e.g., "rolling").
+ * @property {boolean} auto_renew - Whether the membership level auto-renews.
+ * @property {string} created_at - The creation timestamp of the membership level.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_BundleAmount
+ * @property {string} amount - The amount for the bundle.
+ * @property {boolean} subsequent - Whether this amount applies to subsequent members.
+ * @property {string} type - The type of member this amount applies to (e.g., "adult", "child").
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_PricingVariation
+ * @property {Tidy_V1_PricingVariationState[]} State - An array of state-specific pricing variations.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_PricingVariationState
+ * @property {string} name - The name of the state or group for this pricing variation.
+ * @property {string} amount - The amount associated with this state or group.
+ * @property {Tidy_V1_PricingVariationDestination} destination - The destination organization details for this pricing variation.
+ * @property {Tidy_V1_PricingVariationAutofillGroup} autofill_group - The autofill group details associated with this pricing variation.
+ * @property {Tidy_V1_PricingVariationClub[]} Club - An array of club-specific pricing variations within the state.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_PricingVariationClub
+ * @property {string} name - The name of the club for this pricing variation.
+ * @property {string} amount - The amount associated with this club.
+ * @property {Tidy_V1_PricingVariationDestination} destination - The destination organization details for this club's pricing variation.
+ * @property {Tidy_V1_PricingVariationAutofillGroup} autofill_group - The autofill group details associated with this club's pricing variation.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_PricingVariationDestination
+ * @property {string} id - The unique identifier for the destination.
+ * @property {string} type - The type of the destination (e.g., "Organisation").
+ * @property {string} name - The name of the destination.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_PricingVariationAutofillGroup
+ * @property {number} id - The unique identifier for the autofill group.
+ * @property {string} name - The name of the autofill group.
+ */
+
+/* ========== Membership ========== */
+
+/**
+ * @typedef {Object} Tidy_V1_Membership
+ * @property {number} id - The unique identifier for the membership.
+ * @property {string} start_date - The start date of the membership in ISO 8601 format.
+ * @property {string} end_date - The end date of the membership in ISO 8601 format.
+ * @property {number} contact_id - The unique identifier for the contact associated with the membership.
+ * @property {number} membership_level_id - The unique identifier for the membership level.
+ * @property {string} state - The state of the membership (e.g., "activated").
+ * @property {number} membership_id_reference - A reference ID for the membership.
+ * @property {string} membership_id - A unique string identifier for the membership.
+ * @property {Tidy_V1_MembershipLevelSummary} membership_level - The membership level details.
+ * @property {Tidy_V1_Subscription[]} subscriptions - An array of subscriptions associated with the membership.
+ * @property {Tidy_V1_MembershipMember[]} adult_members - An array of adult members associated with the membership.
+ * @property {Tidy_V1_MembershipMember[]} child_members - An array of child members associated with the membership.
+ * @property {string} created_at - The creation timestamp of the membership in ISO 8601 format.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_MembershipMember
+ * @property {number} contact_id - The unique identifier for the contact.
+ * @property {string} member_since - The date since the contact has been a member in ISO 8601 format.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_MembershipLevelSummary
+ * @property {number} id - The unique identifier for the membership level.
+ * @property {string} name - The name of the membership level.
+ * @property {string} plan_type - The type of plan (e.g., "rolling").
+ * @property {boolean} auto_renew - Whether the membership level auto-renews.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_Subscription
+ * @property {number} id - The unique identifier for the subscription.
+ * @property {string} start_date - The start date of the subscription.
+ * @property {string} end_date - The end date of the subscription.
+ * @property {string} status - The status of the subscription (e.g., "Active", "Expired"). [!] Add all possible values.
+ * @property {Tidy_V1_Variation[]} variations - An array of variations associated with the subscription.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_Variation
+ * @property {string} question - The question related to the variation.
+ * @property {string} answer - The answer to the question.
+ * @property {string} price - The price associated with the variation.
+ * @property {Tidy_V1_PricingVariationDestination} destination - The destination details for the variation.
+ * @property {Tidy_V1_PricingVariationAutofillGroup} autofill_group - The autofill group details for the variation.
+ */
+
 /* ========== Organization ========== */
 
 /**
@@ -687,6 +802,42 @@
  */
 
 /**
+ * @typedef {Object} TidyAPI_V1_MembershipLevel
+ * @property {Tidy_V1_MembershipLevel|TidyAPI_Data} data - The membership level.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_MembershipLevels
+ * @property {Tidy_V1_MembershipLevel[]|TidyAPI_Data} data - The membership levels.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Membership
+ * @property {Tidy_V1_Membership|TidyAPI_Data} data - The membership.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Memberships
+ * @property {Tidy_V1_Membership[]|TidyAPI_Data} data - The memberships.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
  * @typedef {Object} TidyAPI_V1_Organization
  * @property {Tidy_V1_Organization|TidyAPI_Data} data - The organization.
  * @property {number} status - The HTTP status code of the response.
@@ -716,6 +867,15 @@
 /**
  * @typedef {Object} TidyAPI_V1_Payment
  * @property {Tidy_V1_Payment|TidyAPI_Data} data - The organizations.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_PricingVariation
+ * @property {Tidy_V1_PricingVariation[]|TidyAPI_Data} data - The membership level pricing variations.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.

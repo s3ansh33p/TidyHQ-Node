@@ -1,10 +1,11 @@
 /**
  * @fileoverview This file contains functions for interacting with Memberships in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 1.1.0
+ * @version 1.2.0
  * @license GPL-3.0
  */
 
+const { Rest } = require("./utils/Rest.js");
 const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
@@ -15,7 +16,6 @@ class MembershipsAPI {
 
     /**
      * @param {Rest} rest - The rest instance to use for requests.
-     * @returns {MembershipsAPI}
      * @constructor
      */
     constructor(rest) {
@@ -31,18 +31,11 @@ class MembershipsAPI {
      * @param {string} [options.offset] - The number of results to skip.
      * @param {string} [options.active] - Whether to return active memberships.
      * @param {string} [options.updated_since] - The date to return memberships updated since in ISO 8601 format.
-     * @returns {object} - The list of memberships.
-     * @private
+     * @returns {Promise<TidyAPI_V1_Memberships>} - The list of memberships.
      */
     async #_getMemberships(path, options) {
-        let optionalParametersString = makeURLParameters(["limit", "offset", "active", "updated_since"], options)
-        let memberships = [];
-        await this.rest.get(`/v1/${path}${optionalParametersString}`, options.access_token).then((response) => {
-            memberships = response.data;
-        }).catch((error) => {
-            throw new Error(`Memberships.getMemberships: ${error}\n${error.response.data}`);
-        });
-        return memberships;
+        const optionalParametersString = makeURLParameters(["limit", "offset", "active", "updated_since"], options)
+        return await this.rest.get(`/v1/${path}${optionalParametersString}`, options.access_token);
     }
 
     /**
@@ -53,7 +46,7 @@ class MembershipsAPI {
      * @param {string} [options.offset] - The number of results to skip.
      * @param {string} [options.active] - Whether to return active memberships.
      * @param {string} [options.updated_since] - The date to return memberships updated since in ISO 8601 format.
-     * @returns {object} - The list of memberships.
+     * @returns {Promise<TidyAPI_V1_Memberships>} - The list of memberships.
      */
     async getMemberships(options = {}) {
         return this.#_getMemberships("memberships", options);
@@ -68,7 +61,7 @@ class MembershipsAPI {
      * @param {string} [options.offset] - The number of results to skip.
      * @param {string} [options.active] - Whether to return active memberships.
      * @param {string} [options.updated_since] - The date to return memberships updated since in ISO 8601 format.
-     * @returns {object} - The list of memberships.
+     * @returns {Promise<TidyAPI_V1_Memberships>} - The list of memberships.
      */
     async getMembershipsForContact(contact_id, options = {}) {
         return this.#_getMemberships(`contacts/${contact_id}/memberships`, options);
@@ -83,7 +76,7 @@ class MembershipsAPI {
      * @param {string} [options.offset] - The number of results to skip.
      * @param {string} [options.active] - Whether to return active memberships.
      * @param {string} [options.updated_since] - The date to return memberships updated since in ISO 8601 format.
-     * @returns {object} - The list of memberships.
+     * @returns {Promise<TidyAPI_V1_Memberships>} - The list of memberships.
      */
     async getMembershipsForMembershipLevel(membership_level_id, options = {}) {
         return this.#_getMemberships(`membership_levels/${membership_level_id}/memberships`, options);
@@ -94,16 +87,10 @@ class MembershipsAPI {
      * @param {string} membership_id - The ID of the membership.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {object} - The membership.
+     * @returns {Promise<TidyAPI_V1_Membership>} - The membership.
      */
     async getMembership(membership_id, options = {}) {
-        let membership = {};
-        await this.rest.get(`/v1/memberships/${membership_id}`, options.access_token).then((response) => {
-            membership = response.data;
-        }).catch((error) => {
-            throw new Error(`Memberships.getMembership: ${error}\n${error.response.data}`);
-        });
-        return membership;
+        return await this.rest.get(`/v1/memberships/${membership_id}`, options.access_token);
     }
 }
 
