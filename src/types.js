@@ -231,14 +231,14 @@
 /* ========== Custom Field ========== */
 
 /**
- * @typedef {"string"|"text"|"dropdown"|"boolean"|"date"} CustomFieldType
+ * @typedef {"string"|"text"|"dropdown"|"boolean"|"date"} Tidy_V1_CustomFieldType
  */
 
 /**
  * @typedef {Object} Tidy_V1_CustomField
  * @property {string} id - The unique identifier for the custom field.
  * @property {string} title - The title of the custom field.
- * @property {CustomFieldType} type - The type of the custom field.
+ * @property {Tidy_V1_CustomFieldType} type - The type of the custom field.
  * @property {string} created_at - The creation date and time of the custom field.
  * @property {Tidy_V1_CustomFieldChoice[]} [choices] - Optional. The choices for the custom field, applicable if the type is "dropdown".
  */

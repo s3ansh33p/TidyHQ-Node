@@ -55,7 +55,7 @@ class CustomFieldsAPI {
     /**
      * @description This function is used to create a new custom field in TidyHQ.
      * @param {string} name - The name of the custom field to create.
-     * @param {CustomFieldType} type - The type of the custom field to create.
+     * @param {Tidy_V1_CustomFieldType} type - The type of the custom field to create.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_CustomField>} - The newly created custom field.
