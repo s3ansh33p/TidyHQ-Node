@@ -29,7 +29,7 @@ class ExpensesAPI {
      * @param {number} [options.limit] - The maximum number of expenses to return.
      * @param {number} [options.offset] - The number of expenses to skip.
      * @param {"activated" | "cancelled" | "all"} [options.status] - The status of the expense.
-     * @param {Date} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
+     * @param {string} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
      * @returns {object} - An array of expenses.
      */
     async getExpenses(options = {}) {
@@ -69,11 +69,11 @@ class ExpensesAPI {
      * @description This function is used to create a new expense in TidyHQ.
      * @param {string} name - The name of the expense.
      * @param {decimal} amount - The amount of the expense.
-     * @param {Date} due_date - The due date of the expense in ISO 8601 format.
+     * @param {string} due_date - The due date of the expense in ISO 8601 format.
      * @param {category_id} category_id - The category of the expense.
      * @param {contact_id} contact_id - The source of the expense.
-     * @param {object} [options = {}]
-     * @param {string} [options.access_token] - The access token to use. - The options to create the expense with.
+     * @param {object} [options = {}] - The options to create the expense with.
+     * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.description] - The description of the expense.
      * @param {string} [options.metadata] - The metadata of the expense.
      * @returns {boolean} - Success or failure.
@@ -114,11 +114,11 @@ class ExpensesAPI {
     /**
      * @description This function is used to add a payment to an expense.
      * @param {string} expenseID - The ID of the expense.
-     * @param {object} [options]
-     * @param {string} [options.access_token] - The access token to use. - The options to create the payment with.
-     * @param {decimal} [options.amount] - The amount of the payment expressed as a decimal.
+     * @param {object} [options]. - The options to create the payment with. At least one option is required that isn't the access_token.
+     * @param {string} [options.access_token] - The access token to use.
+     * @param {number} [options.amount] - The amount of the payment expressed as a decimal.
      * @param {"cash" | "card" | "cheque" | "bank" | "other"} [options.payment_type] - The type of payment.
-     * @param {Date} [options.date] - The date of the payment in ISO 8601 format.
+     * @param {string} [options.date] - The date of the payment in ISO 8601 format.
      * @returns {boolean} - Success or failure.
      */
     async addPayment(expenseID, options) {

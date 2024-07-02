@@ -29,7 +29,7 @@ class InvoicesAPI {
      * @param {number} [options.limit] - The maximum number of invoices to return.
      * @param {number} [options.offset] - The number of invoices to skip.
      * @param {"activated" | "cancelled" | "all"} [options.status] - The status of the invoice.
-     * @param {Date} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
+     * @param {string} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
      * @returns {object} - An array of invoices.
      */
     async getInvoices(options = {}) {
@@ -71,7 +71,7 @@ class InvoicesAPI {
      * @param {decimal} amount - The amount of the invoice.
      * @param {decimal} included_tax_total - The total amount of tax.
      * @param {decimal} pre_tax_amount - The total amount before tax.
-     * @param {Date} due_date - The due date of the invoice in ISO 8601 format.
+     * @param {string} due_date - The due date of the invoice in ISO 8601 format.
      * @param {integer} category_id - The ID of the category to assign the invoice to. 
      * @param {integer} contact_id - The ID of the contact to assign the invoice to.
      * @param {object} [options = {}]
@@ -116,11 +116,11 @@ class InvoicesAPI {
     /**
      * @description This function is used to add a payment to an invoice.
      * @param {string} invoiceID - The ID of the invoice.
-     * @param {object} [options]
+     * @param {object} [options] - The options to create the payment with. At least one option is required that isn't the access_token.
      * @param {string} [options.access_token] - The access token to use. - The options to create the payment with.
      * @param {decimal} [options.amount] - The amount of the payment expressed as a decimal.
      * @param {"cash" | "card" | "cheque" | "bank" | "other"} [options.payment_type] - The type of payment.
-     * @param {Date} [options.date] - The date of the payment in ISO 8601 format.
+     * @param {string} [options.date] - The date of the payment in ISO 8601 format.
      * @returns {boolean} - Success or failure.
      */
     async addPayment(invoiceID, options) {

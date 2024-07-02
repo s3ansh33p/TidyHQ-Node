@@ -92,7 +92,7 @@ class TasksAPI {
      * @description This function is used to create a new task.
      * @param {string} contact_id - The ID of the contact to assign the task to.
      * @param {string} title - The title of the task.
-     * @param {Date} due_date - The due date of the task in ISO 8601 format.
+     * @param {string} due_date - The due date of the task in ISO 8601 format.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.description] - The description of the task.
@@ -120,7 +120,7 @@ class TasksAPI {
      * @param {string} [options.access_token] - The access token to use. - The options for the request.
      * @param {string} [options.contact_id] - The ID of the contact to assign the task to.
      * @param {string} [options.title] - The title of the task.
-     * @param {Date} [options.due_date] - The due date of the task in ISO 8601 format.
+     * @param {string} [options.due_date] - The due date of the task in ISO 8601 format.
      * @param {string} [options.description] - The description of the task.
      * @param {boolean} [options.completed] - Whether the task is completed or not.
      * @returns {object} - The updated task.

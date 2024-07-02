@@ -27,8 +27,8 @@ class V2_ContactsAPI {
      * @link https://tidyhq.readme.io/reference/get-contacts
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @param {Date} [options.updated_before] - ISO8601 formatted timestamp, only returns results last updated before the given time.
-     * @param {Date} [options.updated_since] - ISO8601 formatted timestamp, only returns results last updated since the given time.
+     * @param {string} [options.updated_before] - ISO8601 formatted timestamp, only returns results last updated before the given time.
+     * @param {string} [options.updated_since] - ISO8601 formatted timestamp, only returns results last updated since the given time.
      * @param {number} [options.limit] - The maximum number of contacts per page to return.
      * @param {number} [options.offset] - The number of contacts to skip.
      * @param {boolean} [options.registered]  - When given, returns only users with / without a user account attached.
@@ -116,8 +116,8 @@ class V2_ContactsAPI {
      * @param {string} contact_id - The ID of the contact to find memberships for.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @param {Date} [options.updated_before] - ISO8601 formatted timestamp, only returns results last updated before the given time.
-     * @param {Date} [options.updated_since] - ISO8601 formatted timestamp, only returns results last updated since the given time.
+     * @param {string} [options.updated_before] - ISO8601 formatted timestamp, only returns results last updated before the given time.
+     * @param {string} [options.updated_since] - ISO8601 formatted timestamp, only returns results last updated since the given time.
      * @param {number} [options.limit] - The maximum number of contacts per page to return.
      * @param {number} [options.offset] - The number of contacts to skip.
      * @returns {Promise<ApiV2MembershipsResponse>} - An array of memberships.

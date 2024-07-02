@@ -40,8 +40,8 @@ class V2_OrganizationAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.limit] - The maximum number of admins to return.
      * @param {number} [options.offset] - The number of admins to skip.
-     * @param {Date} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
-     * @param {Date} [options.updated_before] - The timestamp of the last update in ISO 8601 format.
+     * @param {string} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
+     * @param {string} [options.updated_before] - The timestamp of the last update in ISO 8601 format.
      * @returns {Promise<ApiV2ContactsResponse>} - The admins.
      */
     async getAdmins(options = {}) {
@@ -56,8 +56,8 @@ class V2_OrganizationAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.limit] - The maximum number of roles to return.
      * @param {number} [options.offset] - The number of roles to skip.
-     * @param {Date} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
-     * @param {Date} [options.updated_before] - The timestamp of the last update in ISO 8601 format.
+     * @param {string} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
+     * @param {string} [options.updated_before] - The timestamp of the last update in ISO 8601 format.
      * @returns {Promise<V2OrganizationRolesResponse>} - The roles.
      */
     async getRoles(options = {}) {

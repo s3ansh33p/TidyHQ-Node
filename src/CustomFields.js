@@ -71,8 +71,8 @@ class CustomFieldsAPI {
     /**
      * @description This function is used to update a custom field in TidyHQ.
      * @param {string} customFieldID - The ID of the custom field to update.
-     * @param {object} [options]
-     * @param {string} [options.access_token] - The access token to use. - The options to update the custom field with. At least one option is required.
+     * @param {object} [options] - The options to update the custom field with. At least one option is required that isn't the access_token.
+     * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.name] - The new name of the custom field.
      * @param {"string" | "text" | "dropdown" | "boolean" | "date"} [options.type] - The new type of the custom field.
      * @returns {Promise<ApiCustomFieldResponse>} - The updated custom field.

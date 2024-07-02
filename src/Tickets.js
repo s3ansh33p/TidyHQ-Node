@@ -71,7 +71,7 @@ class TicketsAPI {
      * @param {decimal} [options.amount] - The amount for the ticket. Default is 0.00 and is for free tickets.
      * @param {number} [options.initial_quantity] - Limit the number of tickets available. Default is null and is for unlimited.
      * @param {number} [options.maximum_purchase] - Limit the number of tickets per purchase. Default is 5
-     * @param {Date} [options.sales_end] - The date in ISO 8601 format for sales to end. Default is null and is for no end date.
+     * @param {string} [options.sales_end] - The date in ISO 8601 format for sales to end. Default is null and is for no end date.
      * @returns {object} - The ticket category.
      */
     async createTicket(event_id, name, options = {}) {
@@ -95,7 +95,7 @@ class TicketsAPI {
      * @param {decimal} [options.amount] - The amount for the ticket.
      * @param {number} [options.initial_quantity] - Limit the number of tickets available.
      * @param {number} [options.maximum_purchase] - Limit the number of tickets per purchase.
-     * @param {Date} [options.sales_end] - The date in ISO 8601 format for sales to end.
+     * @param {string} [options.sales_end] - The date in ISO 8601 format for sales to end.
      * @returns {object} - The updated ticket category.
      */
     async updateTicket(event_id, ticket_id, options) {

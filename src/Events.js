@@ -29,8 +29,8 @@ class EventsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.limit] - The maximum number of contacts to return.
      * @param {number} [options.offset] - The number of contacts to skip.
-     * @param {Date} [options.start_at] - The start date of the events to return in ISO 8601 format.
-     * @param {Date} [options.end_at] - The end date of the events to return in ISO 8601 format.
+     * @param {string} [options.start_at] - The start date of the events to return in ISO 8601 format.
+     * @param {string} [options.end_at] - The end date of the events to return in ISO 8601 format.
      * @param {boolean} [options.public] - Whether to return only public events or not.
      * @returns {object} - The list of events.
      * @private
@@ -52,8 +52,8 @@ class EventsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.limit] - The maximum number of contacts to return.
      * @param {number} [options.offset] - The number of contacts to skip.
-     * @param {Date} [options.start_at] - The start date of the events to return in ISO 8601 format.
-     * @param {Date} [options.end_at] - The end date of the events to return in ISO 8601 format.
+     * @param {string} [options.start_at] - The start date of the events to return in ISO 8601 format.
+     * @param {string} [options.end_at] - The end date of the events to return in ISO 8601 format.
      * @param {boolean} [options.public] - Whether to return only public events or not.
      * @returns {object} - The list of events.
      */
@@ -68,8 +68,8 @@ class EventsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.limit] - The maximum number of contacts to return.
      * @param {number} [options.offset] - The number of contacts to skip.
-     * @param {Date} [options.start_at] - The start date of the events to return in ISO 8601 format.
-     * @param {Date} [options.end_at] - The end date of the events to return in ISO 8601 format.
+     * @param {string} [options.start_at] - The start date of the events to return in ISO 8601 format.
+     * @param {string} [options.end_at] - The end date of the events to return in ISO 8601 format.
      * @param {boolean} [options.public] - Whether to return only public events or not.
      * @returns {object} - The list of events.
      */
@@ -122,10 +122,10 @@ class EventsAPI {
     /**
      * @description This function is used to create a new event.
      * @param {string} name - The name of the event.
-     * @param {Date} start_at - The start date of the event in ISO 8601 format.
+     * @param {string} start_at - The start date of the event in ISO 8601 format.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @param {Date} [options.end_at] - The end date of the event in ISO 8601 format.
+     * @param {string} [options.end_at] - The end date of the event in ISO 8601 format.
      * @param {string} [options.body] - The description of the event.
      * {string} [options.location] - The location of the event. [!] ERROR IN TIDYHQ DOCUMENTATION/API
      * @param {boolean} [options.archived] - Whether the event is archived or not (showing on public events page).
@@ -157,8 +157,8 @@ class EventsAPI {
      * @param {object} [options]
      * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.name] - The name of the event.
-     * @param {Date} [options.start_at] - The start date of the event in ISO 8601 format.
-     * @param {Date} [options.end_at] - The end date of the event in ISO 8601 format.
+     * @param {string} [options.start_at] - The start date of the event in ISO 8601 format.
+     * @param {string} [options.end_at] - The end date of the event in ISO 8601 format.
      * @param {string} [options.body] - The description of the event.
      * {string} [options.location] - The location of the event. [!] ERROR IN TIDYHQ DOCUMENTATION/API
      * @param {boolean} [options.archived] - Whether the event is archived or not (showing on public events page).

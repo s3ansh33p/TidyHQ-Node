@@ -12,8 +12,8 @@
  * @property {string} relationship_type - The type of relationship (e.g., "Adult", "Child").
  * @property {string} title - The title of the contact link.
  * @property {Object} metadata - Optional arbitrary metadata attached to the object.
- * @property {Date} created_at - Creation date and time of the contact link.
- * @property {Date} updated_at - Last update date and time of the contact link.
+ * @property {string} created_at - Creation date and time of the contact link.
+ * @property {string} updated_at - Last update date and time of the contact link.
  * @property {string} display_name - Humanized version of the type field, suitable for display.
  * @property {string} type - [!] TBA
  * @property {string} contact_id - Alphanumeric (V2) ID associated with the contact this link is towards.
@@ -25,8 +25,8 @@
  * @property {string} label - Label of the group.
  * @property {string} group_id_reference - Reference to the group ID in V1 API.
  * @property {string} description - Description of the group.
- * @property {Date} created_at - Creation date and time of the group.
- * @property {Date} updated_at - Last update date and time of the group.
+ * @property {string} created_at - Creation date and time of the group.
+ * @property {string} updated_at - Last update date and time of the group.
  * @property {number} size - Number of contacts within the group.
  * @property {string} image - URL to the image that represents the group.
  */
@@ -97,8 +97,8 @@
  * @property {string} contact_id - The ID of the contact associated with the membership.
  * @property {string[]} adult_members_contact_ids - The IDs of the adult members associated with the membership.
  * @property {string[]} child_members_contact_ids - The IDs of the child members associated with the membership.
- * @property {Date} start_date - The start date of the membership.
- * @property {Date} end_date - The end date of the membership.
+ * @property {string} start_date - The start date of the membership.
+ * @property {string} end_date - The end date of the membership.
  * @property {V2_Note[]} notes - The notes associated with the membership.
  */
 
@@ -108,8 +108,8 @@
  * @typedef {Object} V2_Note
  * @property {string} id - The unique identifier for the note.
  * @property {string} text - The content of the note.
- * @property {Date} created_at - The creation date and time of the note.
- * @property {Date} updated_at - The last update date and time of the note.
+ * @property {string} created_at - The creation date and time of the note.
+ * @property {string} updated_at - The last update date and time of the note.
  * @property {Object} author - The author of the note. [!]
  */
 
@@ -134,8 +134,8 @@
  * @property {string} time_zone - The time zone of the organization.
  * @property {OrganizationPublicContact[]} public_contacts - The public contacts of the organization.
  * @property {Object} logo_url - The URL to the logo of the organization.
- * @property {Date} created_at - The creation date and time of the organization.
- * @property {Date} updated_at - The last update date and time of the organization.
+ * @property {string} created_at - The creation date and time of the organization.
+ * @property {string} updated_at - The last update date and time of the organization.
  * @property {Object} plan - The plan of the organization.
  * @property {string} plan.name - The name of the plan of the organization.
  * @property {OrganizationPlanQuota} plan.quota - The quota of the plan for the organization.
@@ -150,8 +150,8 @@
  * @property {string} email_address - The email address to contact the members of this role.
  * @property {string} responsibilities - The responsibilities of the role.
  * @property {string[]} contact_ids - The contact IDs associated with the role.
- * @property {Date} created_at - The creation date and time of the role.
- * @property {Date} updated_at - The last update date and time of the role.
+ * @property {string} created_at - The creation date and time of the role.
+ * @property {string} updated_at - The last update date and time of the role.
  */
 
 /* ========== Categories ========== */
@@ -249,6 +249,72 @@
  * @property {string} title - The title of the custom field choice.
  * @property {string} created_at - The creation date and time of the custom field choice.
  */
+
+/* ========== Finance ========== */
+
+/**
+ * @typedef {"cash"|"card"|"cheque"|"bank"|"other"} PaymentType
+ */
+
+/**
+ * @typedef {"paid"|"cancelled"} PaymentStatus
+ */
+
+/**
+ * @typedef {"activated"|"cancelled"} FinanceStatus
+ */
+
+/* ========== Deposit ========== */
+
+/**
+ * @typedef {Object} Deposit
+ * @property {string} id - The unique identifier for the deposit.
+ * @property {string} ref_no - The reference number of the deposit.
+ * @property {number} contact_id - The ID of the contact associated with the deposit.
+ * @property {"deposit"} type - The type of the transaction.
+ * @property {string} name - The name of the deposit.
+ * @property {string|null} description - The description of the deposit.
+ * @property {number} category_id - The category ID of the deposit.
+ * @property {string} currency - The currency of the deposit amount.
+ * @property {number} amount - The amount of the deposit.
+ * @property {Object|null} metadata - Additional metadata associated with the deposit.
+ * @property {FinanceStatus} status - The status of the deposit.
+ * @property {DepositPayment[]} payments - The payments associated with the deposit.
+ */
+
+/**
+ * @typedef {Object} DepositPayment
+ * @property {string} id - The unique identifier for the payment.
+ * @property {number} amount - The amount of the payment.
+ * @property {PaymentType} type - The type of the payment.
+ * @property {string} paid_at - The timestamp when the payment was made.
+ * @property {PaymentStatus} status - The status of the payment.
+ */
+
+/* ========== Expense ========== */
+
+/* ========== Invoice ========== */
+
+/* ========== Email ========== */
+
+/**
+ * @typedef {Object} Email
+ * @property {string} id - The unique identifier for the email.
+ * @property {number} sender_id - The ID of the sender.
+ * @property {number[]} recipient_ids - An array of IDs for the recipients.
+ * @property {"inbound"|"outbound"} way - The direction of the email (inbound or outbound).
+ * @property {"email"|"group_email"} type - The type of the email.
+ * @property {string} subject - The subject of the email.
+ * @property {string} body - The body text of the email.
+ * @property {string|null} scheduled_at - The scheduled send time of the email, if any.
+ * @property {boolean} read - Whether the email has been read.
+ * @property {boolean} archived - Whether the email has been archived.
+ * @property {boolean} deleted - Whether the email has been deleted.
+ * @property {boolean} junk - Whether the email has been marked as junk.
+ * @property {Object[]} attachments - An array of attachments associated with the email.
+ * @property {string} created_at - The creation timestamp of the email.
+ */
+
 /* ========== Organization ========== */
 
 /**
@@ -307,6 +373,7 @@
 /**
  * @typedef {Object} ApiErrorData
  * @property {string} message - The error message.
+ * @property {Object} [errors] - Optional. Additional error information.
  */
 
 /**
@@ -384,6 +451,42 @@
 /**
  * @typedef {Object} ApiCustomFieldChoicesResponse
  * @property {CustomFieldChoice[]|ApiErrorData} data - The custom fields.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} ApiDepositResponse
+ * @property {Deposit|ApiErrorData} data - The deposit.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} ApiDepositsResponse
+ * @property {Deposit[]|ApiErrorData} data - The deposits.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} ApiEmailResponse
+ * @property {Email|ApiErrorData} data - The email.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} ApiEmailsResponse
+ * @property {Email[]|ApiErrorData} data - The emails.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
