@@ -1,12 +1,12 @@
 /**
  * @fileoverview This file contains functions for interacting with Contacts in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 1.1.0
+ * @version 1.2.0
  * @license GPL-3.0
  */
 
-const { makeURLParameters } = require("./utils/Builder.js");
 const { Rest } = require("./utils/Rest.js");
+const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
  * @description This class is used to interact with Contacts in TidyHQ.
@@ -16,7 +16,6 @@ class ContactsAPI {
 
     /**
      * @param {Rest} rest - The rest instance to use for requests.
-     * @returns {ContactsAPI}
      * @constructor
      */
     constructor(rest) {
@@ -36,18 +35,11 @@ class ContactsAPI {
      * @param {number[]} [options.ids] - An array of contact IDs to get.
      * @param {string[]} [options.fields] - An array of fields to get.
      * @param {string[]} [options.filter] - An array of filters to use.
-     * @returns {Contact[]} - An array of contact objects.
-     * @private
+     * @returns {Promise<ApiContactsResponse>} - An array of contact objects.
      */
     async #_getContacts(path, options) {
         const optionalParametersString = makeURLParameters(["limit", "offset", "search_terms", "show_all", "updated_since", "ids[]", "fields[]", "filter[[]]"], options)
-        let contacts = [];
-        await this.rest.get(`/v1/${path}${optionalParametersString}`, options.access_token).then((response) => {
-            contacts = response.data;
-        }).catch((error) => {
-            throw new Error(`Contacts.getContacts: ${error}\n${error.response.data}`);
-        });
-        return contacts;
+        return await this.rest.get(`/v1/${path}${optionalParametersString}`, options.access_token);
     }
 
     /**
@@ -62,7 +54,7 @@ class ContactsAPI {
      * @param {number[]} [options.ids] - An array of contact IDs to get.
      * @param {string[]} [options.fields] - An array of fields to get.
      * @param {string[]} [options.filter] - An array of filters to use.
-     * @returns {Contact[]} - An array of contact objects.
+     * @returns {Promise<ApiContactsResponse>} - An array of contact objects.
      */
     async getContacts(options = {}) {
         return this.#_getContacts("contacts", options);
@@ -81,7 +73,7 @@ class ContactsAPI {
      * @param {number[]} [options.ids] - An array of contact IDs to get.
      * @param {string[]} [options.fields] - An array of fields to get.
      * @param {string[]} [options.filter] - An array of filters to use.
-     * @returns {Contact[]} - An array of contact objects.
+     * @returns {Promise<ApiContactsResponse>} - An array of contact objects.
      */
     async getContactsInGroup(group_id, options = {}) {
         return this.#_getContacts(`groups/${group_id}/contacts`, options);
@@ -89,24 +81,16 @@ class ContactsAPI {
 
     /**
      * @description This function is used to get a single contact from TidyHQ.
-     * @param {number} [contactID = 0] - The ID of the contact to get (0 returns the contact of the user who authorized the application)
+     * @param {number|string} [contactID = "me"] - The ID of the contact to get ("me" returns the contact of the user who authorized the application)
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Contact} - A contact object.
+     * @returns {Promise<ApiContactResponse>} - A contact object.
      **/
-    async getContact(contactID = 0, options = {}) {
-        if (contactID == 0) {
-            contactID = "me";
-        }
-
-        let contact = {};
-        await this.rest.get(`/v1/contacts/${contactID}`, options.access_token).then((response) => {
-            contact = response.data;
-        }).catch((error) => {
-            throw new Error(`Contacts.getContact: ${error}\n${error.response.data}`);
-        });
-        return contact;
+    async getContact(contactID = "me", options = {}) {
+        return await this.rest.get(`/v1/contacts/${contactID}`, options.access_token);
     }
+
+    // POST /contacts, PUT /contacts/:id, DELETE /contacts/:id
 }
 
 module.exports = { ContactsAPI };

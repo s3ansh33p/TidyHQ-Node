@@ -116,31 +116,6 @@
 /* ========== V2_Organization ========== */
 
 /**
- * @typedef {Object} V2_OrganizationPublicContacts
- * @property {string} name - The name of the contact.
- * @property {string} position - The position of the contact.
- * @property {string} email - The email address of the contact.
- * @property {string} phone_number - The phone number of the contact.
- */
-
-/**
- * @typedef {Object} V2_OrganizationPlanQuota
- * @property {Object} emails - The email quota.
- * @property {Object} emails.limit - The email limit.
- * @property {Object} emails.sent - The number of emails sent.
- * @property {Object} emails.count - The number of emails sent.
- * @property {Object} contacts - The contacts quota.
- * @property {Object} contacts.limit - The contacts limit.
- * @property {Object} contacts.count - The number of contacts.
- */
-
-/**
- * @typedef {Object} V2_OrganizationLink
- * @property {string} id - The unique identifier for the organization.
- * @property {string} name - The name of the organization.
- */
-
-/**
  * @typedef {Object} V2_Organization
  * @property {string} id - The unique identifier for the organization.
  * @property {string} name - The name of the organization.
@@ -157,15 +132,15 @@
  * @property {string} facebook - The Facebook profile URL of the organization.
  * @property {string} currency - The currency used by the organization.
  * @property {string} time_zone - The time zone of the organization.
- * @property {Array<V2_OrganizationPublicContacts>} public_contacts - The public contacts of the organization.
+ * @property {OrganizationPublicContact[]} public_contacts - The public contacts of the organization.
  * @property {Object} logo_url - The URL to the logo of the organization.
  * @property {Date} created_at - The creation date and time of the organization.
  * @property {Date} updated_at - The last update date and time of the organization.
  * @property {Object} plan - The plan of the organization.
  * @property {string} plan.name - The name of the plan of the organization.
- * @property {V2_OrganizationPlanQuota} plan.quota - The quota of the plan for the organization.
- * @property {Array<V2_OrganizationLink>} parent_organizations - The parent organizations of the organization.
- * @property {Array<V2_OrganizationLink>} child_organizations - The child organizations of the organization.
+ * @property {OrganizationPlanQuota} plan.quota - The quota of the plan for the organization.
+ * @property {OrganizationLink[]} parent_organizations - The parent organizations of the organization.
+ * @property {OrganizationLink[]} child_organizations - The child organizations of the organization.
  */
 
 /**
@@ -177,6 +152,17 @@
  * @property {string[]} contact_ids - The contact IDs associated with the role.
  * @property {Date} created_at - The creation date and time of the role.
  * @property {Date} updated_at - The last update date and time of the role.
+ */
+
+/* ========== Categories ========== */
+
+/**
+ * @typedef {Object} Category
+ * @property {number} id - The unique identifier for the category.
+ * @property {string} name - The name of the category.
+ * @property {string} description - The description of the category.
+ * @property {Object.<string, number>} balance - The balance of the category in various currencies, with currency codes as keys and amounts as values. E.g., { "AUD": -20.0, "USD": 42.0 }.
+ * @property {string} created_at - The creation date and time of the category in ISO 8601 format.
  */
 
 /* ========== Contact ========== */
@@ -236,27 +222,96 @@
  * @property {string} contact_id_number - Contact ID number.
  * @property {string|null} profile_image - URL to the profile image of the contact.
  * @property {string} status - Status of the contact (e.g., active).
- * @property {Array<CustomField>} custom_fields - Custom fields associated with the contact.
+ * @property {CustomField[]} custom_fields - Custom fields associated with the contact.
  * @property {ContactOrganization} organization - Organization associated with the contact.
- * @property {Array<ContactGroup>} groups - Groups associated with the contact.
- * @property {Array<ContactLink>} contact_links - Links associated with the contact.
+ * @property {ContactGroup[]} groups - Groups associated with the contact.
+ * @property {ContactLink[]} contact_links - Links associated with the contact.
  */
 
 /* ========== Custom Field ========== */
 
 /**
+ * @typedef {"string"|"text"|"dropdown"|"boolean"|"date"} CustomFieldType
+ */
+
+/**
  * @typedef {Object} CustomField
  * @property {string} id - The unique identifier for the custom field.
  * @property {string} title - The title of the custom field.
- * @property {string} type - The type of the custom field (e.g., "boolean").
+ * @property {CustomFieldType} type - The type of the custom field.
  * @property {string} created_at - The creation date and time of the custom field.
+ * @property {CustomFieldChoice[]} [choices] - Optional. The choices for the custom field, applicable if the type is "dropdown".
+ */
+
+/**
+ * @typedef {Object} CustomFieldChoice
+ * @property {string} id - The unique identifier for the custom field choice.
+ * @property {string} title - The title of the custom field choice.
+ * @property {string} created_at - The creation date and time of the custom field choice.
+ */
+/* ========== Organization ========== */
+
+/**
+ * @typedef {Object} OrganizationPublicContact
+ * @property {string} name - The name of the contact.
+ * @property {string} position - The position of the contact.
+ * @property {string} email - The email address of the contact.
+ * @property {string} phone_number - The phone number of the contact.
+ */
+
+/**
+ * @typedef {Object} OrganizationPlanQuota
+ * @property {Object} emails - The email quota.
+ * @property {Object} emails.limit - The email limit.
+ * @property {Object} emails.sent - The number of emails sent.
+ * @property {Object} emails.count - The number of emails sent.
+ * @property {Object} contacts - The contacts quota.
+ * @property {Object} contacts.limit - The contacts limit.
+ * @property {Object} contacts.count - The number of contacts.
+ */
+
+/**
+ * @typedef {Object} OrganizationLink
+ * @property {string} id - The unique identifier for the organization.
+ * @property {string} name - The name of the organization.
+ */
+
+/**
+ * @typedef {Object} Organization
+ * @property {string} id - The unique identifier for the organization.
+ * @property {string} name - The name of the organization.
+ * @property {string} domain_prefix - The domain prefix of the organization.
+ * @property {string} location - The location of the organization.
+ * @property {string} address - The street address of the organization.
+ * @property {string} city - The city of the organization.
+ * @property {string} state - The state of the organization.
+ * @property {string} postcode - The postcode of the organization.
+ * @property {string} country - The country of the organization.
+ * @property {string} phone - The phone number of the organization.
+ * @property {string} website - The website URL of the organization.
+ * @property {string} twitter - The Twitter handle of the organization.
+ * @property {string} facebook - The Facebook profile URL of the organization.
+ * @property {string} currency - The currency used by the organization.
+ * @property {string} time_zone - The time zone of the organization.
+ * @property {OrganizationPublicContact[]} public_contacts - The public contacts of the organization.
+ * @property {Object} logo_url - The URL to the logo of the organization.
+ * @property {Object} plan - The plan of the organization.
+ * @property {string} plan.name - The name of the plan of the organization.
+ * @property {OrganizationPlanQuota} plan.quota - The quota of the plan for the organization.
+ * @property {OrganizationLink[]} parent_organizations - The parent organizations of the organization.
+ * @property {OrganizationLink[]} child_organizations - The child organizations of the organization.
  */
 
 /* ========== Response ========== */
 
 /**
+ * @typedef {Object} ApiErrorData
+ * @property {string} message - The error message.
+ */
+
+/**
  * @typedef {Object} ApiResponse
- * @property {Object} data - The payload returned from the request or error information.
+ * @property {Object|ApiErrorData} data - The payload returned from the request or error information.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -272,8 +327,99 @@
  */
 
 /**
+ * @typedef {Object} ApiContactResponse
+ * @property {Contact|ApiErrorData} data - The contact.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} ApiContactsResponse
+ * @property {Contact[]|ApiErrorData} data - The contacts.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+
+/**
+ * @typedef {Object} ApiCategoriesResponse
+ * @property {Category[]|ApiErrorData} data - The categories.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} ApiCustomFieldResponse
+ * @property {CustomField|ApiErrorData} data - The custom field.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} ApiCustomFieldsResponse
+ * @property {CustomField[]|ApiErrorData} data - The custom fields.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} ApiCustomFieldChoiceResponse
+ * @property {CustomFieldChoice|ApiErrorData} data - The custom field.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} ApiCustomFieldChoicesResponse
+ * @property {CustomFieldChoice[]|ApiErrorData} data - The custom fields.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} ApiOrganizationResponse
+ * @property {Organization|ApiErrorData} data - The organization.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} ApiOrganizationsResponse
+ * @property {Organization[]|ApiErrorData} data - The organizations.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} ApiOrganizationContactsResponse
+ * @property {OrganizationPublicContact[]|ApiErrorData} data - The organizations.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
  * @typedef {Object} ApiV2ContactResponse
- * @property {V2_Contact} data - The contact.
+ * @property {V2_Contact|ApiErrorData} data - The contact.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -282,7 +428,7 @@
 
 /**
  * @typedef {Object} ApiV2ContactsResponse
- * @property {V2_Contact[]} data - The contacts.
+ * @property {V2_Contact[]|ApiErrorData} data - The contacts.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -291,7 +437,7 @@
 
 /**
  * @typedef {Object} ApiV2MembershipResponse
- * @property {V2_Membership} data - The membership.
+ * @property {V2_Membership|ApiErrorData} data - The membership.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -300,7 +446,7 @@
 
 /**
  * @typedef {Object} ApiV2MembershipsResponse
- * @property {V2_Membership[]} data - The memberships.
+ * @property {V2_Membership[]|ApiErrorData} data - The memberships.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -309,7 +455,7 @@
 
 /**
  * @typedef {Object} ApiV2NoteResponse
- * @property {V2_Note} data - The note.
+ * @property {V2_Note|ApiErrorData} data - The note.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -317,8 +463,8 @@
  */
 
 /**
- * @typedef {Object} V2OrganizationResponse
- * @property {V2_Organization} data - The organization.
+ * @typedef {Object} ApiV2OrganizationResponse
+ * @property {V2_Organization|ApiErrorData} data - The organization.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
@@ -326,8 +472,8 @@
  */
 
 /**
- * @typedef {Object} V2OrganizationRolesResponse
- * @property {V2_OrganizationRoles[]} data - The roles.
+ * @typedef {Object} ApiV2OrganizationRolesResponse
+ * @property {V2_OrganizationRoles[]|ApiErrorData} data - The roles.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.

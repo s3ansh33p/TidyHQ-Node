@@ -1,9 +1,11 @@
 /**
  * @fileoverview This file contains functions for interacting with Associations in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 1.1.0
+ * @version 1.2.0
  * @license GPL-3.0
  */
+
+const { Rest } = require("./utils/Rest.js");
 
 /**
  * @description This class is used to interact with Associations in TidyHQ.
@@ -13,7 +15,6 @@ class AssociationAPI {
 
     /**
      * @param {Rest} rest - The rest instance to use for requests.
-     * @returns {AssociationAPI}
      * @constructor
      */
     constructor(rest) {
@@ -24,16 +25,10 @@ class AssociationAPI {
      * @description This function is used to get the organizations that fall under the association associated with the access token.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {object} - The list of organizations.
+     * @returns {Promise<ApiOrganizationsResponse>} - The list of organizations.
      */
     async getOrganizations(options = {}) {
-        let organizations = [];
-        await this.rest.get(`/v1/association/organizations`, options.access_token).then((response) => {
-            organizations = response.data;
-        }).catch((error) => {
-            throw new Error(`Association.getOrganizations: ${error}\n${error.response.data}`);
-        });
-        return organizations;
+        return await this.rest.get(`/v1/association/organizations`, options.access_token);
     }
 
     /**
@@ -41,16 +36,10 @@ class AssociationAPI {
      * @param {string} id - The ID of the organization.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {object} - The organization.
+     * @returns {Promise<ApiOrganizationResponse>} - The organization.
      */
     async getOrganization(id, options = {}) {
-        let organization = [];
-        await this.rest.get(`/v1/association/organizations/${id}`, options.access_token).then((response) => {
-            organization = response.data;
-        }).catch((error) => {
-            throw new Error(`Association.getOrganization: ${error}\n${error.response.data}`);
-        });
-        return organization;
+        return await this.rest.get(`/v1/association/organizations/${id}`, options.access_token);
     }
 
     /**
@@ -58,16 +47,10 @@ class AssociationAPI {
      * @param {string} organization_id - The ID of the organization.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {object} - The list of contacts.
+     * @returns {Promise<ApiOrganizationContactsResponse>} - The list of contacts.
      */
     async getOrganizationContacts(organization_id, options = {}) {
-        let contacts = [];
-        await this.rest.get(`/v1/association/organizations/${organization_id}/contacts`, options.access_token).then((response) => {
-            contacts = response.data;
-        }).catch((error) => {
-            throw new Error(`Association.getOrganizationContacts: ${error}\n${error.response.data}`);
-        });
-        return contacts;
+        return await this.rest.get(`/v1/association/organizations/${organization_id}/contacts`, options.access_token);
     }
 
     /**
@@ -75,16 +58,10 @@ class AssociationAPI {
      * @param {string} organization_id - The ID of the organization.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {object} - The list of events.
+     * @returns {Promise<object>} - The list of events. [!] Type
      */
     async getOrganizationEvents(organization_id, options = {}) {
-        let events = [];
-        await this.rest.get(`/v1/association/organizations/${organization_id}/events`, options.access_token).then((response) => {
-            events = response.data;
-        }).catch((error) => {
-            throw new Error(`Association.getOrganizationEvents: ${error}\n${error.response.data}`);
-        });
-        return events;
+        return await this.rest.get(`/v1/association/organizations/${organization_id}/events`, options.access_token);
     }
 
     /**
@@ -93,16 +70,10 @@ class AssociationAPI {
      * @param {string} event_id - The ID of the event.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {object} - The event.
+     * @returns {Promise<object>} - The event. [!] Type
      */
     async getOrganizationEvent(organization_id, event_id, options = {}) {
-        let event = [];
-        await this.rest.get(`/v1/association/organizations/${organization_id}/events/${event_id}`, options.access_token).then((response) => {
-            event = response.data;
-        }).catch((error) => {
-            throw new Error(`Association.getOrganizationEvent: ${error}\n${error.response.data}`);
-        });
-        return event;
+        return await this.rest.get(`/v1/association/organizations/${organization_id}/events/${event_id}`, options.access_token);
     }
 
     /**
@@ -110,7 +81,7 @@ class AssociationAPI {
      * @param {string} organization_id - The ID of the organization.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {object} - The list of meetings.
+     * @returns {Promise<object>} - The list of meetings. [!] Type
      */
     async getOrganizationMeetings(organization_id, options = {}) {
         let meetings = [];
@@ -128,7 +99,7 @@ class AssociationAPI {
      * @param {string} meeting_id - The ID of the meeting.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {object} - The meeting.
+     * @returns {Promise<object>} - The meeting. [!] Type
      */
     async getOrganizationMeeting(organization_id, meeting_id, options = {}) {
         let meeting = [];

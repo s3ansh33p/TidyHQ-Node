@@ -1,10 +1,11 @@
 /**
  * @fileoverview This file contains functions for interacting with Categories in TidyHQ.
  * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 1.1.0
+ * @version 1.2.0
  * @license GPL-3.0
  */
 
+const { Rest } = require("./utils/Rest.js");
 const { makeURLParameters } = require("./utils/Builder.js");
 
 /**
@@ -15,7 +16,6 @@ class CategoriesAPI {
 
     /**
      * @param {Rest} rest - The rest instance to use for requests.
-     * @returns {CategoriesAPI}
      * @constructor
      */
     constructor(rest) {
@@ -28,17 +28,11 @@ class CategoriesAPI {
      * @param {string} [options.access_token] - The access token to use. - The options for the request.
      * @param {string} [options.limit] - The number of results to return.
      * @param {string} [options.offset] - The number of results to skip.
-     * @returns {object} - The list of categories.
+     * @returns {Promise<ApiCategoriesResponse>} - The list of categories.
      */
     async getCategories(options = {}) {
-        let optionalParametersString = makeURLParameters(["limit", "offset"], options)
-        let categories = [];
-        await this.rest.get(`/v1/categories${optionalParametersString}`, options.access_token).then((response) => {
-            categories = response.data;
-        }).catch((error) => {
-            throw new Error(`Categories.getCategories: ${error}\n${error.response.data}`);
-        });
-        return categories;
+        const optionalParametersString = makeURLParameters(["limit", "offset"], options)
+        return await this.rest.get(`/v1/categories${optionalParametersString}`, options.access_token);
     }
 
 }

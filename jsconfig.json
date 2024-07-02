@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "ES6",
+        "target": "ES2016",
         "module": "CommonJS",
         "maxNodeModuleJsDepth": 1,
         "checkJs": true,
