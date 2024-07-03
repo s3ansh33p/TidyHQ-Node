@@ -21,7 +21,6 @@ class TidyHQWebhook {
      * @description This function is used to create a new instance of the TidyHQWebhook class.
      * @param {string} webhookId - The ID of the webhook.
      * @param {string} signingKey - The signing key for the webhook.
-     * @returns {object} - A new instance of the TidyHQWebhook class.
      * @constructor
      */
     constructor(webhookId, signingKey) {
@@ -55,9 +54,9 @@ class TidyHQWebhook {
     /**
      * @description This function is used to verify a message from TidyHQ.
      * @param {string} tidySignatureHeader - The signature header from TidyHQ.
-     * @param {string} body - The body of the message.
+     * @param {object} body - The body of the message.
      * @param {string} httpMethod - The HTTP method of the webhook.
-     * @returns {object} - The data from the webhook.
+     * @returns {Promise<object>} - The data from the webhook. [!] Type tba
      */
     async verify(tidySignatureHeader, body, httpMethod = 'POST') {
         const signingKey = Buffer.from(this.signingKey, 'base64')
