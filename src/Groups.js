@@ -33,7 +33,7 @@ class GroupsAPI {
      */
     async getGroups(options = {}) {
         const optionalParametersString = makeURLParameters(["limit", "offset", "search_terms"], options)
-        return await this.rest.get(`/v1/groups${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/groups${optionalParametersString}`, options?.access_token);
     }
 
     /**
@@ -48,7 +48,7 @@ class GroupsAPI {
      */
     async getGroupsForContact(contact_id, options = {}) {
         const optionalParametersString = makeURLParameters(["limit", "offset", "search_terms"], options)
-        return await this.rest.get(`/v1/contacts/${contact_id}/groups${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/contacts/${contact_id}/groups${optionalParametersString}`, options?.access_token);
     }
 
     /**
@@ -59,7 +59,7 @@ class GroupsAPI {
      * @returns {Promise<TidyAPI_V1_Group>} - A group.
      */
     async getGroup(group_id, options = {}) {
-        return await this.rest.get(`/v1/groups/${group_id}`, options.access_token);
+        return await this.rest.get(`/v1/groups/${group_id}`, options?.access_token);
     }
 
     /**
@@ -75,7 +75,7 @@ class GroupsAPI {
             label: name,
             description: options.description
         }
-        return await this.rest.post(`/v1/groups`, data, options.access_token);
+        return await this.rest.post(`/v1/groups`, data, options?.access_token);
     }
 
     /**
@@ -93,7 +93,7 @@ class GroupsAPI {
             description: options.description
         }
         if (Object.keys(data).length === 0) throw new Error("CustomFields.updateCustomField: No valid options provided.");
-        return await this.rest.put(`/v1/groups/${group_id}`, options, options.access_token);
+        return await this.rest.put(`/v1/groups/${group_id}`, options, options?.access_token);
     }
 
     /**
@@ -104,7 +104,7 @@ class GroupsAPI {
      * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
     async deleteGroup(group_id, options = {}) {
-        return await this.rest.delete(`/v1/groups/${group_id}`, {}, options.access_token);
+        return await this.rest.delete(`/v1/groups/${group_id}`, {}, options?.access_token);
     }
 
     /**
@@ -116,7 +116,7 @@ class GroupsAPI {
      * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response.
      */
     async addContactToGroup(group_id, contact_id, options = {}) {
-        return await this.rest.put(`/v1/groups/${group_id}/contacts/${contact_id}`, {}, options.access_token);
+        return await this.rest.put(`/v1/groups/${group_id}/contacts/${contact_id}`, {}, options?.access_token);
     }
 
     /**
@@ -128,7 +128,7 @@ class GroupsAPI {
      * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response.
      */
     async removeContactFromGroup(group_id, contact_id, options = {}) {
-        return await this.rest.delete(`/v1/groups/${group_id}/contacts/${contact_id}`, {}, options.access_token);
+        return await this.rest.delete(`/v1/groups/${group_id}/contacts/${contact_id}`, {}, options?.access_token);
     }
 }
 

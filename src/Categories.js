@@ -32,7 +32,7 @@ class CategoriesAPI {
      */
     async getCategories(options = {}) {
         const optionalParametersString = makeURLParameters(["limit", "offset"], options)
-        return await this.rest.get(`/v1/categories${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/categories${optionalParametersString}`, options?.access_token);
     }
 
 }

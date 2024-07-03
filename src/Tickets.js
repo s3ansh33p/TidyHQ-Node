@@ -30,7 +30,7 @@ class TicketsAPI {
      * @returns {Promise<TidyAPI_V1_Tickets>} - The list of tickets.
      */
     async getTickets(event_id, options = {}) {
-        return await this.rest.get(`/v1/events/${event_id}/tickets`, options.access_token);
+        return await this.rest.get(`/v1/events/${event_id}/tickets`, options?.access_token);
     }
 
     /**
@@ -42,7 +42,7 @@ class TicketsAPI {
      * @returns {Promise<TidyAPI_V1_Ticket>} - The ticket.
      */
     async getTicket(event_id, ticket_id, options = {}) {
-        return await this.rest.get(`/v1/events/${event_id}/tickets/${ticket_id}`, options.access_token);
+        return await this.rest.get(`/v1/events/${event_id}/tickets/${ticket_id}`, options?.access_token);
     }
 
     /**
@@ -53,7 +53,7 @@ class TicketsAPI {
      * @returns {Promise<TidyAPI_V1_SoldTickets>} - The list of sold tickets.
      */
     async getSoldTickets(event_id, options = {}) {
-        return await this.rest.get(`/v1/events/${event_id}/tickets/sold`, options.access_token);
+        return await this.rest.get(`/v1/events/${event_id}/tickets/sold`, options?.access_token);
     }
 
     /**
@@ -76,7 +76,7 @@ class TicketsAPI {
             maximum_purchase: options.maximum_purchase,
             sales_end: options.sales_end
         };
-        return await this.rest.post(`/v1/events/${event_id}/tickets`, data, options.access_token);
+        return await this.rest.post(`/v1/events/${event_id}/tickets`, data, options?.access_token);
     }
 
     /**
@@ -103,7 +103,7 @@ class TicketsAPI {
         if (Object.keys(data).length === 0) {
             throw new Error("Tickets.updateTicket: No options provided.");
         }
-        return await this.rest.put(`/v1/events/${event_id}/tickets/${ticket_id}`, data, options.access_token);
+        return await this.rest.put(`/v1/events/${event_id}/tickets/${ticket_id}`, data, options?.access_token);
     }
 
     /**
@@ -115,7 +115,7 @@ class TicketsAPI {
      * @returns {Promise<TidyAPI_Response>} - Whether or not the ticket was deleted.
      */
     async deleteTicket(event_id, ticket_id, options = {}) {
-        return await this.rest.delete(`/v1/events/${event_id}/tickets/${ticket_id}`, {}, options.access_token);
+        return await this.rest.delete(`/v1/events/${event_id}/tickets/${ticket_id}`, {}, options?.access_token);
     }
 }
 

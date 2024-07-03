@@ -35,7 +35,7 @@ class EventsAPI {
      */
     async getEvents(options) {
         const optionalParametersString = makeURLParameters(["limit", "offset", "start_at", "end_at", "public"], options)
-        return await this.rest.get(`/v1/events${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/events${optionalParametersString}`, options?.access_token);
     }
 
     /**
@@ -46,7 +46,7 @@ class EventsAPI {
      * @returns {Promise<TidyAPI_V1_Event>} - The event.
      */
     async getEvent(event_id, options = {}) {
-        return await this.rest.get(`/v1/events/${event_id}`, options.access_token);
+        return await this.rest.get(`/v1/events/${event_id}`, options?.access_token);
     }
 
     /**
@@ -57,7 +57,7 @@ class EventsAPI {
      * @returns {Promise<TidyAPI_V1_Event>} - The event.
      */
     async createEvent(event, options = {}) {
-        return await this.rest.post(`/v1/events`, event, options.access_token);
+        return await this.rest.post(`/v1/events`, event, options?.access_token);
     }
 
     /**
@@ -72,7 +72,7 @@ class EventsAPI {
         if (Object.keys(event).length === 0) {
             throw new Error("Events.updateEvent: No options provided.");
         }
-        return await this.rest.put(`/v1/events/${event_id}`, event, options.access_token);
+        return await this.rest.put(`/v1/events/${event_id}`, event, options?.access_token);
     }
 
     /**
@@ -83,7 +83,7 @@ class EventsAPI {
      * @returns {Promise<TidyAPI_Response>} - Success or failure. 
      */
     async deleteEvent(event_id, options = {}) {
-        return await this.rest.delete(`/v1/events/${event_id}`, {}, options.access_token);
+        return await this.rest.delete(`/v1/events/${event_id}`, {}, options?.access_token);
     }
 
 }

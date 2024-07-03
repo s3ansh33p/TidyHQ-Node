@@ -41,7 +41,7 @@ class V2_ContactsAPI {
      */
     async getContacts(options = {}) {
         let optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset", "registered", "all", "ids[]", "scope", "search_terms", "filter_equals[][]"], options)
-        return await this.rest.get(`/v2/contacts${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v2/contacts${optionalParametersString}`, options?.access_token);
     }
 
     /**
@@ -54,7 +54,7 @@ class V2_ContactsAPI {
      * @returns {Promise<TidyAPI_V2_Contacts>} - The created contact.
      */
     async createContact(contact, options = {}) {
-        return await this.rest.post("/v2/contacts", contact, options.access_token);
+        return await this.rest.post("/v2/contacts", contact, options?.access_token);
     }
 
     /**
@@ -66,7 +66,7 @@ class V2_ContactsAPI {
      * @returns {Promise<TidyAPI_V2_Contacts>} - The contact object.
      **/
     async getContact(contactID = "me", options = {}) {
-        return await this.rest.get(`/v2/contacts/${contactID}`, options.access_token);
+        return await this.rest.get(`/v2/contacts/${contactID}`, options?.access_token);
     }
 
     /**
@@ -81,7 +81,7 @@ class V2_ContactsAPI {
     async createContactNote(contact_id, note, options = {}) {
         return await this.rest.post(`/v2/contacts/${contact_id}/notes`, {
             text: note
-        }, options.access_token);
+        }, options?.access_token);
     }
 
     /**
@@ -94,7 +94,7 @@ class V2_ContactsAPI {
      * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response. 
      */
     async deleteContactNote(contact_id, note_id, options = {}) {
-        return await this.rest.delete(`/v2/contacts/${contact_id}/notes/${note_id}`, {}, options.access_token);
+        return await this.rest.delete(`/v2/contacts/${contact_id}/notes/${note_id}`, {}, options?.access_token);
     }
 
     /**
@@ -107,7 +107,7 @@ class V2_ContactsAPI {
      * @returns {Promise<TidyAPI_V2_Contact>} - The updated contact.
      */
     async updateContact(contact_id, contact, options = {}) {
-        return await this.rest.patch(`/v2/contacts/${contact_id}`, contact, options.access_token);
+        return await this.rest.patch(`/v2/contacts/${contact_id}`, contact, options?.access_token);
     }
 
     /**
@@ -124,7 +124,7 @@ class V2_ContactsAPI {
      */
     async getContactMemberships(contact_id, options = {}) {
         const optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset"], options)
-        return await this.rest.get(`/v2/contacts/${contact_id}/memberships${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v2/contacts/${contact_id}/memberships${optionalParametersString}`, options?.access_token);
     }
 
 }

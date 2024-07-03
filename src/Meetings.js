@@ -32,7 +32,7 @@ class MeetingsAPI {
      */
     async getMeetings(options) {
         const optionalParametersString = makeURLParameters(["limit", "offset"], options)
-        return await this.rest.get(`/v1/events${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/events${optionalParametersString}`, options?.access_token);
     }
 
     /**
@@ -43,7 +43,7 @@ class MeetingsAPI {
      * @returns {Promise<TidyAPI_V1_Meeting>} - The meeting.
      */
     async getMeeting(meeting_id, options = {}) {
-        return await this.rest.get(`/v1/meetings/${meeting_id}`, options.access_token);
+        return await this.rest.get(`/v1/meetings/${meeting_id}`, options?.access_token);
     }
 }
 

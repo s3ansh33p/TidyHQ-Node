@@ -28,7 +28,7 @@ class AssociationAPI {
      * @returns {Promise<TidyAPI_V1_Organizations>} - The list of organizations.
      */
     async getOrganizations(options = {}) {
-        return await this.rest.get(`/v1/association/organizations`, options.access_token);
+        return await this.rest.get(`/v1/association/organizations`, options?.access_token);
     }
 
     /**
@@ -39,7 +39,7 @@ class AssociationAPI {
      * @returns {Promise<TidyAPI_V1_Organization>} - The organization.
      */
     async getOrganization(id, options = {}) {
-        return await this.rest.get(`/v1/association/organizations/${id}`, options.access_token);
+        return await this.rest.get(`/v1/association/organizations/${id}`, options?.access_token);
     }
 
     /**
@@ -50,7 +50,7 @@ class AssociationAPI {
      * @returns {Promise<TidyAPI_V1_OrganizationContacts>} - The list of contacts.
      */
     async getOrganizationContacts(organization_id, options = {}) {
-        return await this.rest.get(`/v1/association/organizations/${organization_id}/contacts`, options.access_token);
+        return await this.rest.get(`/v1/association/organizations/${organization_id}/contacts`, options?.access_token);
     }
 
     /**
@@ -66,7 +66,7 @@ class AssociationAPI {
      * @returns {Promise<TidyAPI_V1_Events>} - The list of events.
      */
     async getOrganizationEvents(organization_id, options = {}) {
-        return await this.rest.get(`/v1/association/organizations/${organization_id}/events`, options.access_token);
+        return await this.rest.get(`/v1/association/organizations/${organization_id}/events`, options?.access_token);
     }
 
     /**
@@ -78,7 +78,7 @@ class AssociationAPI {
      * @returns {Promise<TidyAPI_V1_Event>} - The event.
      */
     async getOrganizationEvent(organization_id, event_id, options = {}) {
-        return await this.rest.get(`/v1/association/organizations/${organization_id}/events/${event_id}`, options.access_token);
+        return await this.rest.get(`/v1/association/organizations/${organization_id}/events/${event_id}`, options?.access_token);
     }
 
     /**
@@ -91,7 +91,7 @@ class AssociationAPI {
      * @returns {Promise<TidyAPI_V1_Meetings>} - The list of meetings.
      */
     async getOrganizationMeetings(organization_id, options = {}) {
-        return await this.rest.get(`/v1/association/organizations/${organization_id}/meetings`, options.access_token);
+        return await this.rest.get(`/v1/association/organizations/${organization_id}/meetings`, options?.access_token);
     }
 
     /**
@@ -103,7 +103,7 @@ class AssociationAPI {
      * @returns {Promise<TidyAPI_V1_Meeting>} - The meeting.
      */
     async getOrganizationMeeting(organization_id, meeting_id, options = {}) {
-        return await this.rest.get(`/v1/association/organizations/${organization_id}/meetings/${meeting_id}`, options.access_token);
+        return await this.rest.get(`/v1/association/organizations/${organization_id}/meetings/${meeting_id}`, options?.access_token);
     }
 
 }

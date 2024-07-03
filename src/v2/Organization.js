@@ -30,7 +30,7 @@ class V2_OrganizationAPI {
      * @returns {Promise<TidyAPI_V2_Organization>} - The organization.
      */
     async getOrganization(options = {}) {
-        return await this.rest.get(`/v2/organization`, options.access_token);
+        return await this.rest.get(`/v2/organization`, options?.access_token);
     }
 
     /**
@@ -46,7 +46,7 @@ class V2_OrganizationAPI {
      */
     async getAdmins(options = {}) {
         const optionalParametersString = makeURLParameters(["limit", "offset", "updated_since", "updated_before"], options);
-        return await this.rest.get(`/v2/organization/admins${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v2/organization/admins${optionalParametersString}`, options?.access_token);
     }
 
     /**
@@ -62,7 +62,7 @@ class V2_OrganizationAPI {
      */
     async getRoles(options = {}) {
         const optionalParametersString = makeURLParameters(["limit", "offset", "updated_since", "updated_before"], options);
-        return await this.rest.get(`/v2/organization/roles${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v2/organization/roles${optionalParametersString}`, options?.access_token);
     }
 
 }

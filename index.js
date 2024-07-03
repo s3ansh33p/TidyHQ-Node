@@ -5,7 +5,7 @@
  * @license GPL-3.0
  */
 
-const axios = require("axios");
+const axios = require("axios").default;
 
 const { AssociationAPI } = require("./src/Association");
 const { CategoriesAPI } = require("./src/Categories");
@@ -36,6 +36,11 @@ const { Rest } = require("./src/utils/Rest");
  * const thq = new TidyHQ(process.env.ACCESS_TOKEN);
  */
 class TidyHQ {
+
+    /**
+     * @param {string} accessToken - The access token to use.
+     * @constructor
+     */
     constructor(accessToken, host = "https://api.tidyhq.com") {
         this.accessToken = accessToken;
         this.host = host;

@@ -35,7 +35,7 @@ class MembershipsAPI {
      */
     async #_getMemberships(path, options) {
         const optionalParametersString = makeURLParameters(["limit", "offset", "active", "updated_since"], options)
-        return await this.rest.get(`/v1/${path}${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/${path}${optionalParametersString}`, options?.access_token);
     }
 
     /**
@@ -90,7 +90,7 @@ class MembershipsAPI {
      * @returns {Promise<TidyAPI_V1_Membership>} - The membership.
      */
     async getMembership(membership_id, options = {}) {
-        return await this.rest.get(`/v1/memberships/${membership_id}`, options.access_token);
+        return await this.rest.get(`/v1/memberships/${membership_id}`, options?.access_token);
     }
 }
 

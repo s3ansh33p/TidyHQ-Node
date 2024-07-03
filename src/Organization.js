@@ -28,7 +28,7 @@ class OrganizationAPI {
      * @returns {Promise<TidyAPI_V1_Organization>} - The organization.
      */
     async getOrganization(options = {}) {
-        return await this.rest.get(`/v1/organization`, options.access_token);
+        return await this.rest.get(`/v1/organization`, options?.access_token);
     }
 
 }

@@ -32,7 +32,7 @@ class ShopAPI {
      */
     async getProducts(options = {}) {
         const optionalParametersString = makeURLParameters(["limit", "offset"], options)
-        return await this.rest.get(`/v1/shop/products${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/shop/products${optionalParametersString}`, options?.access_token);
     }
     
     /**
@@ -43,7 +43,7 @@ class ShopAPI {
      * @returns {Promise<TidyAPI_V1_ShopProduct>} - The product.
      */
     async getProduct(product_id, options = {}) {
-        return await this.rest.get(`/v1/shop/products/${product_id}`, options.access_token);
+        return await this.rest.get(`/v1/shop/products/${product_id}`, options?.access_token);
     }
 
     /**
@@ -56,7 +56,7 @@ class ShopAPI {
      */
     async getShippingOptions(options = {}) {
         const optionalParametersString = makeURLParameters(["limit", "offset"], options)
-        return await this.rest.get(`/v1/shop/shipping_options${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/shop/shipping_options${optionalParametersString}`, options?.access_token);
     }
 
     /**
@@ -69,7 +69,7 @@ class ShopAPI {
      * @returns {Promise<TidyAPI_V1_ShippingOption>} - The shipping option.
      */
     async getShippingOption(shipping_option_id, options = {}) {
-        return await this.rest.get(`/v1/shop/shipping_options/${shipping_option_id}`, options.access_token);
+        return await this.rest.get(`/v1/shop/shipping_options/${shipping_option_id}`, options?.access_token);
     }
 
     /**
@@ -84,7 +84,7 @@ class ShopAPI {
      */
     async getOrders(options = {}) {
         const optionalParametersString = makeURLParameters(["limit", "offset", "created_since", "status"], options)
-        return await this.rest.get(`/v1/shop/orders${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/shop/orders${optionalParametersString}`, options?.access_token);
     }
     
     /**
@@ -95,7 +95,7 @@ class ShopAPI {
      * @returns {Promise<TidyAPI_V1_ShopOrder>} - The order.
      */
     async getOrder(order_id, options = {}) {
-        return await this.rest.get(`/v1/shop/orders/${order_id}`, options.access_token);
+        return await this.rest.get(`/v1/shop/orders/${order_id}`, options?.access_token);
     }
 
 }

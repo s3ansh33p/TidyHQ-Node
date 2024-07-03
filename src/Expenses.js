@@ -40,7 +40,7 @@ class ExpensesAPI {
             updated_since: options.updated_since
         }
         const optionalParametersString = makeURLParameters(["limit", "offset", "status", "updated_since"], data);
-        return await this.rest.get(`/v1/expenses${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/expenses${optionalParametersString}`, options?.access_token);
     }
         
     /**
@@ -51,7 +51,7 @@ class ExpensesAPI {
      * @returns {Promise<TidyAPI_V1_Expense>} - An Expense object.
      */
     async getExpense(expenseID, options = {}) {
-        return await this.rest.get(`/v1/expenses/${expenseID}`, options.access_token);
+        return await this.rest.get(`/v1/expenses/${expenseID}`, options?.access_token);
     }
 
     /**
@@ -64,7 +64,7 @@ class ExpensesAPI {
     async createExpense(expense, options = {}) {
         return await this.rest.post(`/v1/expenses`, {
             expense
-        }, options.access_token);
+        }, options?.access_token);
     }
 
     /**
@@ -87,7 +87,7 @@ class ExpensesAPI {
      * @returns {Promise<TidyAPI_V1_Payment>} - The newly created payment.
      */
     async addPayment(expenseID, options) {
-        const access_token = options.access_token;
+        const access_token = options?.access_token || null;
         delete options.access_token;
 
         if (!this.#_isValidType(options.payment_type)) throw new Error(`Expenses.addPayment: Invalid payment type ${options.payment_type}.`);
@@ -105,7 +105,7 @@ class ExpensesAPI {
      * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
     async deleteExpense(expenseID, options = {}) {
-        return await this.rest.delete(`/v1/expenses/${expenseID}`, {}, options.access_token);
+        return await this.rest.delete(`/v1/expenses/${expenseID}`, {}, options?.access_token);
     }
 }
 

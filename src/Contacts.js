@@ -39,7 +39,7 @@ class ContactsAPI {
      */
     async #_getContacts(path, options) {
         const optionalParametersString = makeURLParameters(["limit", "offset", "search_terms", "show_all", "updated_since", "ids[]", "fields[]", "filter[[]]"], options)
-        return await this.rest.get(`/v1/${path}${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/${path}${optionalParametersString}`, options?.access_token);
     }
 
     /**
@@ -87,7 +87,7 @@ class ContactsAPI {
      * @returns {Promise<TidyAPI_V1_Contact>} - A contact.
      **/
     async getContact(contactID = "me", options = {}) {
-        return await this.rest.get(`/v1/contacts/${contactID}`, options.access_token);
+        return await this.rest.get(`/v1/contacts/${contactID}`, options?.access_token);
     }
 
     /**
@@ -101,7 +101,7 @@ class ContactsAPI {
         if (!contact.first_name) {
             throw new Error("First name is required to create a contact.");
         }
-        return await this.rest.post("/v1/contacts", contact, options.access_token);
+        return await this.rest.post("/v1/contacts", contact, options?.access_token);
     }
 
     /**
@@ -116,7 +116,7 @@ class ContactsAPI {
         if (Object.keys(contact).length === 0) {
             throw new Error("At least one key must be set to update a contact.");
         }
-        return await this.rest.put(`/v1/contacts/${contact_id}`, contact, options.access_token);
+        return await this.rest.put(`/v1/contacts/${contact_id}`, contact, options?.access_token);
     }
 
     /**
@@ -127,7 +127,7 @@ class ContactsAPI {
      * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
     async deleteContact(contact_id, options = {}) {
-        return await this.rest.delete(`/v1/contacts/${contact_id}`, {}, options.access_token);
+        return await this.rest.delete(`/v1/contacts/${contact_id}`, {}, options?.access_token);
     }
 }
 

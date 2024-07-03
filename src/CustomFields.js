@@ -29,7 +29,7 @@ class CustomFieldsAPI {
      * @returns {Promise<TidyAPI_V1_CustomFields>} - An array of custom fields.
      */
     async getCustomFields(options = {}) {
-        return await this.rest.get(`/v1/custom_fields`, options.access_token);
+        return await this.rest.get(`/v1/custom_fields`, options?.access_token);
     }
 
     /**
@@ -40,7 +40,7 @@ class CustomFieldsAPI {
      * @returns {Promise<TidyAPI_V1_CustomField>} - The custom field.
      **/
     async getCustomField(customFieldID, options = {}) {
-        return await this.rest.get(`/v1/custom_fields/${customFieldID}`, options.access_token);
+        return await this.rest.get(`/v1/custom_fields/${customFieldID}`, options?.access_token);
     }
 
     /**
@@ -65,7 +65,7 @@ class CustomFieldsAPI {
         return await this.rest.post(`/v1/custom_fields`, {
             title,
             type
-        }, options.access_token);
+        }, options?.access_token);
     }
 
     /**
@@ -86,7 +86,7 @@ class CustomFieldsAPI {
         let optionalParametersString = makeURLParameters(["title", "type"], data)
         if (optionalParametersString == "") throw new Error("CustomFields.updateCustomField: No valid options provided.");
 
-        return await this.rest.put(`/v1/custom_fields/${customFieldID}${optionalParametersString}`, {}, options.access_token);
+        return await this.rest.put(`/v1/custom_fields/${customFieldID}${optionalParametersString}`, {}, options?.access_token);
     }
 
     /**
@@ -97,7 +97,7 @@ class CustomFieldsAPI {
      * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
     async deleteCustomField(customFieldID, options = {}) {
-        return await this.rest.delete(`/v1/custom_fields/${customFieldID}`, options.access_token);
+        return await this.rest.delete(`/v1/custom_fields/${customFieldID}`, options?.access_token);
     }
 
     /**
@@ -108,7 +108,7 @@ class CustomFieldsAPI {
      * @returns {Promise<TidyAPI_V1_CustomFieldChoices>} - An array of choice objects.
      */
     async getCustomFieldChoices(customFieldID, options = {}) {
-        return await this.rest.get(`/v1/custom_fields/${customFieldID}/choices`, options.access_token);
+        return await this.rest.get(`/v1/custom_fields/${customFieldID}/choices`, options?.access_token);
     }
 
     /**
@@ -120,7 +120,7 @@ class CustomFieldsAPI {
      * @returns {Promise<TidyAPI_V1_CustomFieldChoice>} - A choice object.
      */
     async getCustomFieldChoice(customFieldID, choiceID, options = {}) {
-        return await this.rest.get(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`, options.access_token);
+        return await this.rest.get(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`, options?.access_token);
     }
 
     /**
@@ -134,7 +134,7 @@ class CustomFieldsAPI {
     async createCustomFieldChoice(customFieldID, title, options = {}) {
         return await this.rest.post(`/v1/custom_fields/${customFieldID}/choices`, {
             title
-        }, options.access_token);
+        }, options?.access_token);
     }
 
     /**
@@ -149,7 +149,7 @@ class CustomFieldsAPI {
     async updateCustomFieldChoice(customFieldID, choiceID, title, options = {}) {
         return await this.rest.put(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`, {
             title
-        }, options.access_token);
+        }, options?.access_token);
     }
 
     /**
@@ -161,7 +161,7 @@ class CustomFieldsAPI {
      * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
     async deleteCustomFieldChoice(customFieldID, choiceID, options = {}) {
-        return await this.rest.delete(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`, {}, options.access_token);
+        return await this.rest.delete(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`, {}, options?.access_token);
     }
 
 }

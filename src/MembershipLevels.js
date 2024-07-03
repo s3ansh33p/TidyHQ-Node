@@ -32,7 +32,7 @@ class MembershipLevelsAPI {
      */
     async getMembershipLevels(options = {}) {
         const optionalParametersString = makeURLParameters(["limit", "offset"], options)
-        return await this.rest.get(`/v1/membership_levels${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/membership_levels${optionalParametersString}`, options?.access_token);
     }
 
     /**
@@ -43,7 +43,7 @@ class MembershipLevelsAPI {
      * @returns {Promise<TidyAPI_V1_MembershipLevel>} - The membership level.
      */
     async getMembershipLevel(membership_level_id, options = {}) {
-        return await this.rest.get(`/v1/membership_levels/${membership_level_id}`, options.access_token);
+        return await this.rest.get(`/v1/membership_levels/${membership_level_id}`, options?.access_token);
     }
 
     /**
@@ -54,7 +54,7 @@ class MembershipLevelsAPI {
      * @returns {Promise<TidyAPI_V1_PricingVariation>} - The pricing variations for the membership level.
      */
     async getPricingVariations(membership_level_id, options = {}) {
-        return await this.rest.get(`/v1/membership_levels/${membership_level_id}/pricing_variations`, options.access_token);
+        return await this.rest.get(`/v1/membership_levels/${membership_level_id}/pricing_variations`, options?.access_token);
     }
 }
 

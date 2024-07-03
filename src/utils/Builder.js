@@ -42,7 +42,7 @@ function makeURLParameters(keys, data) {
             arrayObjType = true;
         }
 
-        if (data[key] !== undefined) {
+        if (data && data[key] !== undefined) {
             if (arrayType) {
                 // ids[]=123&ids[]=2
                 for (let j = 0; j < data[key].length; j++) {

@@ -325,6 +325,17 @@
  * @property {Tidy_V1_Payment[]} payments - The payments associated with the deposit.
  */
 
+/**
+ * @typedef {Object} Tidy_V1_DepositParams
+ * @property {string} name - The name of the deposit.
+ * @property {number} amount - The amount of the deposit as a decimal.
+ * @property {string} paid_date - The date that the deposit was paid in ISO 8601 format.
+ * @property {number} category_id - The category of the deposit.
+ * @property {number} contact_id - The source of the deposit.
+ * @param {string} [description] - The description of the deposit.
+ * @param {string} [metadata] - The metadata of the deposit.
+ */
+
 /* ========== Expense ========== */
 
 /**

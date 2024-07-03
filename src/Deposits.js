@@ -39,7 +39,7 @@ class DepositsAPI {
             updated_since: options.updated_since
         }
         const optionalParametersString = makeURLParameters(["limit", "offset", "status", "updated_since"], data);
-        return await this.rest.get(`/v1/deposits${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/deposits${optionalParametersString}`, options?.access_token);
     }
         
     /**
@@ -50,34 +50,18 @@ class DepositsAPI {
      * @returns {Promise<TidyAPI_V1_Deposit>} - An deposit object.
      */
     async getDeposit(depositID, options = {}) {
-        return await this.rest.get(`/v1/deposits/${depositID}`, options.access_token);
+        return await this.rest.get(`/v1/deposits/${depositID}`, options?.access_token);
     }
 
     /**
      * @description This function is used to create a new deposit in TidyHQ.
-     * @param {string} name - The name of the deposit.
-     * @param {number} amount - The amount of the deposit as a decimal.
-     * @param {string} paid_date - The date that the deposit was paid in ISO 8601 format.
-     * @param {number} category_id - The category of the deposit.
-     * @param {number} contact_id - The source of the deposit.
+     * @param {Tidy_V1_DepositParams} deposit - The deposit to create.
      * @param {object} [options = {}] - The options to create the deposit with.
      * @param {string} [options.access_token] - The access token to use.
-     * @param {string} [options.description] - The description of the deposit.
-     * @param {string} [options.metadata] - The metadata of the deposit.
      * @returns {Promise<TidyAPI_V1_Deposit>} - The newly created deposit.
      */
-    async createDeposit(name, amount, paid_date, category_id, contact_id, options = {}) {
-        const access_token = options.access_token;
-        delete options.access_token;
-
-        return await this.rest.post(`/v1/deposits`, {
-            name,
-            amount,
-            paid_date,
-            category_id,
-            contact_id,
-            ...options
-        }, access_token);
+    async createDeposit(deposit, options = {}) {
+        return await this.rest.post(`/v1/deposits`, deposit, options?.access_token);
     }
 }
 

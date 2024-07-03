@@ -34,7 +34,7 @@ class TasksAPI {
      */
     async #_getTasks(path, options) {
         const optionalParametersString = makeURLParameters(["limit", "offset", "completed"], options)
-        return await this.rest.get(`/v1/${path}${optionalParametersString}`, options.access_token);
+        return await this.rest.get(`/v1/${path}${optionalParametersString}`, options?.access_token);
     }
 
     /**
@@ -72,7 +72,7 @@ class TasksAPI {
      * @returns {Promise<TidyAPI_V1_Task>} - The task.
      */
     async getTask(task_id, options = {}) {
-        return await this.rest.get(`/v1/tasks/${task_id}`, options.access_token);
+        return await this.rest.get(`/v1/tasks/${task_id}`, options?.access_token);
     }
 
     /**
@@ -91,7 +91,7 @@ class TasksAPI {
             title,
             due_date,
             description: options.description
-        }, options.access_token);
+        }, options?.access_token);
     }
 
     /**
@@ -107,7 +107,7 @@ class TasksAPI {
      * @returns {Promise<TidyAPI_V1_Task>} - The updated task.
      */
     async updateTask(task_id, options) {
-        const access_token = options.access_token;
+        const access_token = options?.access_token || null;
         delete options.access_token;
 
         return await this.rest.put(`/v1/tasks/${task_id}`, options, access_token);
@@ -121,7 +121,7 @@ class TasksAPI {
      * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
     async deleteTask(task_id, options = {}) {
-        return await this.rest.delete(`/v1/tasks/${task_id}`, {}, options.access_token);
+        return await this.rest.delete(`/v1/tasks/${task_id}`, {}, options?.access_token);
     }
 
 }

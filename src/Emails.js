@@ -29,7 +29,7 @@ class EmailsAPI {
      * @returns {Promise<TidyAPI_Response>} - The emails.
      */
     async #_getEmails(email_id, options) {
-        return await this.rest.get(`/v1/emails/${email_id}`, options.access_token);
+        return await this.rest.get(`/v1/emails/${email_id}`, options?.access_token);
     }
 
     /**
@@ -64,7 +64,7 @@ class EmailsAPI {
      * @returns {Promise<TidyAPI_V1_Email>} - The email.
      */
     async createEmail(email, options = {}) {
-        return await this.rest.post(`/v1/emails`, email, options.access_token);
+        return await this.rest.post(`/v1/emails`, email, options?.access_token);
     }
 
 }
