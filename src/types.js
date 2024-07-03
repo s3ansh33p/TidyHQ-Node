@@ -389,33 +389,54 @@
  * @typedef {Object} Tidy_V1_Meeting
  * @property {number} id - The unique identifier for the meeting.
  * @property {string} name - The name of the meeting.
- * @property {string} body - The body text of the meeting.
- * @property {string} date - The date and time of the meeting in ISO 8601 format.
- * @property {string} location - The location of the meeting.
+ * @property {string} description - The HTML description of the meeting.
+ * @property {string} date_at - The date and time of the meeting in local time format.
+ * @property {string|null} location_full_address - The full address of the meeting location.
  * @property {Tidy_V1_MeetingTopic[]} topics - An array of topics discussed in the meeting.
+ * @property {boolean} public - Whether the meeting is public.
+ * @property {string} created_at - The creation timestamp of the meeting in local time format.
+ * @property {Tidy_V1_MeetingScheduleTopic[]} schedule_meeting_topics - An array of scheduled meeting topics.
  * @property {number[]} attendees - An array of IDs representing the attendees of the meeting.
  * @property {number[]} apologies - An array of IDs representing the people who apologized for not attending the meeting.
+ * @property {number[]} maybe - An array of IDs representing the people who might attend the meeting.
  * @property {number[]} minute_takers - An array of IDs representing the minute takers of the meeting.
- * @property {boolean} public - Whether the meeting is public.
- * @property {string} created_at - The creation timestamp of the meeting.
+ * @property {number[]} chairpersons - An array of IDs representing the chairpersons of the meeting.
+ * @property {string} public_url - The public URL to access the meeting.
+ */
+
+/**
+ * @typedef {"idea"|"info"|"todo"} Tidy_V1_MeetingTopicCategory
  */
 
 /**
  * @typedef {Object} Tidy_V1_MeetingTopic
- * @property {number} owner_id - The ID of the owner of the topic.
- * @property {string} title - The title of the topic.
- * @property {string} date - The date of the topic.
- * @property {string} category - The category of the topic.
- * @property {Tidy_V1_Task|null} task - The task associated with the topic.
+ * @property {number} id - The unique identifier for the topic.
+ * @property {string} name - The name of the topic.
+ * @property {Tidy_V1_MeetingTopicCategory} category - The category of the topic.
+ * @property {number} schedule_meeting_id - The ID of the scheduled meeting this topic is associated with.
+ * @property {number} position - The position of the topic in the meeting.
+ * @property {number|null} duration - The duration of the topic in minutes.
+ * @property {string} created_at - The creation timestamp of the topic.
+ * @property {string} updated_at - The update timestamp of the topic.
+ * @property {string} description - The HTML description of the topic.
+ * @property {string|null} decision - The decision made regarding the topic.
+ * @property {number|null} parent_id - The ID of the parent topic.
+ * @property {string} code - A unique hex code identifying the topic.
+ * @property {string|null} deleted_at - The deletion timestamp of the topic.
+ * @property {number|null} member_id - The ID of the member associated with the topic.
+ * @property {number} revision - The revision number of the topic.
+ * @property {number} last_edited_by_id - The ID of the last member who edited the topic.
  */
 
 /**
- * @typedef {Object} Tidy_V1_Task
- * @property {number} id - The unique identifier for the task.
- * @property {string} title - The title of the task.
- * @property {string|null} description - The description of the task.
- * @property {string} due_date - The due date of the task in ISO 8601 format.
- * @property {string} created_at - The creation timestamp of the task.
+ * @typedef {Object} Tidy_V1_MeetingScheduleTopic
+ * @property {number|null} member_id - The ID of the member associated with the scheduled meeting topic.
+ * @property {Tidy_V1_MeetingTopicCategory} category - The category of the scheduled meeting topic.
+ * @property {string} name - The name of the scheduled meeting topic.
+ * @property {string} description - The HTML description of the scheduled meeting topic.
+ * @property {string|null} decision - The decision made regarding the scheduled meeting topic.
+ * @property {string} created_at - The creation timestamp of the scheduled meeting topic.
+ * @property {Tidy_V1_Task|null} task - The task associated with the scheduled meeting topic.
  */
 
 /* ========== Membership Level ========== */
@@ -584,6 +605,29 @@
  * @property {Tidy_V1_OrganizationPlanQuota} plan.quota - The quota of the plan for the organization.
  * @property {Tidy_V1_OrganizationLink[]} parent_organizations - The parent organizations of the organization.
  * @property {Tidy_V1_OrganizationLink[]} child_organizations - The child organizations of the organization.
+ */
+
+/* ========== Task ========== */
+
+/**
+ * @typedef {Object} Tidy_V1_Task
+ * @property {number} id - The unique identifier for the task.
+ * @property {string} title - The title of the task.
+ * @property {string|null} description - The description of the task.
+ * @property {string} due_date - The due date of the task in ISO 8601 format.
+ * @property {string} created_at - The creation timestamp of the task.
+ * @property {Tidy_V1_TaskRecurrence|null} recurrence - The recurrence pattern of the task, if any.
+ * @property {number|null} contact_id - The ID of the contact associated with the task, if any.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_TaskRecurrence
+ * @property {"daily"|"weekly"|"monthly"|"yearly"} type - The type of the recurrence
+ * @property {number} every - The interval of the recurrence.
+ * @property {string|null} end_date - The end date of the recurrence in ISO 8601 format, if any.
+ * @property {string[]} week_day_numbers - An array of week day numbers (as strings) that the recurrence falls on (indexed 0 from Monday to 6 on Sunday)
+ * @property {number|null} day_of_month - The day of the month the recurrence falls on.
+ * @property {number|null} month - The month the recurrence falls on.
  */
 
 /* ========== Response ========== */
@@ -876,6 +920,24 @@
 /**
  * @typedef {Object} TidyAPI_V1_PricingVariation
  * @property {Tidy_V1_PricingVariation[]|TidyAPI_Data} data - The membership level pricing variations.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Task
+ * @property {Tidy_V1_Task|TidyAPI_Data} data - The task.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Tasks
+ * @property {Tidy_V1_Task[]|TidyAPI_Data} data - The tasks.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
