@@ -91,8 +91,8 @@
  * @property {string} state - The state of the membership.
  * @property {string} status - Human-readable version of the state.
  * @property {number} membership_id_reference - Reference to the membership ID in V1 API.
- * @property {boolean} auto_renew_on - Flag indicating if the membership is set to auto-renew.
- * @property {boolean} auto_renew - Flag indicating if the membership is set to auto-renew.
+ * @property {boolean} auto_renew_on - If the membership is set to auto-renew.
+ * @property {boolean} auto_renew - If the membership is set to auto-renew.
  * @property {string} membership_level_id - The ID of the membership level.
  * @property {string} contact_id - The ID of the contact associated with the membership.
  * @property {string[]} adult_members_contact_ids - The IDs of the adult members associated with the membership.
@@ -100,6 +100,40 @@
  * @property {string} start_date - The start date of the membership.
  * @property {string} end_date - The end date of the membership.
  * @property {Tidy_V2_Note[]} notes - The notes associated with the membership.
+ */
+
+/* ========== V2_MembershipLevels ========== */
+
+/**
+ * @typedef {Object} Tidy_V2_MembershipLevel
+ * @property {string} id - The unique identifier for the membership level.
+ * @property {number} membership_level_id_reference - Reference to the membership level ID in V1 API.
+ * @property {string} name - The name of the membership level.
+ * @property {string} description - The description of the membership level, may contain HTML.
+ * @property {number} duration - The duration of the membership level.
+ * @property {Tidy_V1_MembershipLevelUnitPeriod} unit_period - The unit of period for the duration.
+ * @property {string|null} active_since - The date since the membership level is active.
+ * @property {boolean} bundle - If the membership level is a bundle.
+ * @property {string} plan_type - The type of plan (e.g., rolling).
+ * @property {boolean} auto_renew - If the membership level is set to auto-renew.
+ * @property {boolean} allow_renewal - If the membership level allows renewal.
+ * @property {number|null} renewable_from_period - The period from which renewal is allowed.
+ * @property {number|null} renewable_for_period - The period for which renewal is allowed.
+ * @property {string|null} start_at - The start date of the membership level.
+ * @property {string} created_at - The creation date and time of the membership level.
+ * @property {string} updated_at - The last update date and time of the membership level.
+ * @property {"anyone"|"admin"|"linked"|"permitted"} visible - Visibility of the membership level.
+ * @property {number} amount - The price of the membership level.
+ * @property {boolean} deleted - If the membership level is deleted.
+ * @property {Tidy_V2_MembershipLevelBundleAmount[]} [bundle_amounts] - The amounts associated with the bundle.
+ */
+
+// [!] check if same as V1 Bundle, although type could have more options
+/**
+ * @typedef {Object} Tidy_V2_MembershipLevelBundleAmount
+ * @property {string} amount - The amount for the bundle.
+ * @property {boolean} subsequent - Flag indicating if the amount is for subsequent periods.
+ * @property {string} type - The type of member the amount applies to (e.g., adult, child).
  */
 
 /* ========== V2_Note ========== */
@@ -549,12 +583,16 @@
 /* ========== Membership Level ========== */
 
 /**
+ * @typedef {"day"|"week"|"month"|"year"} Tidy_V1_MembershipLevelUnitPeriod
+ */
+
+/**
  * @typedef {Object} Tidy_V1_MembershipLevel
  * @property {number} id - The unique identifier for the membership level.
  * @property {string} name - The name of the membership level.
  * @property {string} description - The description of the membership level.
  * @property {number} duration - The duration of the membership level.
- * @property {string} unit_period - The unit of period for the duration (e.g., "month").
+ * @property {Tidy_V1_MembershipLevelUnitPeriod} unit_period - The unit of period for the duration.
  * @property {boolean} fixed - Whether the membership level has a fixed start date.
  * @property {string|null} start_at - The start date of the membership level, if fixed.
  * @property {boolean} enabled - Whether the membership level is enabled.
@@ -1262,6 +1300,24 @@
 /**
  * @typedef {Object} TidyAPI_V2_Memberships
  * @property {Tidy_V2_Membership[]|TidyAPI_Data} data - The memberships.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V2_MembershipLevel
+ * @property {Tidy_V2_MembershipLevel|TidyAPI_Data} data - The membership level.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V2_MembershipLevels
+ * @property {Tidy_V2_MembershipLevel[]|TidyAPI_Data} data - The membership levels.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.

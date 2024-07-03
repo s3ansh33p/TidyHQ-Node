@@ -8,6 +8,8 @@
 const { Rest } = require("../utils/Rest.js");
 const { V2_ContactsAPI } = require("./Contacts.js");
 const { V2_OrganizationAPI } = require("./Organization.js");
+const { V2_MembershipAPI } = require("./Memberships.js");
+const { V2_MembershipLevelsAPI } = require("./MembershipLevels.js");
 const { V2_WebhooksAPI } = require("./Webhooks");
 
 /**
@@ -23,6 +25,8 @@ class V2 {
         this.Rest = Rest;
 
         this.Contacts = new V2_ContactsAPI(this.Rest);
+        this.Memberships = new V2_MembershipAPI(this.Rest);
+        this.MembershipLevels = new V2_MembershipLevelsAPI(this.Rest);
         this.Organization = new V2_OrganizationAPI(this.Rest);
         this.Webhooks = new V2_WebhooksAPI(this.Rest);
     }

@@ -33,12 +33,23 @@ class V2_MembershipAPI {
      * @param {number} [options.offset] - The number of memberships to skip.
      * @param {boolean} [options.all] - When given, returns all (including inactive) - defaults to only returning visible / active.
      * @param {boolean} [options.active]  - When given, returns only users with active / inactive memberships (active is partial and activated status).
-     * @returns {Promise<TidyAPI_V2_Memberships>} - An array of membership objects.
-     * @private
+     * @returns {Promise<TidyAPI_V2_Memberships>} - An array of memberships.
      */
     async getMemberships(options = {}) {
         const optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset", "all", "active"], options)
         return await this.rest.get(`/v2/memberships${optionalParametersString}`, options?.access_token);
+    }
+
+    /**
+     * @description This function is used to get a single membership from TidyHQ.
+     * @link https://tidyhq.readme.io/reference/get-membership
+     * @param {string} membership_id - The id of the membership to get.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
+     * @returns {Promise<TidyAPI_V2_Membership>} - The membership.
+     */
+    async getMembership(membership_id, options = {}) {
+        return await this.rest.get(`/v2/memberships/${membership_id}`, options?.access_token);
     }
 
 }
