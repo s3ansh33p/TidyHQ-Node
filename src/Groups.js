@@ -101,7 +101,7 @@ class GroupsAPI {
      * @param {number} group_id - The ID of the group.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<TidyAPI_V1_Group>} - The group.
+     * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
     async deleteGroup(group_id, options = {}) {
         return await this.rest.delete(`/v1/groups/${group_id}`, {}, options.access_token);
@@ -113,7 +113,7 @@ class GroupsAPI {
      * @param {number} contact_id - The ID of the contact.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<TidyAPI_V1_Group>} - The group.
+     * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response.
      */
     async addContactToGroup(group_id, contact_id, options = {}) {
         return await this.rest.put(`/v1/groups/${group_id}/contacts/${contact_id}`, {}, options.access_token);

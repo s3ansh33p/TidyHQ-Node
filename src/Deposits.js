@@ -70,14 +70,6 @@ class DepositsAPI {
         const access_token = options.access_token;
         delete options.access_token;
 
-        const validOptions = ["description", "metadata"];
-        let keys = Object.keys(options);
-        for (let i = 0; i < keys.length; i++) {
-            if (!validOptions.includes(keys[i])) {
-                throw new Error(`Deposits.createDeposit: Invalid option '${keys[i]}'`);
-            }
-        }
-
         return await this.rest.post(`/v1/deposits`, {
             name,
             amount,

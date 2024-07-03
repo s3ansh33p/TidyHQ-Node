@@ -90,7 +90,45 @@ class ContactsAPI {
         return await this.rest.get(`/v1/contacts/${contactID}`, options.access_token);
     }
 
-    // POST /contacts, PUT /contacts/:id, DELETE /contacts/:id
+    /**
+     * @description Creates a new contact with the given data in TidyHQ.
+     * @param {Tidy_V1_ContactParams} contact - The contact to create. Requires a first name.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
+     * @returns {Promise<TidyAPI_V1_Contact>} - The newly created contact.
+     */
+    async createContact(contact, options = {}) {
+        if (!contact.first_name) {
+            throw new Error("First name is required to create a contact.");
+        }
+        return await this.rest.post("/v1/contacts", contact, options.access_token);
+    }
+
+    /**
+     * @description Updates a contact with the given data in TidyHQ.
+     * @param {number} contact_id - The ID of the contact to update.
+     * @param {Tidy_V1_ContactParams} contact - The contact to update.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
+     * @returns {Promise<TidyAPI_V1_Contact>} - The updated contact.
+     */
+    async updateContact(contact_id, contact, options = {}) {
+        if (Object.keys(contact).length === 0) {
+            throw new Error("At least one key must be set to update a contact.");
+        }
+        return await this.rest.put(`/v1/contacts/${contact_id}`, contact, options.access_token);
+    }
+
+    /**
+     * @description Deletes a contact from TidyHQ.
+     * @param {number} contact_id - The ID of the contact to delete.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
+     * @returns {Promise<TidyAPI_Response>} - Success or failure.
+     */
+    async deleteContact(contact_id, options = {}) {
+        return await this.rest.delete(`/v1/contacts/${contact_id}`, {}, options.access_token);
+    }
 }
 
 module.exports = { ContactsAPI };

@@ -26,7 +26,7 @@ class TasksAPI {
      * @description This function is used to get a list of all tasks.
      * @param {string} path - The path for the request.
      * @param {object} [options]
-     * @param {string} [options.access_token] - The access token to use. - The options for the request.
+     * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
      * @param {string} [options.offset] - The number of results to skip.
      * @param {boolean} [options.completed] - Return only completed tasks or not.
@@ -40,7 +40,7 @@ class TasksAPI {
     /**
      * @description This function is used to get a list of all tasks.
      * @param {object} [options = {}]
-     * @param {string} [options.access_token] - The access token to use. - The options for the request.
+     * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
      * @param {string} [options.offset] - The number of results to skip.
      * @param {boolean} [options.completed] - Return only completed tasks or not.
@@ -54,7 +54,7 @@ class TasksAPI {
      * @description This function is used to get a list of all tasks for a contact.
      * @param {string} contact_id - The ID of the contact.
      * @param {object} [options = {}]
-     * @param {string} [options.access_token] - The access token to use. - The options for the request.
+     * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
      * @param {string} [options.offset] - The number of results to skip.
      * @param {boolean} [options.completed] - Return only completed tasks or not.
@@ -98,7 +98,7 @@ class TasksAPI {
      * @description This function is used to update a task.
      * @param {string} task_id - The ID of the task.
      * @param {object} [options]
-     * @param {string} [options.access_token] - The access token to use. - The options for the request.
+     * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.contact_id] - The ID of the contact to assign the task to.
      * @param {string} [options.title] - The title of the task.
      * @param {string} [options.due_date] - The due date of the task in ISO 8601 format.

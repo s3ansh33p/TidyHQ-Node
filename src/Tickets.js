@@ -61,7 +61,7 @@ class TicketsAPI {
      * @param {string} event_id - The ID of the event.
      * @param {string} name - The name for the type of ticket.
      * @param {object} [options = {}]
-     * @param {string} [options.access_token] - The access token to use. - The options for the ticket.
+     * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.amount] - The amount for the ticket. Default is 0.00 and is for free tickets.
      * @param {number} [options.initial_quantity] - Limit the number of tickets available. Default is null and is for unlimited.
      * @param {number} [options.maximum_purchase] - Limit the number of tickets per purchase.

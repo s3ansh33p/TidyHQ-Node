@@ -26,10 +26,10 @@ class MembershipsAPI {
      * @description This function is used to get a list of all memberships.
      * @param {object} path - The path for the request.
      * @param {object} [options]
-     * @param {string} [options.access_token] - The access token to use. - The options for the request.
+     * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
      * @param {string} [options.offset] - The number of results to skip.
-     * @param {string} [options.active] - Whether to return active memberships.
+     * @param {boolean} [options.active] - Whether to return active memberships.
      * @param {string} [options.updated_since] - The date to return memberships updated since in ISO 8601 format.
      * @returns {Promise<TidyAPI_V1_Memberships>} - The list of memberships.
      */
@@ -41,10 +41,10 @@ class MembershipsAPI {
     /**
      * @description This function is used to get a list of all memberships.
      * @param {object} [options = {}]
-     * @param {string} [options.access_token] - The access token to use. - The options for the request.
+     * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
      * @param {string} [options.offset] - The number of results to skip.
-     * @param {string} [options.active] - Whether to return active memberships.
+     * @param {boolean} [options.active] - Whether to return active memberships.
      * @param {string} [options.updated_since] - The date to return memberships updated since in ISO 8601 format.
      * @returns {Promise<TidyAPI_V1_Memberships>} - The list of memberships.
      */
@@ -56,10 +56,10 @@ class MembershipsAPI {
      * @description This function is used to get a list of all memberships for a contact.
      * @param {string} contact_id - The ID of the contact.
      * @param {object} [options = {}]
-     * @param {string} [options.access_token] - The access token to use. - The options for the request.
+     * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
      * @param {string} [options.offset] - The number of results to skip.
-     * @param {string} [options.active] - Whether to return active memberships.
+     * @param {boolean} [options.active] - Whether to return active memberships.
      * @param {string} [options.updated_since] - The date to return memberships updated since in ISO 8601 format.
      * @returns {Promise<TidyAPI_V1_Memberships>} - The list of memberships.
      */
@@ -71,10 +71,10 @@ class MembershipsAPI {
      * @description This function is used to get a list of all memberships for a membership level.
      * @param {string} membership_level_id - The ID of the membership level.
      * @param {object} [options = {}]
-     * @param {string} [options.access_token] - The access token to use. - The options for the request.
+     * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
      * @param {string} [options.offset] - The number of results to skip.
-     * @param {string} [options.active] - Whether to return active memberships.
+     * @param {boolean} [options.active] - Whether to return active memberships.
      * @param {string} [options.updated_since] - The date to return memberships updated since in ISO 8601 format.
      * @returns {Promise<TidyAPI_V1_Memberships>} - The list of memberships.
      */

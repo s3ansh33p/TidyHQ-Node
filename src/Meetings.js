@@ -25,7 +25,7 @@ class MeetingsAPI {
     /**
      * @description This function is used to get a list of all meetings.
      * @param {object} [options]
-     * @param {string} [options.access_token] - The access token to use. - The options for the request.
+     * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
      * @param {string} [options.offset] - The number of results to skip.
      * @returns {Promise<TidyAPI_V1_Meetings>} - The list of meetings.

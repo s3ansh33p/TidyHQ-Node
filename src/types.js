@@ -168,6 +168,10 @@
 /* ========== Contact ========== */
 
 /**
+ * @typedef {"female"|"male"|"non_binary"|"undisclosed"} Tidy_V1_ContactGender
+ */
+
+/**
  * @typedef {Object} Tidy_V1_ContactLink
  * @property {number} contact_id - The contact ID of the linked contact.
  * @property {string} relationship_type - The type of relationship (e.g., "Adult", "Child").
@@ -200,7 +204,7 @@
  * @property {string|null} state - State of the contact.
  * @property {string} country - Country of the contact.
  * @property {string} postcode - Postcode of the contact.
- * @property {string} gender - Gender of the contact.
+ * @property {Tidy_V1_ContactGender} gender - Gender of the contact.
  * @property {string|null} birthday - Birthday of the contact.
  * @property {string} facebook - Facebook profile URL of the contact.
  * @property {string} twitter - Twitter handle of the contact.
@@ -226,6 +230,36 @@
  * @property {Tidy_V1_ContactOrganization} organization - Organization associated with the contact.
  * @property {Tidy_V1_ContactGroup[]} groups - Groups associated with the contact.
  * @property {Tidy_V1_ContactLink[]} contact_links - Links associated with the contact.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_ContactCustomFields
+ * @description A struct of custom field IDs as keys and their values. For dropdown fields, use the dropdown field choice ID as the value.
+ * @example
+ * {
+ *   "5b8ff85455e9": true, // Boolean field example
+ *   "91288961b8d7": "2012-01-01", // Date field example
+ *   "280ada4c1dea": "2fbd15a7ff31" // Dropdown field id as a key, dropdown field choice id as a value. Use blank value to empty the field
+ * }
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_ContactParams
+ * @property {string} [first_name] - First name of the contact. Required only on creation.
+ * @property {string} [last_name] - Last name of the contact.
+ * @property {string} [email_address] - Email address of the contact.
+ * @property {string} [phone_number] - Phone number of the contact.
+ * @property {string} [address1] - Street address of the contact.
+ * @property {string} [city] - City of the contact.
+ * @property {string} [state] - State of the contact.
+ * @property {string} [country] - Country of the contact.
+ * @property {string} [postcode] - Postcode of the contact.
+ * @property {Tidy_V1_ContactGender} [gender] - Gender of the contact.
+ * @property {string} [birthday] - Birthday of the contact in ISO 8601 format.
+ * @property {string} [facebook] - Facebook account name of the contact.
+ * @property {string} [twitter] - Twitter account name of the contact.
+ * @property {string} [details] - A brief description of the contact.
+ * @property {Tidy_V1_ContactCustomFields} [custom_fields] - A struct of custom field IDs as keys and values.
  */
 
 /* ========== Custom Field ========== */
@@ -312,6 +346,17 @@
  * @property {Tidy_V1_Payment[]} payments - The payments associated with the expense.
  */
 
+/**
+ * @typedef {Object} Tidy_V1_ExpenseParams
+ * @property {string} name - The name of the expense.
+ * @property {number} amount - The amount of the expense.
+ * @property {string} due_date - The due date of the expense in ISO 8601 format.
+ * @property {string} category_id - The category of the expense.
+ * @property {string} contact_id - The source of the expense.
+ * @property {string} [description] - The description of the expense.
+ * @property {string} [metadata] - The metadata of the expense.
+ */
+
 /* ========== Invoice ========== */
 
 /**
@@ -331,6 +376,19 @@
  * @property {string|null} metadata - Additional metadata associated with the invoice.
  * @property {Tidy_V1_FinanceStatus} status - The status of the invoice.
  * @property {Tidy_V1_Payment[]} payments - The payments associated with the invoice.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_InvoiceParams
+ * @property {string} reference - The reference of the invoice. e.g. 'Invoice #1234'
+ * @property {number} amount - The amount of the invoice expressed as a decimal.
+ * @property {number} included_tax_total - The total amount of tax expressed as a decimal.
+ * @property {number} pre_tax_amount - The total amount before tax expressed as a decimal.
+ * @property {string} due_date - The due date of the invoice in ISO 8601 format.
+ * @property {number} category_id - The ID of the category to assign the invoice to.
+ * @property {number} contact_id - The ID of the contact to assign the invoice to.
+ * @property {string} [description] - The description of the invoice.
+ * @property {string} [metadata] - The metadata of the invoice.
  */
 
 /* ========== Transaction ========== */
@@ -395,6 +453,18 @@
  * @property {string} image_url - The URL of the event's image.
  * @property {string} public_url - The public URL of the event.
  * @property {boolean} archived - Whether the event has been archived.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_EventParams
+ * @property {string} [name] - The name of the event. Required only on creation.
+ * @property {string} [start_at] - The start date of the event in ISO 8601 format. Required only on creation.
+ * @property {string} [end_at] - The end date of the event in ISO 8601 format.
+ * @property {string} [body] - The description of the event.
+ * @property {string} [location] - The location of the event. [!] There's an error in TidyHQ documentation/API regarding this field.
+ * @property {boolean} [archived] - Whether the event is archived or not (accessible via public events page).
+ * @property {boolean} [hidden] - Whether the event is hidden or not (showing on public events). When hidden and buying a ticket, certificates and receipts are not sent.
+ * @property {number} [category_id] - The ID of the category to assign the event to (defaults to tickets category).
  */
 
 /* ========== Group ========== */

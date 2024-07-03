@@ -1,7 +1,7 @@
 /**
  * @fileoverview This file contains a wrapper for Axios to make REST requests to the TidyHQ API.
  * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 1.1.0
+ * @version 1.2.0
  * @license GPL-3.0
  */
 
@@ -27,7 +27,7 @@ class Rest {
      * @param {string} path - The path to request.
      * @param {Object} data - The data to send.
      * @param {string} accessToken - The access token to use.
-     * @returns {Promise<ApiResponse>} - The response from the request.
+     * @returns {Promise<TidyAPI_Response>} - The response from the request.
      */
     async #_request(method, path, data = {}, accessToken) {
         if (!accessToken) {
@@ -68,7 +68,7 @@ class Rest {
      * @description Wrapper for making a GET request
      * @param {string} path - The path to request.
      * @param {string} accessToken - The access token to use.
-     * @returns {Promise<ApiResponse>} - The response from the request.
+     * @returns {Promise<TidyAPI_Response>} - The response from the request.
      */
     async get(path, accessToken) {
         return this.#_request("GET", path, {}, accessToken);
@@ -79,7 +79,7 @@ class Rest {
      * @param {string} path - The path to request.
      * @param {Object} data - The data to send.
      * @param {string} accessToken - The access token to use.
-     * @returns {Promise<ApiResponse>} - The response from the request.
+     * @returns {Promise<TidyAPI_Response>} - The response from the request.
      */
     async post(path, data = {}, accessToken = this.accessToken) {
         return this.#_request("POST", path, data, accessToken);
@@ -90,7 +90,7 @@ class Rest {
      * @param {string} path - The path to request.
      * @param {Object} data - The data to send.
      * @param {string} accessToken - The access token to use.
-     * @returns {Promise<ApiResponse>} - The response from the request.
+     * @returns {Promise<TidyAPI_Response>} - The response from the request.
      */
     async put(path, data = {}, accessToken = this.accessToken) {
         return this.#_request("PUT", path, data, accessToken);
@@ -101,7 +101,7 @@ class Rest {
      * @param {string} path - The path to request.
      * @param {Object} data - The data to send.
      * @param {string} accessToken - The access token to use.
-     * @returns {Promise<ApiResponse>} - The response from the request.
+     * @returns {Promise<TidyAPI_Response>} - The response from the request.
      */
     async delete(path, data = {}, accessToken = this.accessToken) {
         return this.#_request("DELETE", path, data, accessToken);
@@ -112,7 +112,7 @@ class Rest {
      * @param {string} path - The path to request.
      * @param {Object} data - The data to send.
      * @param {string} accessToken - The access token to use.
-     * @returns {Promise<ApiResponse>} - The response from the request.
+     * @returns {Promise<TidyAPI_Response>} - The response from the request.
      */
     async patch(path, data = {}, accessToken = this.accessToken) {
         return this.#_request("PATCH", path, data, accessToken);

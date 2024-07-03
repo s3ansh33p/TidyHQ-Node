@@ -56,41 +56,15 @@ class InvoicesAPI {
 
     /**
      * @description This function is used to create a new invoice.
-     * @param {string} reference - The reference of the invoice. e.g. 'Invoice #1234'
-     * @param {number} amount - The amount of the invoice expressed as a decimal.
-     * @param {number} included_tax_total - The total amount of tax expressed as a decimal.
-     * @param {number} pre_tax_amount - The total amount before tax expressed as a decimal.
-     * @param {string} due_date - The due date of the invoice in ISO 8601 format.
-     * @param {number} category_id - The ID of the category to assign the invoice to. 
-     * @param {number} contact_id - The ID of the contact to assign the invoice to.
+     * @param {Tidy_V1_InvoiceParams} invoice - The invoice to create.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @param {string} [options.description] - The description of the invoice.
-     * @param {string} [options.metadata] - The metadata of the invoice.
      * @returns {Promise<TidyAPI_V1_Invoice>} - The newly created invoice.
      */
-     async createInvoice(reference, amount, included_tax_total, pre_tax_amount, due_date, category_id, contact_id, options = {}) {
-        const access_token = options.access_token;
-        delete options.access_token;
-        
-        const validOptions = ["description", "metadata"];
-        let keys = Object.keys(options);
-        for (let i = 0; i < keys.length; i++) {
-            if (!validOptions.includes(keys[i])) {
-                throw new Error(`Invoices.createInvoice: Invalid option '${keys[i]}'`);
-            }
-        }
-        
+     async createInvoice(invoice, options = {}) {
         return await this.rest.post(`/v1/invoices`, {
-            reference,
-            amount,
-            included_tax_total,
-            pre_tax_amount,
-            due_date,
-            category_id,
-            contact_id,
-            ...options
-        }, access_token);
+            invoice
+        }, options.access_token);
     }
 
     /**
@@ -106,9 +80,9 @@ class InvoicesAPI {
      * @description This function is used to add a payment to an invoice.
      * @param {string} invoiceID - The ID of the invoice.
      * @param {object} [options] - The options to create the payment with. At least one option is required that isn't the access_token.
-     * @param {string} [options.access_token] - The access token to use. - The options to create the payment with.
+     * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.amount] - The amount of the payment expressed as a decimal.
-     * @param {"cash" | "card" | "cheque" | "bank" | "other"} [options.payment_type] - The type of payment.
+     * @param {Tidy_V1_PaymentType} [options.payment_type] - The type of payment.
      * @param {string} [options.date] - The date of the payment in ISO 8601 format.
      * @returns {Promise<TidyAPI_V1_Payment>} - The newly created payment.
      */
@@ -128,7 +102,7 @@ class InvoicesAPI {
      * @param {string} invoiceID - The ID of the invoice.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<TidyAPI_Data>} - Success or failure.
+     * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
     async deleteInvoice(invoiceID, options = {}) {
         return await this.rest.delete(`/v1/invoices/${invoiceID}`, {}, options.access_token);

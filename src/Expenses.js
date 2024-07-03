@@ -56,37 +56,15 @@ class ExpensesAPI {
 
     /**
      * @description This function is used to create a new expense in TidyHQ.
-     * @param {string} name - The name of the expense.
-     * @param {number} amount - The amount of the expense.
-     * @param {string} due_date - The due date of the expense in ISO 8601 format.
-     * @param {string} category_id - The category of the expense.
-     * @param {string} contact_id - The source of the expense.
+     * @param {Tidy_V1_ExpenseParams} expense - The expense to create.
      * @param {object} [options = {}] - The options to create the expense with.
      * @param {string} [options.access_token] - The access token to use.
-     * @param {string} [options.description] - The description of the expense.
-     * @param {string} [options.metadata] - The metadata of the expense.
      * @returns {Promise<TidyAPI_V1_Expense>} - The newly created expense.
      */
-    async createExpense(name, amount, due_date, category_id, contact_id, options = {}) {
-        const access_token = options.access_token;
-        delete options.access_token;
-
-        const validOptions = ["description", "metadata"];
-        let keys = Object.keys(options);
-        for (let i = 0; i < keys.length; i++) {
-            if (!validOptions.includes(keys[i])) {
-                throw new Error(`Expenses.createExpense: Invalid option '${keys[i]}'`);
-            }
-        }
-        
+    async createExpense(expense, options = {}) {
         return await this.rest.post(`/v1/expenses`, {
-            name,
-            amount,
-            due_date,
-            category_id,
-            contact_id,
-            ...options
-        }, access_token);
+            expense
+        }, options.access_token);
     }
 
     /**
