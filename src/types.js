@@ -333,6 +333,32 @@
  * @property {Tidy_V1_Payment[]} payments - The payments associated with the invoice.
  */
 
+/* ========== Transaction ========== */
+
+/**
+ * @typedef {Object} Tidy_V1_TransactionItem
+ * @property {string} id - The unique identifier for the item.
+ * @property {string} quantity - The quantity of the item.
+ * @property {"deposit"|"expense"|"invoice"} type - The type of transaction.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_Transaction
+ * @property {string} id - The unique identifier for the transaction.
+ * @property {number} category_id - The ID of the category associated with the transaction.
+ * @property {string} category_name - The name of the category associated with the transaction.
+ * @property {string} currency - The currency code for the transaction amount.
+ * @property {string} paid_at - The timestamp when the transaction was paid, in ISO 8601 format.
+ * @property {number} contact_id - The ID of the contact associated with the transaction.
+ * @property {string} contact_name - The display name of the contact associated with the transaction.
+ * @property {Tidy_V1_PaymentType} payment_type - The type of payment used for the transaction.
+ * @property {boolean} surcharge - Indicates whether a surcharge was applied to the transaction.
+ * @property {number} amount - The total amount of the transaction.
+ * @property {number} fee - The fee associated with the transaction, if any.
+ * @property {Tidy_V1_PaymentStatus} status - The status of the transaction.
+ * @property {Tidy_V1_TransactionItem[]} items - An array of items associated with the transaction.
+ */
+
 /* ========== Email ========== */
 
 /**
@@ -390,11 +416,11 @@
  * @property {number} id - The unique identifier for the meeting.
  * @property {string} name - The name of the meeting.
  * @property {string} description - The HTML description of the meeting.
- * @property {string} date_at - The date and time of the meeting in local time format.
+ * @property {string} date_at - The date and time of the meeting in ISO 8601 format.
  * @property {string|null} location_full_address - The full address of the meeting location.
  * @property {Tidy_V1_MeetingTopic[]} topics - An array of topics discussed in the meeting.
  * @property {boolean} public - Whether the meeting is public.
- * @property {string} created_at - The creation timestamp of the meeting in local time format.
+ * @property {string} created_at - The creation timestamp of the meeting in ISO 8601 format.
  * @property {Tidy_V1_MeetingScheduleTopic[]} schedule_meeting_topics - An array of scheduled meeting topics.
  * @property {number[]} attendees - An array of IDs representing the attendees of the meeting.
  * @property {number[]} apologies - An array of IDs representing the people who apologized for not attending the meeting.
@@ -628,6 +654,30 @@
  * @property {string[]} week_day_numbers - An array of week day numbers (as strings) that the recurrence falls on (indexed 0 from Monday to 6 on Sunday)
  * @property {number|null} day_of_month - The day of the month the recurrence falls on.
  * @property {number|null} month - The month the recurrence falls on.
+ */
+
+/* ========== Ticket ========== */
+
+/**
+ * @typedef {Object} Tidy_V1_Ticket
+ * @property {string} id - The unique identifier for the ticket.
+ * @property {string} name - The name of the ticket.
+ * @property {string} amount - The price of the ticket in decimal string format.
+ * @property {number|null} initial_quantity - The initial quantity of tickets available, null for unlimited.
+ * @property {number} quantity_sold - The number of tickets sold.
+ * @property {number|null} maximum_purchase - The maximum number of tickets one can purchase, null for unlimited.
+ * @property {string|null} sales_end - The end date and time of ticket sales in ISO 8601 format.
+ * @property {boolean} members_only - Whether the ticket is available to members only.
+ * @property {number|null} membership_level_id - The ID of the membership level required to purchase the ticket, if members_only is true.
+ * @property {string} created_at - The creation timestamp of the ticket.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_SoldTicket
+ * @property {number} contact_id - The ID of the contact who purchased the ticket.
+ * @property {string} ticket_id - The unique identifier for the ticket purchased.
+ * @property {string} created_at - The timestamp when the ticket was sold, in ISO 8601 format.
+ * @property {string} code - A unique code associated with the sold ticket.
  */
 
 /* ========== Response ========== */
@@ -938,6 +988,51 @@
 /**
  * @typedef {Object} TidyAPI_V1_Tasks
  * @property {Tidy_V1_Task[]|TidyAPI_Data} data - The tasks.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Ticket
+ * @property {Tidy_V1_Ticket|TidyAPI_Data} data - The ticket.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Tickets
+ * @property {Tidy_V1_Ticket[]|TidyAPI_Data} data - The tickets.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_SoldTickets
+ * @property {Tidy_V1_SoldTicket[]|TidyAPI_Data} data - The sold tickets.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Transaction
+ * @property {Tidy_V1_Transaction|TidyAPI_Data} data - The transaction.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_Transactions
+ * @property {Tidy_V1_Transaction[]|TidyAPI_Data} data - The transactions.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
