@@ -680,6 +680,64 @@
  * @property {string} code - A unique code associated with the sold ticket.
  */
 
+/* ========== Shop ========== */
+
+/**
+ * @typedef {Object} Tidy_V1_ShopProductVariant
+ * @property {string} id - The unique identifier for the variant.
+ * @property {string} name - The name of the variant.
+ * @property {number|null} quantity - The quantity available for the variant, null for unlimited.
+ * @property {string} created_at - The creation timestamp of the variant, in ISO 8601 format.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_ShopProduct
+ * @property {string} id - The unique identifier for the product.
+ * @property {string} name - The name of the product.
+ * @property {string} description - The HTML description of the product.
+ * @property {string} permalink - A unique permalink for the product.
+ * @property {string} sell_price - The selling price of the product.
+ * @property {string} cost_price - The cost price of the product.
+ * @property {number} sell_category_id - The ID of the selling category.
+ * @property {number} cost_category_id - The ID of the cost category.
+ * @property {number|null} quantity - The quantity available, null for unlimited.
+ * @property {string} created_at - The creation timestamp of the product.
+ * @property {"draft"|"published"} status - The status of the product
+ * @property {"admin"|"group"|"public"} visible_to - Who can see the product.
+ * @property {string[]} images - An array of URLs to images of the product.
+ * @property {Tidy_V1_ShopProductVariant[]} variants - An array of variants of the product.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_ShippingOption
+ * @property {string} id - The unique identifier for the shipping option.
+ * @property {string} name - The name of the shipping option.
+ * @property {string} description - The description of the shipping option, may include newline characters.
+ * @property {string} price - The price of the shipping option.
+ * @property {number} category_id - The ID of the category associated with the shipping option.
+ * @property {boolean} address_not_required - Indicates whether an address is not required for this shipping option.
+ * @property {string} created_at - The creation timestamp of the shipping option, in ISO 8601 format.
+ * @property {string[]} country_codes - An array of country codes where the shipping option is available.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_ShopOrderProduct
+ * @property {string} product_id - The unique identifier for the product.
+ * @property {string|null} variant_id - The unique identifier for the variant of the product, null if not applicable.
+ * @property {number} quantity - The quantity of the product ordered.
+ */
+
+/**
+ * @typedef {Object} Tidy_V1_ShopOrder
+ * @property {string} id - The unique identifier for the shipping order.
+ * @property {number} contact_id - The ID of the contact associated with the order.
+ * @property {string} number - The order number.
+ * @property {"awaiting_payment"|"pending"|"completed"|"cancelled"} status - The status of the order.
+ * @property {string} created_at - The creation timestamp of the order, in ISO 8601 format.
+ * @property {string} shipping_option_id - The unique identifier for the selected shipping option.
+ * @property {Tidy_V1_ShopOrderProduct[]} products - An array of products included in the order.
+ */
+
 /* ========== Response ========== */
 
 /**
@@ -1033,6 +1091,60 @@
 /**
  * @typedef {Object} TidyAPI_V1_Transactions
  * @property {Tidy_V1_Transaction[]|TidyAPI_Data} data - The transactions.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_ShopProduct
+ * @property {Tidy_V1_ShopProduct|TidyAPI_Data} data - The shop product.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_ShopProducts
+ * @property {Tidy_V1_ShopProduct[]|TidyAPI_Data} data - The shop products.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_ShippingOption
+ * @property {Tidy_V1_ShippingOption|TidyAPI_Data} data - The shipping option.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_ShippingOptions
+ * @property {Tidy_V1_ShippingOption[]|TidyAPI_Data} data - The shipping options.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_ShopOrder
+ * @property {Tidy_V1_ShopOrder|TidyAPI_Data} data - The shop order.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V1_ShopOrders
+ * @property {Tidy_V1_ShopOrder[]|TidyAPI_Data} data - The shop orders.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.
