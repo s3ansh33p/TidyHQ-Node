@@ -81,6 +81,17 @@
  * @property {Tidy_V2_Note[]} notes - Notes associated with the contact.
  */
 
+/**
+ * @typedef {Object} Tidy_V2_ContactFilterEqualsOptions
+ * @property {string} [first_name] - Filter by the first name.
+ * @property {string} [last_name] - Filter by the last name.
+ * @property {string} [company] - Filter by the company name.
+ * @property {string} [email_address] - Filter by the email address.
+ * @property {string} [phone_number] - Filter by the phone number.
+ * @property {string} [kind] - Filter by the kind.
+ * @property {string} [contact_id_number] - Filter by the contact ID number.
+ */
+
 /* ========== V2_Memberships ========== */
 
 /**

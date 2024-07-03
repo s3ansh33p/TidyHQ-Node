@@ -36,7 +36,7 @@ class V2_ContactsAPI {
      * @param {string[]} [options.ids] - When given, filters to those matching the given IDs. Can be combined with scope to specify the type of ID.
      * @param {"contact_id_number" | "sports_australia_connect"} [options.scope] - If specified, applies ids to the specified type. If not given, will default to check the id reference or the id.
      * @param {string} [options.search_terms] - The search terms to use.
-     * @param {string[]} [options.filter_equals] - An array of filters to use. Supports first_name, last_name, company, email_address, phone_number, kind, contact_id_number
+     * @param {Tidy_V2_ContactFilterEqualsOptions} [options.filter_equals] - Object with keys and values to filter by.
      * @returns {Promise<TidyAPI_V2_Contacts>} - An array of contact objects.
      */
     async getContacts(options = {}) {
