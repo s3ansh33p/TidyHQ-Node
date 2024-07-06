@@ -24,7 +24,7 @@ class TicketsAPI {
 
     /**
      * @description This function is used to get a list of all tickets from an event.
-     * @param {string} event_id - The ID of the event.
+     * @param {number} event_id - The ID of the event.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Tickets>} - The list of tickets.
@@ -35,7 +35,7 @@ class TicketsAPI {
 
     /**
      * @description This function is used to get a list of all tickets from an event.
-     * @param {string} event_id - The ID of the event.
+     * @param {number} event_id - The ID of the event.
      * @param {string} ticket_id - The ID of the ticket.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -47,7 +47,7 @@ class TicketsAPI {
 
     /**
      * @description This function is used to get a list of all sold tickets from an event.
-     * @param {string} event_id - The ID of the event.
+     * @param {number} event_id - The ID of the event.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_SoldTickets>} - The list of sold tickets.
@@ -58,7 +58,7 @@ class TicketsAPI {
 
     /**
      * @description This function is used to create a ticket category for an event.
-     * @param {string} event_id - The ID of the event.
+     * @param {number} event_id - The ID of the event.
      * @param {string} name - The name for the type of ticket.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -81,7 +81,7 @@ class TicketsAPI {
 
     /**
      * @description This function is used to update a ticket category for an event.
-     * @param {string} event_id - The ID of the event.
+     * @param {number} event_id - The ID of the event.
      * @param {string} ticket_id - The ID of the ticket.
      * @param {Object} [options] - The options for the ticket. At least one option is required that isn't the access token.
      * @param {string} [options.access_token] - The access token to use.
@@ -108,7 +108,7 @@ class TicketsAPI {
 
     /**
      * @description This function is used to delete a ticket category for an event.
-     * @param {string} event_id - The ID of the event.
+     * @param {number} event_id - The ID of the event.
      * @param {string} ticket_id - The ID of the ticket.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.

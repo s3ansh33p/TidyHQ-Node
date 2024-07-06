@@ -72,7 +72,7 @@ class AssociationAPI {
     /**
      * @description This function is used to get a single event that falls under an organization.
      * @param {string} organization_id - The ID of the organization.
-     * @param {string} event_id - The ID of the event.
+     * @param {number} event_id - The ID of the event.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Event>} - The event.
