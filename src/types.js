@@ -1361,3 +1361,5 @@
  * @property {boolean} success - Indicates whether the request was successful.
  * @property {string} [message] - An optional error message, present only in error responses.
  */
+
+module.exports = {};
