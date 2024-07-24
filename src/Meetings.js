@@ -23,7 +23,7 @@ class MeetingsAPI {
     }
 
     /**
-     * @description This function is used to get a list of all meetings.
+     * @description Get a list of all meetings.
      * @param {object} [options]
      * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
@@ -36,7 +36,7 @@ class MeetingsAPI {
     }
 
     /**
-     * @description This function is used to get a single meeting.
+     * @description Get a single meeting.
      * @param {string} meeting_id - The ID of the meeting.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.

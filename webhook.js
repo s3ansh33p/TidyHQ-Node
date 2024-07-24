@@ -18,7 +18,7 @@ class TidyHQWebhook {
     callbacks = {};
 
     /**
-     * @description This function is used to create a new instance of the TidyHQWebhook class.
+     * @description Create a new instance of the TidyHQWebhook class.
      * @param {string} webhookId - The ID of the webhook.
      * @param {string} signingKey - The signing key for the webhook.
      * @constructor
@@ -52,7 +52,7 @@ class TidyHQWebhook {
     }
 
     /**
-     * @description This function is used to verify a message from TidyHQ.
+     * @description Verify a message from TidyHQ.
      * @param {string} tidySignatureHeader - The signature header from TidyHQ.
      * @param {object} body - The body of the message.
      * @param {string} httpMethod - The HTTP method of the webhook.

@@ -23,7 +23,7 @@ class TransactionsAPI {
     }
 
     /**
-     * @description This function is used to get a list of all transactions.
+     * @description Get a list of all transactions.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.limit] - The maximum number of transactions to return.
@@ -44,7 +44,7 @@ class TransactionsAPI {
     }
 
     /**
-     * @description This function is used to get a single transaction.
+     * @description Get a single transaction.
      * @param {string} id - The ID of the transaction.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.

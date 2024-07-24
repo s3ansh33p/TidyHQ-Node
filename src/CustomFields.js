@@ -23,7 +23,7 @@ class CustomFieldsAPI {
     }
 
     /**
-     * @description This function is used to get a list of custom fields from TidyHQ.
+     * @description Get a list of custom fields from TidyHQ.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_CustomFields>} - An array of custom fields.
@@ -33,7 +33,7 @@ class CustomFieldsAPI {
     }
 
     /**
-     * @description This function is used to get a single custom field from TidyHQ.
+     * @description Get a single custom field from TidyHQ.
      * @param {string} customFieldID - The ID of the CustomField to get
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -53,7 +53,7 @@ class CustomFieldsAPI {
     }
 
     /**
-     * @description This function is used to create a new custom field in TidyHQ.
+     * @description Create a new custom field in TidyHQ.
      * @param {string} title - The title of the custom field to create.
      * @param {Tidy_V1_CustomFieldType} type - The type of the custom field to create.
      * @param {object} [options = {}]
@@ -69,7 +69,7 @@ class CustomFieldsAPI {
     }
 
     /**
-     * @description This function is used to update a custom field in TidyHQ.
+     * @description Update a custom field in TidyHQ.
      * @param {string} customFieldID - The ID of the custom field to update.
      * @param {object} [options] - The options to update the custom field with. At least one option is required that isn't the access_token.
      * @param {string} [options.access_token] - The access token to use.
@@ -90,7 +90,7 @@ class CustomFieldsAPI {
     }
 
     /**
-     * @description This function is used to delete a custom field in TidyHQ.
+     * @description Delete a custom field in TidyHQ.
      * @param {string} customFieldID - The ID of the custom field to delete.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -101,7 +101,7 @@ class CustomFieldsAPI {
     }
 
     /**
-     * @description This function is used to get the choices for a dropdown custom field.
+     * @description Get the choices for a dropdown custom field.
      * @param {string} customFieldID - The ID of the custom field to get the choices for.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -112,7 +112,7 @@ class CustomFieldsAPI {
     }
 
     /**
-     * @description This function is used to get a single choice for a dropdown custom field.
+     * @description Get a single choice for a dropdown custom field.
      * @param {string} customFieldID - The ID of the custom field to get the choice for.
      * @param {string} choiceID - The ID of the choice to get.
      * @param {object} [options = {}]
@@ -124,7 +124,7 @@ class CustomFieldsAPI {
     }
 
     /**
-     * @description This function is used to get a single choice for a dropdown custom field by name.
+     * @description Get a single choice for a dropdown custom field by name.
      * @param {string} customFieldID - The ID of the custom field to get the choice for.
      * @param {string} title - The title of the choice to get.
      * @param {object} [options = {}]
@@ -138,7 +138,7 @@ class CustomFieldsAPI {
     }
 
     /**
-     * @description This function is used to update a choice for a dropdown custom field.
+     * @description Update a choice for a dropdown custom field.
      * @param {string} customFieldID - The ID of the custom field to update the choice for.
      * @param {string} choiceID - The ID of the choice to update.
      * @param {string} title - The new title of the choice.
@@ -153,7 +153,7 @@ class CustomFieldsAPI {
     }
 
     /**
-     * @description This function is used to delete a choice for a dropdown custom field.
+     * @description Delete a choice for a dropdown custom field.
      * @param {string} customFieldID - The ID of the custom field to delete the choice for.
      * @param {string} choiceID - The ID of the choice to delete.
      * @param {object} [options = {}]

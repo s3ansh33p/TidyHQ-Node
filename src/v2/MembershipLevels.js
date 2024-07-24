@@ -23,7 +23,7 @@ class V2_MembershipLevelsAPI {
     }
 
     /**
-     * @description This function is used to get a list of membership levels from TidyHQ.
+     * @description Get a list of membership levels from TidyHQ.
      * @link https://tidyhq.readme.io/reference/get-membership_levels
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -37,6 +37,19 @@ class V2_MembershipLevelsAPI {
     async getMembershipLevels(options = {}) {
         const optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset", "all"], options)
         return await this.rest.get(`/v2/membership_levels${optionalParametersString}`, options?.access_token);
+    }
+
+    /**
+     * @description Create a membership in TidyHQ.
+     * @link https://tidyhq.readme.io/reference/create-membership-level-subscription
+     * @param {string} membership_level_id - The id of the membership level to subscribe to.
+     * @param {Tidy_V2_PostSubscriptionParams} subscription - The subscription parameters.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
+     * @returns {Promise<TidyAPI_V2_SubscriptionPost>} - The subscription, membership, payment url and invoice id.
+     */
+    async createMembership(membership_level_id, subscription, options = {}) {
+        return await this.rest.post(`/v2/membership_levels/${membership_level_id}/subscriptions`, subscription, options?.access_token);
     }
 
 }

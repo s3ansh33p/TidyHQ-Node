@@ -23,7 +23,7 @@ class V2_MembershipAPI {
     }
 
     /**
-     * @description This function is used to get a list of memberships from TidyHQ.
+     * @description Get a list of memberships from TidyHQ.
      * @link https://tidyhq.readme.io/reference/get-memberships
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -41,7 +41,7 @@ class V2_MembershipAPI {
     }
 
     /**
-     * @description This function is used to get a single membership from TidyHQ.
+     * @description Get a single membership from TidyHQ.
      * @link https://tidyhq.readme.io/reference/get-membership
      * @param {string} membership_id - The id of the membership to get.
      * @param {object} [options = {}]
@@ -50,6 +50,19 @@ class V2_MembershipAPI {
      */
     async getMembership(membership_id, options = {}) {
         return await this.rest.get(`/v2/memberships/${membership_id}`, options?.access_token);
+    }
+
+    /**
+     * @description Create/renew a subscription for a membership in TidyHQ.
+     * @link https://tidyhq.readme.io/reference/create-membership-subscription
+     * @param {string} membership_id - The id of the membership to create a subscription for.
+     * @param {Tidy_V2_PostSubscriptionParams} subscription - The subscription parameters.
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
+     * @returns {Promise<TidyAPI_V2_SubscriptionPost>} - The subscription, membership, payment url and invoice id.
+     */
+    async renewSubscriptionForMembership(membership_id, subscription, options = {}) {
+        return await this.rest.post(`/v2/memberships/${membership_id}/subscriptions`, subscription, options?.access_token);
     }
 
 }

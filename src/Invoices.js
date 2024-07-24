@@ -23,7 +23,7 @@ class InvoicesAPI {
     }
 
     /**
-     * @description This function is used to get a list of invoices from TidyHQ.
+     * @description Get a list of invoices from TidyHQ.
      * @param {object} [options]
      * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.limit] - The maximum number of invoices to return.
@@ -44,7 +44,7 @@ class InvoicesAPI {
     }
 
     /**
-     * @description This function is used to get a single invoice from TidyHQ.
+     * @description Get a single invoice from TidyHQ.
      * @param {string} invoiceID - The ID of the invoice to get
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -55,7 +55,7 @@ class InvoicesAPI {
     }
 
     /**
-     * @description This function is used to create a new invoice.
+     * @description Create a new invoice.
      * @param {Tidy_V1_InvoiceParams} invoice - The invoice to create.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -98,7 +98,7 @@ class InvoicesAPI {
     }
 
     /**
-     * @description This function is used to delete an invoice.
+     * @description Delete an invoice.
      * @param {string} invoiceID - The ID of the invoice.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.

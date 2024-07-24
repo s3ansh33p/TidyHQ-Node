@@ -23,7 +23,7 @@ class TasksAPI {
     }
 
     /**
-     * @description This function is used to get a list of all tasks.
+     * @description Get a list of all tasks.
      * @param {string} path - The path for the request.
      * @param {object} [options]
      * @param {string} [options.access_token] - The access token to use.
@@ -38,7 +38,7 @@ class TasksAPI {
     }
 
     /**
-     * @description This function is used to get a list of all tasks.
+     * @description Get a list of all tasks.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
@@ -51,7 +51,7 @@ class TasksAPI {
     }
 
     /**
-     * @description This function is used to get a list of all tasks for a contact.
+     * @description Get a list of all tasks for a contact.
      * @param {string} contact_id - The ID of the contact.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -65,7 +65,7 @@ class TasksAPI {
     }
 
     /**
-     * @description This function is used to get a single task.
+     * @description Get a single task.
      * @param {string} task_id - The ID of the task.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -76,7 +76,7 @@ class TasksAPI {
     }
 
     /**
-     * @description This function is used to create a new task.
+     * @description Create a new task.
      * @param {string} contact_id - The ID of the contact to assign the task to.
      * @param {string} title - The title of the task.
      * @param {string} due_date - The due date of the task in ISO 8601 format.
@@ -95,7 +95,7 @@ class TasksAPI {
     }
 
     /**
-     * @description This function is used to update a task.
+     * @description Update a task.
      * @param {string} task_id - The ID of the task.
      * @param {object} [options]
      * @param {string} [options.access_token] - The access token to use.
@@ -114,7 +114,7 @@ class TasksAPI {
     }
 
     /**
-     * @description This function is used to delete a task.
+     * @description Delete a task.
      * @param {string} task_id - The ID of the task.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.

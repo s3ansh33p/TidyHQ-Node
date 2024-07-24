@@ -23,7 +23,7 @@ class CategoriesAPI {
     }
 
     /**
-     * @description This function is used to get a list of all categories.
+     * @description Get a list of all categories.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.

@@ -23,7 +23,7 @@ class MembershipsAPI {
     }
 
     /**
-     * @description This function is used to get a list of all memberships.
+     * @description Get a list of all memberships.
      * @param {object} path - The path for the request.
      * @param {object} [options]
      * @param {string} [options.access_token] - The access token to use.
@@ -39,7 +39,7 @@ class MembershipsAPI {
     }
 
     /**
-     * @description This function is used to get a list of all memberships.
+     * @description Get a list of all memberships.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
@@ -53,7 +53,7 @@ class MembershipsAPI {
     }
     
     /**
-     * @description This function is used to get a list of all memberships for a contact.
+     * @description Get a list of all memberships for a contact.
      * @param {string} contact_id - The ID of the contact.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -68,7 +68,7 @@ class MembershipsAPI {
     }
 
     /**
-     * @description This function is used to get a list of all memberships for a membership level.
+     * @description Get a list of all memberships for a membership level.
      * @param {string} membership_level_id - The ID of the membership level.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -83,7 +83,7 @@ class MembershipsAPI {
     }
 
     /**
-     * @description This function is used to get a single membership.
+     * @description Get a single membership.
      * @param {string} membership_id - The ID of the membership.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.

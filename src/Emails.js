@@ -22,7 +22,7 @@ class EmailsAPI {
     }
 
     /**
-     * @description This function is used to get the emails associated with the access token.
+     * @description Get the emails associated with the access token.
      * @param {string} email_id - The ID of the email.
      * @param {object} [options]
      * @param {string} [options.access_token] - The access token to use.
@@ -33,7 +33,7 @@ class EmailsAPI {
     }
 
     /**
-     * @description This function is used to get the emails associated with the access token.
+     * @description Get the emails associated with the access token.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Emails>} - The emails.
@@ -43,7 +43,7 @@ class EmailsAPI {
     }
 
     /**
-     * @description This function is used to get a specific email associated with the access token.
+     * @description Get a specific email associated with the access token.
      * @param {string} email_id - The ID of the email.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -54,7 +54,7 @@ class EmailsAPI {
     }
 
     /**
-     * @description This function is used to create a new email.
+     * @description Create a new email.
      * @param {object} email - The email to create.
      * @param {string} email.subject - The subject of the email.
      * @param {string} email.body - The body of the email.

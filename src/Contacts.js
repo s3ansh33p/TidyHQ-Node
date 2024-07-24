@@ -43,7 +43,7 @@ class ContactsAPI {
     }
 
     /**
-     * @description This function is used to get a list of contacts from TidyHQ.
+     * @description Get a list of contacts from TidyHQ.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.limit] - The maximum number of contacts to return.
@@ -61,7 +61,7 @@ class ContactsAPI {
     }
 
     /**
-     * @description This function is used to get a list of contacts in a group from TidyHQ.
+     * @description Get a list of contacts in a group from TidyHQ.
      * @param {string} group_id - The ID of the group to get contacts from.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -80,7 +80,7 @@ class ContactsAPI {
     }
 
     /**
-     * @description This function is used to get a single contact from TidyHQ.
+     * @description Get a single contact from TidyHQ.
      * @param {number|string} [contactID = "me"] - The ID of the contact to get ("me" returns the contact of the user who authorized the application)
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.

@@ -22,7 +22,7 @@ class DepositsAPI {
     }
 
     /**
-     * @description This function is used to get a list of deposits from TidyHQ.
+     * @description Get a list of deposits from TidyHQ.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.limit] - The maximum number of deposits to return.
@@ -43,7 +43,7 @@ class DepositsAPI {
     }
         
     /**
-     * @description This function is used to get a single deposit from TidyHQ.
+     * @description Get a single deposit from TidyHQ.
      * @param {string} depositID - The ID of the deposit to get
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -54,7 +54,7 @@ class DepositsAPI {
     }
 
     /**
-     * @description This function is used to create a new deposit in TidyHQ.
+     * @description Create a new deposit in TidyHQ.
      * @param {Tidy_V1_DepositParams} deposit - The deposit to create.
      * @param {object} [options = {}] - The options to create the deposit with.
      * @param {string} [options.access_token] - The access token to use.

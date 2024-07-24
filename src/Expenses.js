@@ -23,7 +23,7 @@ class ExpensesAPI {
     }
 
     /**
-     * @description This function is used to get a list of expenses from TidyHQ.
+     * @description Get a list of expenses from TidyHQ.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.limit] - The maximum number of expenses to return.
@@ -44,7 +44,7 @@ class ExpensesAPI {
     }
         
     /**
-     * @description This function is used to get a single expense from TidyHQ.
+     * @description Get a single expense from TidyHQ.
      * @param {string} expenseID - The ID of the expense to get
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -55,7 +55,7 @@ class ExpensesAPI {
     }
 
     /**
-     * @description This function is used to create a new expense in TidyHQ.
+     * @description Create a new expense in TidyHQ.
      * @param {Tidy_V1_ExpenseParams} expense - The expense to create.
      * @param {object} [options = {}] - The options to create the expense with.
      * @param {string} [options.access_token] - The access token to use.
@@ -98,7 +98,7 @@ class ExpensesAPI {
     }
 
     /**
-     * @description This function is used to delete an expense.
+     * @description Delete an expense.
      * @param {string} expenseID - The ID of the expense.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.

@@ -23,7 +23,7 @@ class V2_ContactsAPI {
     }
 
     /**
-     * @description This function is used to get a list of contacts from TidyHQ.
+     * @description Get a list of contacts from TidyHQ.
      * @link https://tidyhq.readme.io/reference/get-contacts
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -58,12 +58,12 @@ class V2_ContactsAPI {
     }
 
     /**
-     * @description This function is used to get a single contact from TidyHQ.
+     * @description Get a single contact from TidyHQ.
      * @link https://tidyhq.readme.io/reference/get-contact
      * @param {string} [contactID = "me"] - The ID of the contact to get (me / default returns the contact of the user who authorized the application)
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<TidyAPI_V2_Contacts>} - The contact object.
+     * @returns {Promise<TidyAPI_V2_Contact>} - The contact object.
      **/
     async getContact(contactID = "me", options = {}) {
         return await this.rest.get(`/v2/contacts/${contactID}`, options?.access_token);
@@ -98,7 +98,7 @@ class V2_ContactsAPI {
     }
 
     /**
-     * @description This function is used to update a contact in TidyHQ.
+     * @description Update a contact in TidyHQ.
      * @link https://tidyhq.readme.io/reference/update-contact
      * @param {string} contact_id - The ID of the contact to update.
      * @param {Tidy_V2_Contact} contact - The new contact data.

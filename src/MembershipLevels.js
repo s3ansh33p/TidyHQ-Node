@@ -23,7 +23,7 @@ class MembershipLevelsAPI {
     }
 
     /**
-     * @description This function is used to get a list of all membership levels.
+     * @description Get a list of all membership levels.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
@@ -36,7 +36,7 @@ class MembershipLevelsAPI {
     }
 
     /**
-     * @description This function is used to get a single membership level.
+     * @description Get a single membership level.
      * @param {number} membership_level_id - The ID of the membership level.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -47,7 +47,7 @@ class MembershipLevelsAPI {
     }
 
     /**
-     * @description This function is used to get pricing variations for a membership level.
+     * @description Get pricing variations for a membership level.
      * @param {number} membership_level_id - The ID of the membership level.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.

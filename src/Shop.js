@@ -23,7 +23,7 @@ class ShopAPI {
     }
 
     /**
-     * @description This function is used to get a list of all shop products.
+     * @description Get a list of all shop products.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
@@ -36,7 +36,7 @@ class ShopAPI {
     }
     
     /**
-     * @description This function is used to get a single shop product.
+     * @description Get a single shop product.
      * @param {string} product_id - The ID of the product.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -47,7 +47,7 @@ class ShopAPI {
     }
 
     /**
-     * @description This function is used to get a list of all shipping options.
+     * @description Get a list of all shipping options.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
@@ -60,7 +60,7 @@ class ShopAPI {
     }
 
     /**
-     * @description This function is used to get a single shipping option.
+     * @description Get a single shipping option.
      * @param {string} shipping_option_id - The ID of the shipping option.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -73,7 +73,7 @@ class ShopAPI {
     }
 
     /**
-     * @description This function is used to get a list of all orders.
+     * @description Get a list of all orders.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {string} [options.limit] - The number of results to return.
@@ -88,7 +88,7 @@ class ShopAPI {
     }
     
     /**
-     * @description This function is used to get a single order.
+     * @description Get a single order.
      * @param {string} order_id - The ID of the order.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.

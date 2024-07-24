@@ -22,7 +22,7 @@ class OrganizationAPI {
     }
 
     /**
-     * @description This function is used to get the organization associated with the access token.
+     * @description Get the organization associated with the access token.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Organization>} - The organization.

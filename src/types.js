@@ -92,6 +92,14 @@
  * @property {string} [contact_id_number] - Filter by the contact ID number.
  */
 
+/**
+ * @typedef {Object} Tidy_V2_MatchableContact
+ * @property {string} [contact_id] - The unique identifier for the contact.
+ * @property {string} [email] - The email address of the contact.
+ * @property {string} [first_name] - The first name of the contact.
+ * @property {string} [last_name] - The last name of the contact.
+ */
+
 /* ========== V2_Memberships ========== */
 
 /**
@@ -111,6 +119,81 @@
  * @property {string} start_date - The start date of the membership.
  * @property {string} end_date - The end date of the membership.
  * @property {Tidy_V2_Note[]} notes - The notes associated with the membership.
+ */
+
+/* ========== V2_Subscriptions ========== */
+
+/**
+ * @typedef {Object} Tidy_V2_Subscription
+ * @property {string} id - The unique identifier for the subscription.
+ * @property {string} state - The state of the subscription.
+ * @property {string} status - Human-readable version of the state.
+ * @property {string} created_at - The creation date and time of the subscription.
+ * @property {string} updated_at - The last update date and time of the subscription.
+ * @property {string} start_date - The start date of the subscription.
+ * @property {string} end_date - The end date of the subscription.
+ * @property {string} membership_id - The ID of the associated membership.
+ * @property {Tidy_V2_Variation[]} variations - The variations associated with the subscription.
+ */
+
+/**
+ * @typedef {Object} Tidy_V2_Variation
+ * @property {string} visibility - The visibility of the variation.
+ * @property {string} price - The price of the variation.
+ * @property {Tidy_V2_VariationAnswer} answer - The answer associated with the variation.
+ * @property {Tidy_V2_PricingVariationDestination} destination - The destination associated with the variation.
+ * @property {Tidy_V2_PricingVariationAutofillGroup} autofill_group - The autofill group associated with the variation.
+ * @property {Tidy_V2_VariationQuestion} question - The question associated with the variation.
+ */
+
+/**
+ * @typedef {Object} Tidy_V2_VariationAnswer
+ * @property {string} id - The unique identifier for the answer.
+ * @property {string} value - The value of the answer.
+ * @property {string} updated_at - The last update date and time of the answer.
+ */
+
+/**
+ * @typedef {Object} Tidy_V2_VariationQuestion
+ * @property {string} id - The unique identifier for the question.
+ * @property {string} name - The name of the question.
+ * @property {boolean} required - Whether the question is required.
+ * @property {string} created_at - The creation date and time of the question.
+ * @property {string} updated_at - The last update date and time of the question.
+ */
+/**
+ * 
+ * @typedef {Object} Tidy_V2_PricingVariationDestination
+ * @property {string} id - The unique identifier for the destination.
+ * @property {string} type - The type of the destination.
+ * @property {string} title - Human-readable version of the type of destination.
+ * @property {string} name - The name of the destination.
+ */
+
+/**
+ * @typedef {Object} Tidy_V2_PricingVariationAutofillGroup
+ * @property {string} id - The unique identifier for the autofill group.
+ * @property {number} group_id_reference - The reference ID for the group.
+ * @property {string} name - The name of the autofill group.
+ */
+
+/**
+ * @typedef {Object} Tidy_V2_PostSubscriptionParams
+ * @property {Tidy_V2_MatchableContact} [member] - On an individual membership level, change who it belongs to.
+ * @property {Tidy_V2_MatchableContact[]} [adult] - For family memberships, changes the associated adults.
+ * @property {Tidy_V2_MatchableContact[]} [children] - For family memberships, changes the associated children.
+ * @property {Object.<string, string>} [variations] - A object mapping variation ids to variation value ids.
+ * @property {'paid' | 'invoice' | 'pay_now'} payment_type - Payment status of subscription, note that paid covers partially paid subscriptions.
+ * @property {Tidy_V1_PaymentType} payment_method - Required when payment_type is paid, How the paid amount was paid.
+ * @property {string} [partial_payment_amount] - When marked as paid, and it's already partially-paid, an amount that has already been paid.
+ * @property {string} [ref_no] - When marked as paid, allows overriding the transaction ref for the given paid transaction. If left blank, will be automatically generated.
+ * @property {string} [due_date] - When paying by invoice, when said invoice is due.
+ * @property {boolean} [send_welcome_mail=true] - Send a membership welcome email.
+ * @property {boolean} [send_invoice_mail] - When paying by invoice, should we send an email with invoice details.
+ * @property {boolean} [auto_assign_users=true] - When processing contacts on the membership, should we automatically assign (either find existing, or create a new) user for them in Tidy. If users are created, will automatically send an account sign up email as well. For users to be automatically created / assigned, they require all of a first name, last name and an email address.
+ * @property {boolean} [auto_renew] - Will set explicitly if the membership should auto renew, if possible. Defaults to use the value set on the membership level, but can overwrite if needed.
+ * @property {string} [start_date] - The start date of the membership.
+ * @property {string} [end_date] - The end date of the membership.
  */
 
 /* ========== V2_MembershipLevels ========== */
@@ -1311,6 +1394,49 @@
 /**
  * @typedef {Object} TidyAPI_V2_Memberships
  * @property {Tidy_V2_Membership[]|TidyAPI_Data} data - The memberships.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V2_Subscription
+ * @property {Tidy_V2_Subscription|TidyAPI_Data} data - The subscription.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V2_Subscriptions
+ * @property {Tidy_V2_Subscription[]|TidyAPI_Data} data - The subscriptions.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} Tidy_V2_SubscriptionPostResponse
+ * @property {string} id - The unique identifier for the subscription.
+ * @property {string} state - The state of the subscription.
+ * @property {string} status - Human-readable version of the state.
+ * @property {string} created_at - The creation date and time of the subscription.
+ * @property {string} updated_at - The last update date and time of the subscription.
+ * @property {string} start_date - The start date of the subscription.
+ * @property {string} end_date - The end date of the subscription.
+ * @property {string} membership_id - The ID of the associated membership.
+ * @property {Tidy_V2_Variation[]} variations - The variations associated with the subscription.
+ * @property {string} payment_url - When valid, a URL (pre-authed) a user can use to pay for the membership.
+ * @property {string} invoice_id - When valid, the ID of the appropriate Invoice to be used with the invoices API.
+ * @property {Tidy_V2_Membership} membership - A preview of the membership.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V2_SubscriptionPost
+ * @property {Tidy_V2_SubscriptionPostResponse|TidyAPI_Data} data - The subscription and membership response.
  * @property {number} status - The HTTP status code of the response.
  * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
  * @property {boolean} success - Indicates whether the request was successful.

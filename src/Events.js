@@ -23,7 +23,7 @@ class EventsAPI {
     }
 
     /**
-     * @description This function is used to get a list of events.
+     * @description Get a list of events.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.limit] - The maximum number of contacts to return.
@@ -39,7 +39,7 @@ class EventsAPI {
     }
 
     /**
-     * @description This function is used to get a single event.
+     * @description Get a single event.
      * @param {number} event_id - The ID of the event.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -50,7 +50,7 @@ class EventsAPI {
     }
 
     /**
-     * @description This function is used to create a new event.
+     * @description Create a new event.
      * @param {Tidy_V1_EventParams} event - The event to create. Requires a name and start_at.
      * @param {Object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -61,7 +61,7 @@ class EventsAPI {
     }
 
     /**
-     * @description This function is used to update an event.
+     * @description Update an event.
      * @param {number} event_id - The ID of the event.
      * @param {Tidy_V1_EventParams} event - The event to update. Requires at least one parameter.
      * @param {object} [options = {}]
@@ -76,7 +76,7 @@ class EventsAPI {
     }
 
     /**
-     * @description This function is used to delete an event.
+     * @description Delete an event.
      * @param {number} event_id - The ID of the event.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.

@@ -23,7 +23,7 @@ class GroupsAPI {
     }
 
     /**
-     * @description This function is used to get a list of groups from TidyHQ.
+     * @description Get a list of groups from TidyHQ.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @param {number} [options.limit] - The maximum number of groups to return.
@@ -37,7 +37,7 @@ class GroupsAPI {
     }
 
     /**
-     * @description This function is used to get groups for a contact from TidyHQ.
+     * @description Get groups for a contact from TidyHQ.
      * @param {number} contact_id - The ID of the contact.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -52,7 +52,7 @@ class GroupsAPI {
     }
 
     /**
-     * @description This function is used to get a single group from TidyHQ.
+     * @description Get a single group from TidyHQ.
      * @param {number} group_id - The ID of the group.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -63,7 +63,7 @@ class GroupsAPI {
     }
 
     /**
-     * @description This function is used to create a new group in TidyHQ.
+     * @description Create a new group in TidyHQ.
      * @param {string} name - The name of the group.
      * @param {object} [options]
      * @param {string} [options.access_token] - The access token to use.
@@ -79,7 +79,7 @@ class GroupsAPI {
     }
 
     /**
-     * @description This function is used to update a group in TidyHQ.
+     * @description Update a group in TidyHQ.
      * @param {number} group_id - The ID of the group.
      * @param {object} [options]
      * @param {string} [options.access_token] - The access token to use.
@@ -97,7 +97,7 @@ class GroupsAPI {
     }
 
     /**
-     * @description This function is used to delete a group in TidyHQ.
+     * @description Delete a group in TidyHQ.
      * @param {number} group_id - The ID of the group.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.

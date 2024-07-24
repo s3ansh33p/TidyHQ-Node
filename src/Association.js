@@ -22,7 +22,7 @@ class AssociationAPI {
     }
 
     /**
-     * @description This function is used to get the organizations that fall under the association associated with the access token.
+     * @description Get the organizations that fall under the association associated with the access token.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Organizations>} - The list of organizations.
@@ -32,7 +32,7 @@ class AssociationAPI {
     }
 
     /**
-     * @description This function is used to get a single organization.
+     * @description Get a single organization.
      * @param {string} id - The ID of the organization.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -43,7 +43,7 @@ class AssociationAPI {
     }
 
     /**
-     * @description This function is used to get the contacts that fall under an organization.
+     * @description Get the contacts that fall under an organization.
      * @param {string} organization_id - The ID of the organization.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -54,7 +54,7 @@ class AssociationAPI {
     }
 
     /**
-     * @description This function is used to get the events that fall under an organization.
+     * @description Get the events that fall under an organization.
      * @param {string} organization_id - The ID of the organization.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -70,7 +70,7 @@ class AssociationAPI {
     }
 
     /**
-     * @description This function is used to get a single event that falls under an organization.
+     * @description Get a single event that falls under an organization.
      * @param {string} organization_id - The ID of the organization.
      * @param {number} event_id - The ID of the event.
      * @param {object} [options = {}]
@@ -82,7 +82,7 @@ class AssociationAPI {
     }
 
     /**
-     * @description This function is used to get the meetings that fall under an organization.
+     * @description Get the meetings that fall under an organization.
      * @param {string} organization_id - The ID of the organization.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
@@ -95,7 +95,7 @@ class AssociationAPI {
     }
 
     /**
-     * @description This function is used to get a single meeting that falls under an organization.
+     * @description Get a single meeting that falls under an organization.
      * @param {string} organization_id - The ID of the organization.
      * @param {string} meeting_id - The ID of the meeting.
      * @param {object} [options = {}]

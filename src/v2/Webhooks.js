@@ -22,7 +22,7 @@ class V2_WebhooksAPI {
     }
 
     /**
-     * @description This function is used to get a list of all Webhooks.
+     * @description Get a list of all Webhooks.
      * @param {object} [options = {}]
      * @param {string} [options?.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_Response>} - The list of Webhooks. [!] Type
@@ -32,7 +32,7 @@ class V2_WebhooksAPI {
     }
 
     /**
-     * @description This function is used to get a Webhook by its ID.
+     * @description Get a Webhook by its ID.
      * @param {string} id - The ID of the Webhook.
      * @param {object} [options = {}]
      * @param {string} [options?.access_token] - The access token to use.
@@ -43,7 +43,7 @@ class V2_WebhooksAPI {
     }
 
     /**
-     * @description This function is used to create a new Webhook.
+     * @description Create a new Webhook.
      * @param {string} url - The URL of the Webhook to listen to.
      * @param {string} matching_kind - The kind of event to listen for.
      * @param {string} description - The description of the Webhook.
@@ -74,7 +74,7 @@ class V2_WebhooksAPI {
     }
 
     /**
-     * @description This function is used to deactivate a Webhook.
+     * @description Deactivate a Webhook.
      * @param {string} id - The ID of the Webhook.
      * @param {object} [options = {}]
      * @param {string} [options?.access_token] - The access token to use.
@@ -85,7 +85,7 @@ class V2_WebhooksAPI {
     }
 
     /**
-     * @description This function is used to delete a Webhook.
+     * @description Delete a Webhook.
      * @param {string} id - The ID of the Webhook.
      * @param {object} [options = {}]
      * @param {string} [options?.access_token] - The access token to use.
