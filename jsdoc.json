@@ -8,10 +8,11 @@
     "recurse": true,
     "destination": "./docs",
     "template": "node_modules/clean-jsdoc-theme",
+    "tutorials": "./tutorials",
     "theme_opts": {
         "default_theme": "dark",
         "homepageTitle": "TidyHQ-Node Documentation",
-        "sections": ["Classes", "Global"],
+        "sections": ["Classes", "Global", "Tutorials"],
         "include_css": ["./assets/index.css"],
         "footer": "Made with ❤︎ by Sean McGinty",
         "menu": [

@@ -7,7 +7,7 @@ Refer to the [TidyHQ V1 API Documentation](https://dev.tidyhq.com/) and [TidyHQ 
 ## Roadmap
 
 - Finish V2 routes
-- Add tutorials
+- Add tutorials, some are on the side/in the menu, under the `Tutorials` dropdown
 
 ## Example Usage
 
@@ -40,7 +40,7 @@ console.log(contact)
 ```
 
 ### Overriding default token
-You can ovveride the default token by passing in an `access_token` in the options object on any request.
+You can override the default token by passing in an `access_token` in the options object on any request.
 ```js
 const contact = await thq.V2.Contacts.getContact('me', { access_token: '<token>'});
 console.log(contact)
