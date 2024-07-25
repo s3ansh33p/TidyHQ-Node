@@ -53,6 +53,23 @@ class V2_MembershipAPI {
     }
 
     /**
+     * @description Get a list of subscriptions from TidyHQ.
+     * @link https://tidyhq.readme.io/reference/get-subscriptions
+     * @param {object} [options = {}]
+     * @param {string} [options.access_token] - The access token to use.
+     * @param {string} [options.updated_before] - ISO8601 formatted timestamp, only returns results last updated before the given time.
+     * @param {string} [options.updated_since] - ISO8601 formatted timestamp, only returns results last updated since the given time.
+     * @param {number} [options.limit] - The maximum number of subscriptions per page to return.
+     * @param {number} [options.offset] - The number of subscriptions to skip.
+     * @param {boolean} [options.active]  - When given, returns only users with active / inactive subscriptions (active is partial and activated status).
+     * @returns {Promise<TidyAPI_V2_Subscriptions>} - An array of subscriptions.
+     */
+    async getSubscriptions(options = {}) {
+        const optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset", "active"], options)
+        return await this.rest.get(`/v2/subscriptions${optionalParametersString}`, options?.access_token);
+    }
+
+    /**
      * @description Create/renew a subscription for a membership in TidyHQ.
      * @link https://tidyhq.readme.io/reference/create-membership-subscription
      * @param {string} membership_id - The id of the membership to create a subscription for.
