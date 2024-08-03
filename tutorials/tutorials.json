@@ -4,5 +4,8 @@
     },
     "create-memberships-from-group": {
         "title": "Create Memberships From Group"
+    },
+    "generate-event-lanyards": {
+        "title": "Generating Lanyards for an Event"
     }
 }
