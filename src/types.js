@@ -66,6 +66,7 @@
  * @property {string|null} metadata - Metadata associated with the contact.
  * @property {string} created_at - Creation date and time of the contact record.
  * @property {string} updated_at - Last update date and time of the contact record.
+ * @property {string} initials - Initials of the contact.
  * @property {string|null} emergency_contact_person - Emergency contact person for the contact.
  * @property {string|null} emergency_contact_number - Emergency contact number for the contact.
  * @property {string} member_since - Date since the contact is a member.
@@ -280,6 +281,20 @@
  * @property {string[]} contact_ids - The contact IDs associated with the role.
  * @property {string} created_at - The creation date and time of the role.
  * @property {string} updated_at - The last update date and time of the role.
+ */
+
+/* ========== V2_Webhooks ========== */
+/**
+ * @typedef {Object} Tidy_V2_Webhook
+ * @property {string} id - The unique identifier for the webhook.
+ * @property {string} status - The status of the webhook. [!] TBA add all possible values
+ * @property {string} created_at - The creation date and time of the webhook.
+ * @property {string} updated_at - The last update date and time of the webhook.
+ * @property {string} matching_kind - The kind of events to match for the webhook.
+ * @property {string} url - The URL to which the webhook sends data.
+ * @property {string} description - A description of the webhook.
+ * @property {string} signing_key_b64 - The base64 encoded signing key for the webhook.
+ * @property {boolean} allow_state_changes - Whether the webhook allows state changes.
  */
 
 /* ========== Categories ========== */
@@ -1488,4 +1503,20 @@
  * @property {string} [message] - An optional error message, present only in error responses.
  */
 
-module.exports = {};
+/**
+ * @typedef {Object} TidyAPI_V2_Webhook
+ * @property {Tidy_V2_Webhook|TidyAPI_Data} data - The webhook.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
+
+/**
+ * @typedef {Object} TidyAPI_V2_Webhooks
+ * @property {Tidy_V2_Webhook[]|TidyAPI_Data} data - The webhooks.
+ * @property {number} status - The HTTP status code of the response.
+ * @property {string} statusText - The status text (e.g., "OK", "Not Found") of the response.
+ * @property {boolean} success - Indicates whether the request was successful.
+ * @property {string} [message] - An optional error message, present only in error responses.
+ */
