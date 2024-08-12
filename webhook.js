@@ -54,7 +54,7 @@ class TidyHQWebhook {
     /**
      * @description Verify a message from TidyHQ.
      * @param {string} tidySignatureHeader - The signature header from TidyHQ.
-     * @param {object} body - The body of the message.
+     * @param {string} body - The raw body of the message.
      * @param {string} httpMethod - The HTTP method of the webhook.
      * @returns {Promise<object>} - The data from the webhook. [!] Type tba
      */
@@ -74,7 +74,7 @@ class TidyHQWebhook {
         const timestamp = details.timestamp
         const signature = details.signatures[0]
 
-        const timestampedPayload = `${timestamp}.${JSON.stringify(body)}`
+        const timestampedPayload = `${timestamp}.${body}`
 
         const expectedSignature = crypto.createHmac('sha256', signingKey)
             .update(timestampedPayload, 'utf8')
@@ -90,7 +90,7 @@ class TidyHQWebhook {
             throw new Error('Timestamp outside the tolerance zone')
         }
 
-        const data = body
+        const data = JSON.parse(body);
 
         if (data.webhook_id !== this.webhookId) {
             throw new Error(`There has been a webhook ID mismatch, expected ${this.webhookId} got ${data.webhook_id}`)
