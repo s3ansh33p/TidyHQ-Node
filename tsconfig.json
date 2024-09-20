@@ -15,6 +15,6 @@
             "*": ["node_modules/*"]
         }
     },
-    "exclude": ["docs", "node_modules", "dev.js"],
+    "exclude": ["docs", "node_modules"],
     "include": ["**/*.js"]
 }
