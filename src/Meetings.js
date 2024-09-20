@@ -30,9 +30,10 @@ class MeetingsAPI {
      * @param {string} [options.offset] - The number of results to skip.
      * @returns {Promise<TidyAPI_V1_Meetings>} - The list of meetings.
      */
-    async getMeetings(options) {
+    async getMeetings(options = {}) {
+        const accessToken = options.access_token || "";
         const optionalParametersString = makeURLParameters(["limit", "offset"], options)
-        return await this.rest.get(`/v1/events${optionalParametersString}`, options?.access_token);
+        return await this.rest.get(`/v1/events${optionalParametersString}`, accessToken);
     }
 
     /**
@@ -43,7 +44,8 @@ class MeetingsAPI {
      * @returns {Promise<TidyAPI_V1_Meeting>} - The meeting.
      */
     async getMeeting(meeting_id, options = {}) {
-        return await this.rest.get(`/v1/meetings/${meeting_id}`, options?.access_token);
+        const accessToken = options.access_token || "";
+        return await this.rest.get(`/v1/meetings/${meeting_id}`, accessToken);
     }
 }
 

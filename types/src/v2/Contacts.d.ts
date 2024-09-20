@@ -1,27 +1,14 @@
 /**
- * @fileoverview This file contains functions for interacting with Contacts in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 2.2.0
- * @license GPL-3.0
- */
-
-const { Rest } = require("../utils/Rest.js");
-const { makeURLParameters } = require("../utils/Builder.js");
-
-/**
  * @description This class is used to interact with Contacts in TidyHQ.
  * @class
  */
-class V2_ContactsAPI {
-
+export class V2_ContactsAPI {
     /**
      * @param {Rest} rest - The rest instance to use for requests.
      * @constructor
      */
-    constructor(rest) {
-        this.rest = rest;
-    }
-
+    constructor(rest: Rest);
+    rest: Rest;
     /**
      * @description Get a list of contacts from TidyHQ.
      * @link https://tidyhq.readme.io/reference/get-contacts
@@ -39,12 +26,19 @@ class V2_ContactsAPI {
      * @param {Tidy_V2_ContactFilterEqualsOptions} [options.filter_equals] - Object with keys and values to filter by.
      * @returns {Promise<TidyAPI_V2_Contacts>} - An array of contact objects.
      */
-    async getContacts(options = {}) {
-        const accessToken = options.access_token || "";
-        let optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset", "registered", "all", "ids[]", "scope", "search_terms", "filter_equals[][]"], options)
-        return await this.rest.get(`/v2/contacts${optionalParametersString}`, accessToken);
-    }
-
+    getContacts(options?: {
+        access_token?: string | undefined;
+        updated_before?: string | undefined;
+        updated_since?: string | undefined;
+        limit?: number | undefined;
+        offset?: number | undefined;
+        registered?: boolean | undefined;
+        all?: boolean | undefined;
+        ids?: string[] | undefined;
+        scope?: "contact_id_number" | "sports_australia_connect" | undefined;
+        search_terms?: string | undefined;
+        filter_equals?: Tidy_V2_ContactFilterEqualsOptions | undefined;
+    } | undefined): Promise<TidyAPI_V2_Contacts>;
     /**
      * @todo REFACTOR TYPES AND TEST
      * @description Creates a new contact with the given data in TidyHQ.
@@ -54,11 +48,9 @@ class V2_ContactsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V2_Contacts>} - The created contact.
      */
-    async createContact(contact, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.post("/v2/contacts", contact, accessToken);
-    }
-
+    createContact(contact: Tidy_V2_Contact, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V2_Contacts>;
     /**
      * @description Get a single contact from TidyHQ.
      * @link https://tidyhq.readme.io/reference/get-contact
@@ -67,11 +59,9 @@ class V2_ContactsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V2_Contact>} - The contact object.
      **/
-    async getContact(contactID = "me", options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v2/contacts/${contactID}`, accessToken);
-    }
-
+    getContact(contactID?: string | undefined, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V2_Contact>;
     /**
      * @description Adds a note to a specified contact.
      * @link https://tidyhq.readme.io/reference/create-contact-note
@@ -81,13 +71,9 @@ class V2_ContactsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V2_Note>} - The created note.
      */
-    async createContactNote(contact_id, note, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.post(`/v2/contacts/${contact_id}/notes`, {
-            text: note
-        }, accessToken);
-    }
-
+    createContactNote(contact_id: string, note: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V2_Note>;
     /**
      * @description Deletes a specified note from a specified contact.
      * @link https://tidyhq.readme.io/reference/delete-contact-note
@@ -95,13 +81,11 @@ class V2_ContactsAPI {
      * @param {string} note_id - The ID of the note to delete.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response. 
+     * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response.
      */
-    async deleteContactNote(contact_id, note_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.delete(`/v2/contacts/${contact_id}/notes/${note_id}`, {}, accessToken);
-    }
-
+    deleteContactNote(contact_id: string, note_id: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_EmptyResponse>;
     /**
      * @description Update a contact in TidyHQ.
      * @link https://tidyhq.readme.io/reference/update-contact
@@ -111,11 +95,9 @@ class V2_ContactsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V2_Contact>} - The updated contact.
      */
-    async updateContact(contact_id, contact, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.patch(`/v2/contacts/${contact_id}`, contact, accessToken);
-    }
-
+    updateContact(contact_id: string, contact: Tidy_V2_Contact, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V2_Contact>;
     /**
      * @description Gets all memberships for a given single contact.
      * @link https://tidyhq.readme.io/reference/get-contact-memberships
@@ -128,12 +110,12 @@ class V2_ContactsAPI {
      * @param {number} [options.offset] - The number of contacts to skip.
      * @returns {Promise<TidyAPI_V2_Memberships>} - An array of memberships.
      */
-    async getContactMemberships(contact_id, options = {}) {
-        const accessToken = options.access_token || "";
-        const optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset"], options)
-        return await this.rest.get(`/v2/contacts/${contact_id}/memberships${optionalParametersString}`, accessToken);
-    }
-
+    getContactMemberships(contact_id: string, options?: {
+        access_token?: string | undefined;
+        updated_before?: string | undefined;
+        updated_since?: string | undefined;
+        limit?: number | undefined;
+        offset?: number | undefined;
+    } | undefined): Promise<TidyAPI_V2_Memberships>;
 }
-
-module.exports = { V2_ContactsAPI };
+import { Rest } from "../utils/Rest.js";

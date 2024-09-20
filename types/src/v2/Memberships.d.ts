@@ -1,27 +1,14 @@
 /**
- * @fileoverview This file contains functions for interacting with Memberships in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 2.2.0
- * @license GPL-3.0
- */
-
-const { Rest } = require("../utils/Rest.js");
-const { makeURLParameters } = require("../utils/Builder.js");
-
-/**
  * @description This class is used to interact with Memberships in TidyHQ.
  * @class
  */
-class V2_MembershipAPI {
-
+export class V2_MembershipAPI {
     /**
      * @param {Rest} rest - The rest instance to use for requests.
      * @constructor
      */
-    constructor(rest) {
-        this.rest = rest;
-    }
-
+    constructor(rest: Rest);
+    rest: Rest;
     /**
      * @description Get a list of memberships from TidyHQ.
      * @link https://tidyhq.readme.io/reference/get-memberships
@@ -35,12 +22,15 @@ class V2_MembershipAPI {
      * @param {boolean} [options.active]  - When given, returns only users with active / inactive memberships (active is partial and activated status).
      * @returns {Promise<TidyAPI_V2_Memberships>} - An array of memberships.
      */
-    async getMemberships(options = {}) {
-        const accessToken = options.access_token || "";
-        const optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset", "all", "active"], options)
-        return await this.rest.get(`/v2/memberships${optionalParametersString}`, accessToken);
-    }
-
+    getMemberships(options?: {
+        access_token?: string | undefined;
+        updated_before?: string | undefined;
+        updated_since?: string | undefined;
+        limit?: number | undefined;
+        offset?: number | undefined;
+        all?: boolean | undefined;
+        active?: boolean | undefined;
+    } | undefined): Promise<TidyAPI_V2_Memberships>;
     /**
      * @description Get a single membership from TidyHQ.
      * @link https://tidyhq.readme.io/reference/get-membership
@@ -49,11 +39,9 @@ class V2_MembershipAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V2_Membership>} - The membership.
      */
-    async getMembership(membership_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v2/memberships/${membership_id}`, accessToken);
-    }
-
+    getMembership(membership_id: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V2_Membership>;
     /**
      * @description Get a list of subscriptions from TidyHQ.
      * @link https://tidyhq.readme.io/reference/get-subscriptions
@@ -66,12 +54,14 @@ class V2_MembershipAPI {
      * @param {boolean} [options.active]  - When given, returns only users with active / inactive subscriptions (active is partial and activated status).
      * @returns {Promise<TidyAPI_V2_Subscriptions>} - An array of subscriptions.
      */
-    async getSubscriptions(options = {}) {
-        const accessToken = options.access_token || "";
-        const optionalParametersString = makeURLParameters(["updated_before", "updated_since", "limit", "offset", "active"], options)
-        return await this.rest.get(`/v2/subscriptions${optionalParametersString}`, accessToken);
-    }
-
+    getSubscriptions(options?: {
+        access_token?: string | undefined;
+        updated_before?: string | undefined;
+        updated_since?: string | undefined;
+        limit?: number | undefined;
+        offset?: number | undefined;
+        active?: boolean | undefined;
+    } | undefined): Promise<TidyAPI_V2_Subscriptions>;
     /**
      * @description Create/renew a subscription for a membership in TidyHQ.
      * @link https://tidyhq.readme.io/reference/create-membership-subscription
@@ -81,11 +71,8 @@ class V2_MembershipAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V2_SubscriptionPost>} - The subscription, membership, payment url and invoice id.
      */
-    async renewSubscriptionForMembership(membership_id, subscription, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.post(`/v2/memberships/${membership_id}/subscriptions`, subscription, accessToken);
-    }
-
+    renewSubscriptionForMembership(membership_id: string, subscription: Tidy_V2_PostSubscriptionParams, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V2_SubscriptionPost>;
 }
-
-module.exports = { V2_MembershipAPI };
+import { Rest } from "../utils/Rest.js";

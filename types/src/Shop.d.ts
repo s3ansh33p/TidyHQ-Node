@@ -1,27 +1,14 @@
 /**
- * @fileoverview This file contains functions for interacting with the Shop in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 1.2.0
- * @license GPL-3.0
- */
-
-const { Rest } = require("./utils/Rest.js");
-const { makeURLParameters } = require("./utils/Builder.js");
-
-/**
  * @description This class is used to interact with the Shop in TidyHQ.
  * @class
  */
-class ShopAPI {
-
+export class ShopAPI {
     /**
      * @param {Rest} rest - The rest instance to use for requests.
      * @constructor
      */
-    constructor(rest) {
-        this.rest = rest;
-    }
-
+    constructor(rest: Rest);
+    rest: Rest;
     /**
      * @description Get a list of all shop products.
      * @param {object} [options = {}]
@@ -30,12 +17,11 @@ class ShopAPI {
      * @param {string} [options.offset] - The number of results to skip.
      * @returns {Promise<TidyAPI_V1_ShopProducts>} - The list of products.
      */
-    async getProducts(options = {}) {
-        const accessToken = options.access_token || "";
-        const optionalParametersString = makeURLParameters(["limit", "offset"], options)
-        return await this.rest.get(`/v1/shop/products${optionalParametersString}`, accessToken);
-    }
-    
+    getProducts(options?: {
+        access_token?: string | undefined;
+        limit?: string | undefined;
+        offset?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_ShopProducts>;
     /**
      * @description Get a single shop product.
      * @param {string} product_id - The ID of the product.
@@ -43,11 +29,9 @@ class ShopAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_ShopProduct>} - The product.
      */
-    async getProduct(product_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/shop/products/${product_id}`, accessToken);
-    }
-
+    getProduct(product_id: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_ShopProduct>;
     /**
      * @description Get a list of all shipping options.
      * @param {object} [options = {}]
@@ -56,12 +40,11 @@ class ShopAPI {
      * @param {string} [options.offset] - The number of results to skip.
      * @returns {Promise<TidyAPI_V1_ShippingOptions>} - The list of shipping options.
      */
-    async getShippingOptions(options = {}) {
-        const accessToken = options.access_token || "";
-        const optionalParametersString = makeURLParameters(["limit", "offset"], options)
-        return await this.rest.get(`/v1/shop/shipping_options${optionalParametersString}`, accessToken);
-    }
-
+    getShippingOptions(options?: {
+        access_token?: string | undefined;
+        limit?: string | undefined;
+        offset?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_ShippingOptions>;
     /**
      * @description Get a single shipping option.
      * @param {string} shipping_option_id - The ID of the shipping option.
@@ -71,11 +54,11 @@ class ShopAPI {
      * @param {string} [options.offset] - The number of results to skip.
      * @returns {Promise<TidyAPI_V1_ShippingOption>} - The shipping option.
      */
-    async getShippingOption(shipping_option_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/shop/shipping_options/${shipping_option_id}`, accessToken);
-    }
-
+    getShippingOption(shipping_option_id: string, options?: {
+        access_token?: string | undefined;
+        limit?: string | undefined;
+        offset?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_ShippingOption>;
     /**
      * @description Get a list of all orders.
      * @param {object} [options = {}]
@@ -86,12 +69,13 @@ class ShopAPI {
      * @param {"all"|"pending"|"completed"|"cancelled"} [options.status] - The status of the orders to return.
      * @returns {Promise<TidyAPI_V1_ShopOrders>} - The list of orders.
      */
-    async getOrders(options = {}) {
-        const accessToken = options.access_token || "";
-        const optionalParametersString = makeURLParameters(["limit", "offset", "created_since", "status"], options)
-        return await this.rest.get(`/v1/shop/orders${optionalParametersString}`, accessToken);
-    }
-    
+    getOrders(options?: {
+        access_token?: string | undefined;
+        limit?: string | undefined;
+        offset?: string | undefined;
+        created_since?: string | undefined;
+        status?: "all" | "pending" | "completed" | "cancelled" | undefined;
+    } | undefined): Promise<TidyAPI_V1_ShopOrders>;
     /**
      * @description Get a single order.
      * @param {string} order_id - The ID of the order.
@@ -99,11 +83,8 @@ class ShopAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_ShopOrder>} - The order.
      */
-    async getOrder(order_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/shop/orders/${order_id}`, accessToken);
-    }
-
+    getOrder(order_id: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_ShopOrder>;
 }
-
-module.exports = { ShopAPI };
+import { Rest } from "./utils/Rest.js";

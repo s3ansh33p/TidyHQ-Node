@@ -2,14 +2,19 @@
     "compilerOptions": {
         "target": "ES2016",
         "module": "CommonJS",
-        "maxNodeModuleJsDepth": 1,
         "moduleResolution": "node",
+        "allowJs": true,
         "checkJs": true,
+        "noEmit": false,
+        "strict": true,
+        "declaration": true,
+        "declarationDir": "types",
+        "outDir": "dist",
         "baseUrl": ".",
         "paths": {
             "*": ["node_modules/*"]
         }
     },
-    "exclude": ["docs", "node_modules"],
+    "exclude": ["docs", "node_modules", "dev.js"],
     "include": ["**/*.js"]
 }

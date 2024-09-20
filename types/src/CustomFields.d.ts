@@ -1,38 +1,23 @@
 /**
- * @fileoverview This file contains functions for interacting with Custom Fields in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 1.2.0
- * @license GPL-3.0
- */
-
-const { Rest } = require("./utils/Rest.js");
-const { makeURLParameters } = require("./utils/Builder.js");
-
-/**
  * @description This class is used to interact with Custom Fields in TidyHQ.
  * @class
  */
-class CustomFieldsAPI {
-
+export class CustomFieldsAPI {
     /**
      * @param {Rest} rest - The rest instance to use for requests.
      * @constructor
      */
-    constructor(rest) {
-        this.rest = rest;
-    }
-
+    constructor(rest: Rest);
+    rest: Rest;
     /**
      * @description Get a list of custom fields from TidyHQ.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_CustomFields>} - An array of custom fields.
      */
-    async getCustomFields(options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/custom_fields`, accessToken);
-    }
-
+    getCustomFields(options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_CustomFields>;
     /**
      * @description Get a single custom field from TidyHQ.
      * @param {string} customFieldID - The ID of the CustomField to get
@@ -40,20 +25,9 @@ class CustomFieldsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_CustomField>} - The custom field.
      **/
-    async getCustomField(customFieldID, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/custom_fields/${customFieldID}`, accessToken);
-    }
-
-    /**
-     * @description Helper function to determine if a custom field type is valid.
-     * @param {string} type - The type to check.
-     * @returns {boolean} - Whether the type is valid or not.
-     */
-    #_isValidType(type) {
-        return ["string", "text", "dropdown", "boolean", "date"].includes(type);
-    }
-
+    getCustomField(customFieldID: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_CustomField>;
     /**
      * @description Create a new custom field in TidyHQ.
      * @param {string} title - The title of the custom field to create.
@@ -62,15 +36,9 @@ class CustomFieldsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_CustomField>} - The newly created custom field.
      */
-    async createCustomField(title, type, options = {}) {
-        const accessToken = options.access_token || "";
-        if (!this.#_isValidType(type)) throw new Error(`CustomFields.createCustomField: Invalid type ${type}.`);
-        return await this.rest.post(`/v1/custom_fields`, {
-            title,
-            type
-        }, accessToken);
-    }
-
+    createCustomField(title: string, type: Tidy_V1_CustomFieldType, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_CustomField>;
     /**
      * @description Update a custom field in TidyHQ.
      * @param {string} customFieldID - The ID of the custom field to update.
@@ -80,20 +48,11 @@ class CustomFieldsAPI {
      * @param {"string" | "text" | "dropdown" | "boolean" | "date"} [options.type] - The new type of the custom field.
      * @returns {Promise<TidyAPI_V1_CustomField>} - The updated custom field.
      */
-    async updateCustomField(customFieldID, options = {}) {
-        const accessToken = options.access_token || "";
-        const type = options.type || "";
-        if (!this.#_isValidType(type)) throw new Error(`CustomFields.updateCustomField: Invalid type ${type}.`);
-        const data = {
-            title: options.title,
-            type: type
-        }
-        let optionalParametersString = makeURLParameters(["title", "type"], data)
-        if (optionalParametersString == "") throw new Error("CustomFields.updateCustomField: No valid options provided.");
-
-        return await this.rest.put(`/v1/custom_fields/${customFieldID}${optionalParametersString}`, {}, accessToken);
-    }
-
+    updateCustomField(customFieldID: string, options?: {
+        access_token?: string | undefined;
+        title?: string | undefined;
+        type?: "string" | "boolean" | "text" | "dropdown" | "date" | undefined;
+    } | undefined): Promise<TidyAPI_V1_CustomField>;
     /**
      * @description Delete a custom field in TidyHQ.
      * @param {string} customFieldID - The ID of the custom field to delete.
@@ -101,11 +60,9 @@ class CustomFieldsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
-    async deleteCustomField(customFieldID, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.delete(`/v1/custom_fields/${customFieldID}`, accessToken);
-    }
-
+    deleteCustomField(customFieldID: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_Response>;
     /**
      * @description Get the choices for a dropdown custom field.
      * @param {string} customFieldID - The ID of the custom field to get the choices for.
@@ -113,11 +70,9 @@ class CustomFieldsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_CustomFieldChoices>} - An array of choice objects.
      */
-    async getCustomFieldChoices(customFieldID, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/custom_fields/${customFieldID}/choices`, accessToken);
-    }
-
+    getCustomFieldChoices(customFieldID: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_CustomFieldChoices>;
     /**
      * @description Get a single choice for a dropdown custom field.
      * @param {string} customFieldID - The ID of the custom field to get the choice for.
@@ -126,11 +81,9 @@ class CustomFieldsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_CustomFieldChoice>} - A choice object.
      */
-    async getCustomFieldChoice(customFieldID, choiceID, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`, accessToken);
-    }
-
+    getCustomFieldChoice(customFieldID: string, choiceID: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_CustomFieldChoice>;
     /**
      * @description Get a single choice for a dropdown custom field by name.
      * @param {string} customFieldID - The ID of the custom field to get the choice for.
@@ -139,13 +92,9 @@ class CustomFieldsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_CustomFieldChoice>} - A choice object.
      */
-    async createCustomFieldChoice(customFieldID, title, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.post(`/v1/custom_fields/${customFieldID}/choices`, {
-            title
-        }, accessToken);
-    }
-
+    createCustomFieldChoice(customFieldID: string, title: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_CustomFieldChoice>;
     /**
      * @description Update a choice for a dropdown custom field.
      * @param {string} customFieldID - The ID of the custom field to update the choice for.
@@ -155,13 +104,9 @@ class CustomFieldsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_CustomFieldChoice>} - The updated choice object.
      */
-    async updateCustomFieldChoice(customFieldID, choiceID, title, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.put(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`, {
-            title
-        }, accessToken);
-    }
-
+    updateCustomFieldChoice(customFieldID: string, choiceID: string, title: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_CustomFieldChoice>;
     /**
      * @description Delete a choice for a dropdown custom field.
      * @param {string} customFieldID - The ID of the custom field to delete the choice for.
@@ -170,11 +115,9 @@ class CustomFieldsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
-    async deleteCustomFieldChoice(customFieldID, choiceID, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.delete(`/v1/custom_fields/${customFieldID}/choices/${choiceID}`, {}, accessToken);
-    }
-
+    deleteCustomFieldChoice(customFieldID: string, choiceID: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_Response>;
+    #private;
 }
-
-module.exports = { CustomFieldsAPI };
+import { Rest } from "./utils/Rest.js";

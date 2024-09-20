@@ -1,48 +1,14 @@
 /**
- * @fileoverview This file contains functions for interacting with Contacts in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 1.2.0
- * @license GPL-3.0
- */
-
-const { Rest } = require("./utils/Rest.js");
-const { makeURLParameters } = require("./utils/Builder.js");
-
-/**
  * @description This class is used to interact with Contacts in TidyHQ.
  * @class
  */
-class ContactsAPI {
-
+export class ContactsAPI {
     /**
      * @param {Rest} rest - The rest instance to use for requests.
      * @constructor
      */
-    constructor(rest) {
-        this.rest = rest;
-    }
-
-    /**
-     * @description Helper function to get a list of contacts from TidyHQ.
-     * @param {string} path - The path for the request
-     * @param {object} [options]
-     * @param {string} [options.access_token] - The access token to use.
-     * @param {number} [options.limit] - The maximum number of contacts to return.
-     * @param {number} [options.offset] - The number of contacts to skip.
-     * @param {string} [options.search_terms] - The search terms to use.
-     * @param {boolean} [options.show_all] - Whether to show all contacts or not.
-     * @param {string} [options.updated_since] - The timestamp of the last update in ISO 8601 format.
-     * @param {number[]} [options.ids] - An array of contact IDs to get.
-     * @param {string[]} [options.fields] - An array of fields to get.
-     * @param {string[]} [options.filter] - An array of filters to use.
-     * @returns {Promise<TidyAPI_V1_Contacts>} - An array of contacts.
-     */
-    async #_getContacts(path, options = {}) {
-        const accessToken = options.access_token || "";
-        const optionalParametersString = makeURLParameters(["limit", "offset", "search_terms", "show_all", "updated_since", "ids[]", "fields[]", "filter[[]]"], options)
-        return await this.rest.get(`/v1/${path}${optionalParametersString}`, accessToken);
-    }
-
+    constructor(rest: Rest);
+    rest: Rest;
     /**
      * @description Get a list of contacts from TidyHQ.
      * @param {object} [options = {}]
@@ -57,10 +23,17 @@ class ContactsAPI {
      * @param {string[]} [options.filter] - An array of filters to use.
      * @returns {Promise<TidyAPI_V1_Contacts>} - An array of contacts.
      */
-    async getContacts(options = {}) {
-        return this.#_getContacts("contacts", options);
-    }
-
+    getContacts(options?: {
+        access_token?: string | undefined;
+        limit?: number | undefined;
+        offset?: number | undefined;
+        search_terms?: string | undefined;
+        show_all?: boolean | undefined;
+        updated_since?: string | undefined;
+        ids?: number[] | undefined;
+        fields?: string[] | undefined;
+        filter?: string[] | undefined;
+    } | undefined): Promise<TidyAPI_V1_Contacts>;
     /**
      * @description Get a list of contacts in a group from TidyHQ.
      * @param {string} group_id - The ID of the group to get contacts from.
@@ -76,10 +49,17 @@ class ContactsAPI {
      * @param {string[]} [options.filter] - An array of filters to use.
      * @returns {Promise<TidyAPI_V1_Contacts>} - An array of contacts.
      */
-    async getContactsInGroup(group_id, options = {}) {
-        return this.#_getContacts(`groups/${group_id}/contacts`, options);
-    }
-
+    getContactsInGroup(group_id: string, options?: {
+        access_token?: string | undefined;
+        limit?: number | undefined;
+        offset?: number | undefined;
+        search_terms?: string | undefined;
+        show_all?: boolean | undefined;
+        updated_since?: string | undefined;
+        ids?: number[] | undefined;
+        fields?: string[] | undefined;
+        filter?: string[] | undefined;
+    } | undefined): Promise<TidyAPI_V1_Contacts>;
     /**
      * @description Get a single contact from TidyHQ.
      * @param {number|string} [contactID = "me"] - The ID of the contact to get ("me" returns the contact of the user who authorized the application)
@@ -87,11 +67,9 @@ class ContactsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Contact>} - A contact.
      **/
-    async getContact(contactID = "me", options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/contacts/${contactID}`, accessToken);
-    }
-
+    getContact(contactID?: string | number | undefined, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Contact>;
     /**
      * @description Creates a new contact with the given data in TidyHQ.
      * @param {Tidy_V1_ContactParams} contact - The contact to create. Requires a first name.
@@ -99,14 +77,9 @@ class ContactsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Contact>} - The newly created contact.
      */
-    async createContact(contact, options = {}) {
-        const accessToken = options.access_token || "";
-        if (!contact.first_name) {
-            throw new Error("First name is required to create a contact.");
-        }
-        return await this.rest.post("/v1/contacts", contact, accessToken);
-    }
-
+    createContact(contact: Tidy_V1_ContactParams, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Contact>;
     /**
      * @description Updates a contact with the given data in TidyHQ.
      * @param {number} contact_id - The ID of the contact to update.
@@ -115,14 +88,9 @@ class ContactsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Contact>} - The updated contact.
      */
-    async updateContact(contact_id, contact, options = {}) {
-        const accessToken = options.access_token || "";
-        if (Object.keys(contact).length === 0) {
-            throw new Error("At least one key must be set to update a contact.");
-        }
-        return await this.rest.put(`/v1/contacts/${contact_id}`, contact, accessToken);
-    }
-
+    updateContact(contact_id: number, contact: Tidy_V1_ContactParams, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Contact>;
     /**
      * @description Deletes a contact from TidyHQ.
      * @param {number} contact_id - The ID of the contact to delete.
@@ -130,10 +98,9 @@ class ContactsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
-    async deleteContact(contact_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.delete(`/v1/contacts/${contact_id}`, {}, accessToken);
-    }
+    deleteContact(contact_id: number, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_Response>;
+    #private;
 }
-
-module.exports = { ContactsAPI };
+import { Rest } from "./utils/Rest.js";

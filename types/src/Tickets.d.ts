@@ -1,27 +1,14 @@
 /**
- * @fileoverview This file contains functions for interacting with Tickets in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 1.2.0
- * @license GPL-3.0
- */
-
-const { Rest } = require("./utils/Rest.js");
-const { makeURLParameters } = require("./utils/Builder.js");
-
-/**
  * @description This class is used to interact with Tickets in TidyHQ.
  * @class
  */
-class TicketsAPI {
-
+export class TicketsAPI {
     /**
      * @param {Rest} rest - The rest instance to use for requests.
      * @constructor
      */
-    constructor(rest) {
-        this.rest = rest;
-    }
-
+    constructor(rest: Rest);
+    rest: Rest;
     /**
      * @description Get a list of all tickets from an event.
      * @param {number} event_id - The ID of the event.
@@ -29,11 +16,9 @@ class TicketsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Tickets>} - The list of tickets.
      */
-    async getTickets(event_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/events/${event_id}/tickets`, accessToken);
-    }
-
+    getTickets(event_id: number, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Tickets>;
     /**
      * @description Get a list of all tickets from an event.
      * @param {number} event_id - The ID of the event.
@@ -42,11 +27,9 @@ class TicketsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Ticket>} - The ticket.
      */
-    async getTicket(event_id, ticket_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/events/${event_id}/tickets/${ticket_id}`, accessToken);
-    }
-
+    getTicket(event_id: number, ticket_id: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Ticket>;
     /**
      * @description Get a list of all sold tickets from an event.
      * @param {number} event_id - The ID of the event.
@@ -54,11 +37,9 @@ class TicketsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_SoldTickets>} - The list of sold tickets.
      */
-    async getSoldTickets(event_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/events/${event_id}/tickets/sold`, accessToken);
-    }
-
+    getSoldTickets(event_id: number, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_SoldTickets>;
     /**
      * @description Create a ticket category for an event.
      * @param {number} event_id - The ID of the event.
@@ -71,18 +52,13 @@ class TicketsAPI {
      * @param {string} [options.sales_end] - The date in ISO 8601 format for sales to end. Default is null and is for no end date.
      * @returns {Promise<TidyAPI_V1_Ticket>} - The newly created ticket.
      */
-    async createTicket(event_id, name, options = {}) {
-        const accessToken = options.access_token || "";
-        const data = {
-            name: name,
-            amount: options.amount,
-            initial_quantity: options.initial_quantity,
-            maximum_purchase: options.maximum_purchase,
-            sales_end: options.sales_end
-        };
-        return await this.rest.post(`/v1/events/${event_id}/tickets`, data, accessToken);
-    }
-
+    createTicket(event_id: number, name: string, options?: {
+        access_token?: string | undefined;
+        amount?: number | undefined;
+        initial_quantity?: number | undefined;
+        maximum_purchase?: number | undefined;
+        sales_end?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Ticket>;
     /**
      * @description Update a ticket category for an event.
      * @param {number} event_id - The ID of the event.
@@ -96,21 +72,14 @@ class TicketsAPI {
      * @param {string} [options.sales_end] - The date in ISO 8601 format for sales to end.
      * @returns {Promise<TidyAPI_V1_Ticket>} - The updated ticket.
      */
-    async updateTicket(event_id, ticket_id, options = {}) {
-        const accessToken = options.access_token || "";
-        const data = {
-            name: options.name,
-            amount: options.amount,
-            initial_quantity: options.initial_quantity,
-            maximum_purchase: options.maximum_purchase,
-            sales_end: options.sales_end
-        };
-        if (Object.keys(data).length === 0) {
-            throw new Error("Tickets.updateTicket: No options provided.");
-        }
-        return await this.rest.put(`/v1/events/${event_id}/tickets/${ticket_id}`, data, accessToken);
-    }
-
+    updateTicket(event_id: number, ticket_id: string, options?: {
+        access_token?: string | undefined;
+        name?: string | undefined;
+        amount?: number | undefined;
+        initial_quantity?: number | undefined;
+        maximum_purchase?: number | undefined;
+        sales_end?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Ticket>;
     /**
      * @description Delete a ticket category for an event.
      * @param {number} event_id - The ID of the event.
@@ -119,10 +88,8 @@ class TicketsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_Response>} - Whether or not the ticket was deleted.
      */
-    async deleteTicket(event_id, ticket_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.delete(`/v1/events/${event_id}/tickets/${ticket_id}`, {}, accessToken);
-    }
+    deleteTicket(event_id: number, ticket_id: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_Response>;
 }
-
-module.exports = { TicketsAPI };
+import { Rest } from "./utils/Rest.js";

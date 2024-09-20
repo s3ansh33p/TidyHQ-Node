@@ -4,6 +4,10 @@
  * @typedef {import('axios').AxiosInstance} AxiosInstance
  */
 
+/**
+ * @typedef {import('axios').AxiosError} AxiosError
+ */
+
 /* ========== V2_Contact ========== */
 
 /**
@@ -295,6 +299,15 @@
  * @property {string} description - A description of the webhook.
  * @property {string} signing_key_b64 - The base64 encoded signing key for the webhook.
  * @property {boolean} allow_state_changes - Whether the webhook allows state changes.
+ */
+
+/**
+ * @typedef {Object} Tidy_V2_WebhookMessage
+ * @property {string} id - The unique identifier for the webhook message.
+ * @property {string} kind - The kind of the event, e.g., "event.ticket.updated".
+ * @property {string} object - The type of object of the data, e.g., "event.ticket".
+ * @property {string} created - The creation date and time of the webhook message.
+ * @property {Object} data - The data of the webhook message.
  */
 
 /* ========== Categories ========== */

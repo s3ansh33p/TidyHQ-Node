@@ -1,27 +1,14 @@
 /**
- * @fileoverview This file contains functions for interacting with Events in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 1.2.0
- * @license GPL-3.0
- */
-
-const { Rest } = require("./utils/Rest.js");
-const { makeURLParameters } = require("./utils/Builder.js");
-
-/**
  * @description This class is used to interact with Events in TidyHQ.
  * @class
  */
-class EventsAPI {
-
+export class EventsAPI {
     /**
      * @param {Rest} rest - The rest instance to use for requests.
      * @constructor
      */
-    constructor(rest) {
-        this.rest = rest;
-    }
-
+    constructor(rest: Rest);
+    rest: Rest;
     /**
      * @description Get a list of events.
      * @param {object} [options = {}]
@@ -33,12 +20,14 @@ class EventsAPI {
      * @param {boolean} [options.public] - Whether to return only public events or not.
      * @returns {Promise<TidyAPI_V1_Events>} - The list of events.
      */
-    async getEvents(options = {}) {
-        const accessToken = options.access_token || "";
-        const optionalParametersString = makeURLParameters(["limit", "offset", "start_at", "end_at", "public"], options)
-        return await this.rest.get(`/v1/events${optionalParametersString}`, accessToken);
-    }
-
+    getEvents(options?: {
+        access_token?: string | undefined;
+        limit?: number | undefined;
+        offset?: number | undefined;
+        start_at?: string | undefined;
+        end_at?: string | undefined;
+        public?: boolean | undefined;
+    } | undefined): Promise<TidyAPI_V1_Events>;
     /**
      * @description Get a single event.
      * @param {number} event_id - The ID of the event.
@@ -46,11 +35,9 @@ class EventsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Event>} - The event.
      */
-    async getEvent(event_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/events/${event_id}`, accessToken);
-    }
-
+    getEvent(event_id: number, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Event>;
     /**
      * @description Create a new event.
      * @param {Tidy_V1_EventParams} event - The event to create. Requires a name and start_at.
@@ -58,11 +45,9 @@ class EventsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Event>} - The event.
      */
-    async createEvent(event, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.post(`/v1/events`, event, accessToken);
-    }
-
+    createEvent(event: Tidy_V1_EventParams, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Event>;
     /**
      * @description Update an event.
      * @param {number} event_id - The ID of the event.
@@ -71,26 +56,18 @@ class EventsAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Event>} - The event.
      */
-    async updateEvent(event_id, event, options = {}) {
-        const accessToken = options.access_token || "";
-        if (Object.keys(event).length === 0) {
-            throw new Error("Events.updateEvent: No options provided.");
-        }
-        return await this.rest.put(`/v1/events/${event_id}`, event, accessToken);
-    }
-
+    updateEvent(event_id: number, event: Tidy_V1_EventParams, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Event>;
     /**
      * @description Delete an event.
      * @param {number} event_id - The ID of the event.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
-     * @returns {Promise<TidyAPI_Response>} - Success or failure. 
+     * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
-    async deleteEvent(event_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.delete(`/v1/events/${event_id}`, {}, accessToken);
-    }
-
+    deleteEvent(event_id: number, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_Response>;
 }
-
-module.exports = { EventsAPI };
+import { Rest } from "./utils/Rest.js";

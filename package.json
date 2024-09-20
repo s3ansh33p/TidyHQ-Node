@@ -3,17 +3,27 @@
   "version": "1.0.0",
   "description": "Interact with the TidyHQ",
   "main": "index.js",
+  "types": "./types/index.d.ts",
   "scripts": {
-    "docs": "jsdoc -c jsdoc.json --verbose"
+    "docs": "jsdoc -c jsdoc.json --verbose",
+    "build": "rm -rf types/* dist/* && tsc  --noEmit false --emitDeclarationOnly true",
+    "test": "tsc"
   },
+  "files": [
+    "src",
+    "types",
+    "index.js",
+    "webhook.js"
+  ],
   "author": "Sean McGinty <newfolderlocation@gmail.com>",
   "license": "GPL-3.0",
   "dependencies": {
-    "axios": "^1.7.3",
-    "dotenv": "^16.0.3"
+    "axios": "^1.7.3"
   },
   "devDependencies": {
     "@types/node": "^20.14.9",
-    "clean-jsdoc-theme": "^4.3.0"
+    "clean-jsdoc-theme": "^4.3.0",
+    "dotenv": "^16.4.5",
+    "typescript": "^5.6.2"
   }
 }

@@ -14,7 +14,9 @@ const crypto = require("crypto");
  */
 class TidyHQWebhook {
 
-    // callbacks
+    /**
+     * @type {Record<string, Function>}
+     */
     callbacks = {};
 
     /**
@@ -28,10 +30,18 @@ class TidyHQWebhook {
         this.webhookId = webhookId;
     }
 
+    /**
+     * @param {string} event 
+     * @param {Function} callback 
+     */
     registerCallback(event, callback) {
         this.callbacks[event] = callback;
     }
 
+    /**
+     * @param {string} event 
+     * @param {object} data 
+     */
     handleEvent(event, data) {
         if (this.callbacks[event]) {
             this.callbacks[event](data);
@@ -41,13 +51,18 @@ class TidyHQWebhook {
         }
     }
 
+    /**
+     * @description Verify a message from TidyHQ.
+     * @param {string} tidySignatureHeader - The signature header from TidyHQ.
+     * @param {string} body - The raw body of the message.
+     * @param {string} httpMethod - The HTTP method of the webhook.
+     * @returns {void | string} - If an error occurs, the error message is returned.
+     */
     verifyAndHandle(tidySignatureHeader, body, httpMethod = 'POST') {
         this.verify(tidySignatureHeader, body, httpMethod).then((data) => {
-            console.log("[" + this.webhookId + "] Verified event: " + data.kind + " at " + new Date().toISOString());
             this.handleEvent(data.kind, data.data);
         }).catch((error) => {
-            console.log(body);
-            console.log(`[ERROR] Webhooks.verifyAndHandle: ${error} for ${tidySignatureHeader} ${body.kind} ${httpMethod}`);
+            return error;
         });
     }
 
@@ -56,7 +71,7 @@ class TidyHQWebhook {
      * @param {string} tidySignatureHeader - The signature header from TidyHQ.
      * @param {string} body - The raw body of the message.
      * @param {string} httpMethod - The HTTP method of the webhook.
-     * @returns {Promise<object>} - The data from the webhook. [!] Type tba
+     * @returns {Promise<Tidy_V2_WebhookMessage>} - The message from the webhook.
      */
     async verify(tidySignatureHeader, body, httpMethod = 'POST') {
         const signingKey = Buffer.from(this.signingKey, 'base64')
@@ -103,12 +118,23 @@ class TidyHQWebhook {
         return data
     }
 
+    /**
+     * 
+     * @param {string | null | undefined} header 
+     * @param {string} scheme 
+     * @returns {{ timestamp: number, signatures: string[] } | null}
+     */
     parseHeader(header, scheme) {
         if (typeof header !== 'string') {
             return null
         }
 
         return header.split(',').reduce(
+            /**
+             * @param {{ timestamp: number, signatures: string[] }} accum
+             * @param {string} item
+             * @returns {{ timestamp: number, signatures: string[] }}
+             */
             (accum, item) => {
                 const kv = item.split('=')
 

@@ -33,6 +33,7 @@ class TransactionsAPI {
      * @returns {Promise<TidyAPI_V1_Transactions>} - The list of transactions.
      */
     async getTransactions(options = {}) {
+        const accessToken = options.access_token || "";
         const data = {
             limit: options.limit,
             offset: options.offset,
@@ -40,7 +41,7 @@ class TransactionsAPI {
             end_date: options.end_date
         }
         const optionalParametersString = makeURLParameters(["limit", "offset", "start_date", "end_date"], data);
-        return await this.rest.get(`/v1/transactions${optionalParametersString}`, options?.access_token);
+        return await this.rest.get(`/v1/transactions${optionalParametersString}`, accessToken);
     }
 
     /**
@@ -51,7 +52,8 @@ class TransactionsAPI {
      * @returns {Promise<TidyAPI_V1_Transaction>} - The transaction.
      */
     async getTransaction(id, options = {}) {
-        return await this.rest.get(`/v1/transactions/${id}`, options?.access_token);
+        const accessToken = options.access_token || "";
+        return await this.rest.get(`/v1/transactions/${id}`, accessToken);
     }
 
 }

@@ -33,6 +33,7 @@ class InvoicesAPI {
      * @returns {Promise<TidyAPI_V1_Invoices>} - An array of invoices.
      */
     async getInvoices(options = {}) {
+        const accessToken = options.access_token || "";
         const data = {
             limit: options.limit,
             offset: options.offset,
@@ -40,7 +41,7 @@ class InvoicesAPI {
             updated_since: options.updated_since
         }
         const optionalParametersString = makeURLParameters(["limit", "offset", "status", "updated_since"], data);
-        return await this.rest.get(`/v1/invoices${optionalParametersString}`, options?.access_token);
+        return await this.rest.get(`/v1/invoices${optionalParametersString}`, accessToken);
     }
 
     /**
@@ -51,7 +52,8 @@ class InvoicesAPI {
      * @returns {Promise<TidyAPI_V1_Invoice>} - An invoice.
      **/
     async getInvoice(invoiceID, options = {}) {
-        return await this.rest.get(`/v1/invoices/${invoiceID}`, options?.access_token);
+        const accessToken = options.access_token || "";
+        return await this.rest.get(`/v1/invoices/${invoiceID}`, accessToken);
     }
 
     /**
@@ -62,9 +64,10 @@ class InvoicesAPI {
      * @returns {Promise<TidyAPI_V1_Invoice>} - The newly created invoice.
      */
      async createInvoice(invoice, options = {}) {
+        const accessToken = options.access_token || "";
         return await this.rest.post(`/v1/invoices`, {
             invoice
-        }, options?.access_token);
+        }, accessToken);
     }
 
     /**
@@ -86,15 +89,16 @@ class InvoicesAPI {
      * @param {string} [options.date] - The date of the payment in ISO 8601 format.
      * @returns {Promise<TidyAPI_V1_Payment>} - The newly created payment.
      */
-    async addPayment(invoiceID, options) {
-        const access_token = options?.access_token || null;
+    async addPayment(invoiceID, options = {}) {
+        const accessToken = options.access_token || "";
         delete options.access_token;
+        const paymentType = options.payment_type || "";
 
-        if (!this.#_isValidType(options.payment_type)) throw new Error(`Invoices.addPayment: Invalid payment type ${options.payment_type}.`);
+        if (!this.#_isValidType(paymentType)) throw new Error(`Invoices.addPayment: Invalid payment type ${paymentType}.`);
         
         if (Object.keys(options).length == 0) throw new Error("Invoices.addPayment: No valid options provided.");
 
-        return await this.rest.post(`/v1/invoices/${invoiceID}/payments`, options, access_token);
+        return await this.rest.post(`/v1/invoices/${invoiceID}/payments`, options, accessToken);
     }
 
     /**
@@ -105,7 +109,8 @@ class InvoicesAPI {
      * @returns {Promise<TidyAPI_Response>} - Success or failure.
      */
     async deleteInvoice(invoiceID, options = {}) {
-        return await this.rest.delete(`/v1/invoices/${invoiceID}`, {}, options?.access_token);
+        const accessToken = options.access_token || "";
+        return await this.rest.delete(`/v1/invoices/${invoiceID}`, {}, accessToken);
     }
         
 }

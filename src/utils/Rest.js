@@ -51,11 +51,12 @@ class Rest {
                 success: true
             }
         } catch (error) {
+            const axiosError = /** @type {AxiosError} */ (error);
             response = {
-                data: error?.response?.data,
-                status: error?.response?.status,
-                statusText: error?.response?.statusText,
-                message: error.message,
+                data: axiosError?.response?.data,
+                status: axiosError?.response?.status || 560,
+                statusText: axiosError?.response?.statusText || 'Internal Server Error',
+                message: axiosError.message,
                 success: false
             }
         }

@@ -1,37 +1,23 @@
 /**
- * @fileoverview This file contains functions for interacting with Webhooks in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 2.1.0
- * @license GPL-3.0
- */
-
-const { Rest } = require("../utils/Rest.js");
-
-/**
  * @description This class is used to interact with Webhooks in TidyHQ.
  * @class
  */
-class V2_WebhooksAPI {
-
+export class V2_WebhooksAPI {
     /**
      * @param {Rest} rest - The rest instance to use for requests.
      * @constructor
      */
-    constructor(rest) {
-        this.rest = rest;
-    }
-
+    constructor(rest: Rest);
+    rest: Rest;
     /**
      * @description Get a list of all Webhooks.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V2_Webhooks>} - The list of Webhooks.
      */
-    async getWebhooks(options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v2/webhooks`, accessToken);
-    }
-
+    getWebhooks(options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V2_Webhooks>;
     /**
      * @description Get a Webhook by its ID.
      * @param {string} id - The ID of the Webhook.
@@ -39,11 +25,9 @@ class V2_WebhooksAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V2_Webhook>} - The Webhook.
      */
-    async getWebhook(id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v2/webhooks/${id}`, accessToken);
-    }
-
+    getWebhook(id: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V2_Webhook>;
     /**
      * @description Create a new Webhook.
      * @param {string} url - The URL of the Webhook to listen to.
@@ -54,16 +38,10 @@ class V2_WebhooksAPI {
      * @param {boolean} [options.allow_state_changes] - If the Webhook should allow state changes, or terminate on the first state change.
      * @returns {Promise<TidyAPI_V2_Webhook>} - The new Webhook.
      */
-    async createWebhook(url, matching_kind, description, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.post(`/v2/webhooks`, {
-            "url": url,
-            "matching_kind": matching_kind,
-            "description": description,
-            "allow_state_changes": options.allow_state_changes
-        }, accessToken);
-    }
-
+    createWebhook(url: string, matching_kind: string, description: string, options?: {
+        access_token?: string | undefined;
+        allow_state_changes?: boolean | undefined;
+    } | undefined): Promise<TidyAPI_V2_Webhook>;
     /**
      * @description This function is used to activate a Webhook.
      * @param {string} id - The ID of the Webhook.
@@ -71,11 +49,9 @@ class V2_WebhooksAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response.
      */
-    async activateWebhook(id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.post(`/v2/webhooks/${id}/activate`, {}, accessToken);
-    }
-
+    activateWebhook(id: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_EmptyResponse>;
     /**
      * @description Deactivate a Webhook.
      * @param {string} id - The ID of the Webhook.
@@ -83,11 +59,9 @@ class V2_WebhooksAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response.
      */
-    async deactivateWebhook(id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.post(`/v2/webhooks/${id}/deactivate`, {}, accessToken);
-    }
-
+    deactivateWebhook(id: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_EmptyResponse>;
     /**
      * @description Delete a Webhook.
      * @param {string} id - The ID of the Webhook.
@@ -95,11 +69,8 @@ class V2_WebhooksAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_EmptyResponse>} - An empty response.
      */
-    async deleteWebhook(id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.delete(`/v2/webhooks/${id}`, {}, accessToken);
-    }
-
+    deleteWebhook(id: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_EmptyResponse>;
 }
-
-module.exports = { V2_WebhooksAPI };
+import { Rest } from "../utils/Rest.js";

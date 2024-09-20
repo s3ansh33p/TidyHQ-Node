@@ -1,37 +1,23 @@
 /**
- * @fileoverview This file contains functions for interacting with Associations in TidyHQ.
- * @author Sean McGinty <newfolderlocation@gmail.com>
- * @version 1.2.0
- * @license GPL-3.0
- */
-
-const { Rest } = require("./utils/Rest.js");
-
-/**
  * @description This class is used to interact with Associations in TidyHQ.
  * @class
  */
-class AssociationAPI {
-
+export class AssociationAPI {
     /**
      * @param {Rest} rest - The rest instance to use for requests.
      * @constructor
      */
-    constructor(rest) {
-        this.rest = rest;
-    }
-
+    constructor(rest: Rest);
+    rest: Rest;
     /**
      * @description Get the organizations that fall under the association associated with the access token.
      * @param {object} [options = {}]
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Organizations>} - The list of organizations.
      */
-    async getOrganizations(options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/association/organizations`, accessToken);
-    }
-
+    getOrganizations(options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Organizations>;
     /**
      * @description Get a single organization.
      * @param {string} id - The ID of the organization.
@@ -39,11 +25,9 @@ class AssociationAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Organization>} - The organization.
      */
-    async getOrganization(id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/association/organizations/${id}`, accessToken);
-    }
-
+    getOrganization(id: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Organization>;
     /**
      * @description Get the contacts that fall under an organization.
      * @param {string} organization_id - The ID of the organization.
@@ -51,11 +35,9 @@ class AssociationAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_OrganizationContacts>} - The list of contacts.
      */
-    async getOrganizationContacts(organization_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/association/organizations/${organization_id}/contacts`, accessToken);
-    }
-
+    getOrganizationContacts(organization_id: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_OrganizationContacts>;
     /**
      * @description Get the events that fall under an organization.
      * @param {string} organization_id - The ID of the organization.
@@ -68,11 +50,14 @@ class AssociationAPI {
      * @param {boolean} [options.public] - Whether to return only public events or not.
      * @returns {Promise<TidyAPI_V1_Events>} - The list of events.
      */
-    async getOrganizationEvents(organization_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/association/organizations/${organization_id}/events`, accessToken);
-    }
-
+    getOrganizationEvents(organization_id: string, options?: {
+        access_token?: string | undefined;
+        limit?: number | undefined;
+        offset?: number | undefined;
+        start_at?: string | undefined;
+        end_at?: string | undefined;
+        public?: boolean | undefined;
+    } | undefined): Promise<TidyAPI_V1_Events>;
     /**
      * @description Get a single event that falls under an organization.
      * @param {string} organization_id - The ID of the organization.
@@ -81,11 +66,9 @@ class AssociationAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Event>} - The event.
      */
-    async getOrganizationEvent(organization_id, event_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/association/organizations/${organization_id}/events/${event_id}`, accessToken);
-    }
-
+    getOrganizationEvent(organization_id: string, event_id: number, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Event>;
     /**
      * @description Get the meetings that fall under an organization.
      * @param {string} organization_id - The ID of the organization.
@@ -95,11 +78,11 @@ class AssociationAPI {
      * @param {string} [options.offset] - The number of results to skip.
      * @returns {Promise<TidyAPI_V1_Meetings>} - The list of meetings.
      */
-    async getOrganizationMeetings(organization_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/association/organizations/${organization_id}/meetings`, accessToken);
-    }
-
+    getOrganizationMeetings(organization_id: string, options?: {
+        access_token?: string | undefined;
+        limit?: string | undefined;
+        offset?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Meetings>;
     /**
      * @description Get a single meeting that falls under an organization.
      * @param {string} organization_id - The ID of the organization.
@@ -108,11 +91,8 @@ class AssociationAPI {
      * @param {string} [options.access_token] - The access token to use.
      * @returns {Promise<TidyAPI_V1_Meeting>} - The meeting.
      */
-    async getOrganizationMeeting(organization_id, meeting_id, options = {}) {
-        const accessToken = options.access_token || "";
-        return await this.rest.get(`/v1/association/organizations/${organization_id}/meetings/${meeting_id}`, accessToken);
-    }
-
+    getOrganizationMeeting(organization_id: string, meeting_id: string, options?: {
+        access_token?: string | undefined;
+    } | undefined): Promise<TidyAPI_V1_Meeting>;
 }
-
-module.exports = { AssociationAPI };
+import { Rest } from "./utils/Rest.js";
