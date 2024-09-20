@@ -54,7 +54,7 @@ class Rest {
             const axiosError = /** @type {AxiosError} */ (error);
             response = {
                 data: axiosError?.response?.data,
-                status: axiosError?.response?.status || 560,
+                status: axiosError?.response?.status || 500,
                 statusText: axiosError?.response?.statusText || 'Internal Server Error',
                 message: axiosError.message,
                 success: false
