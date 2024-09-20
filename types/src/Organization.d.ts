@@ -20,3 +20,4 @@ export class OrganizationAPI {
     } | undefined): Promise<TidyAPI_V1_Organization>;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Organization } from "types.js";

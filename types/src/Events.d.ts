@@ -71,3 +71,4 @@ export class EventsAPI {
     } | undefined): Promise<TidyAPI_Response>;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Events, TidyAPI_V1_Event, TidyAPI_Response, Tidy_V1_EventParams } from "types.js";

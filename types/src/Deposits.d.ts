@@ -48,3 +48,4 @@ export class DepositsAPI {
     } | undefined): Promise<TidyAPI_V1_Deposit>;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Deposits, TidyAPI_V1_Deposit, Tidy_V1_DepositParams } from "types.js";

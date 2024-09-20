@@ -34,3 +34,4 @@ export class MeetingsAPI {
     } | undefined): Promise<TidyAPI_V1_Meeting>;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Meetings, TidyAPI_V1_Meeting } from "types.js";

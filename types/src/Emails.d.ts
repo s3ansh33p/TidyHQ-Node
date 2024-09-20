@@ -48,3 +48,4 @@ export class EmailsAPI {
     #private;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Emails, TidyAPI_V1_Email } from "types.js";

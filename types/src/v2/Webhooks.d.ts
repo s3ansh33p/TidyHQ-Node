@@ -74,3 +74,4 @@ export class V2_WebhooksAPI {
     } | undefined): Promise<TidyAPI_EmptyResponse>;
 }
 import { Rest } from "../utils/Rest.js";
+import { TidyAPI_V2_Webhooks, TidyAPI_V2_Webhook, TidyAPI_EmptyResponse } from "../types.js";

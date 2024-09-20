@@ -44,3 +44,4 @@ export class MembershipLevelsAPI {
     } | undefined): Promise<TidyAPI_V1_PricingVariation>;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_MembershipLevels, TidyAPI_V1_MembershipLevel, TidyAPI_V1_PricingVariation } from "types.js";

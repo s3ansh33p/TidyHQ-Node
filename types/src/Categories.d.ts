@@ -24,3 +24,4 @@ export class CategoriesAPI {
     } | undefined): Promise<TidyAPI_V1_Categories>;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Categories } from "types.js";

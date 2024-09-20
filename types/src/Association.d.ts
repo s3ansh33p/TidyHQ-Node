@@ -96,3 +96,4 @@ export class AssociationAPI {
     } | undefined): Promise<TidyAPI_V1_Meeting>;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Organizations, TidyAPI_V1_Organization, TidyAPI_V1_OrganizationContacts, TidyAPI_V1_Events, TidyAPI_V1_Event, TidyAPI_V1_Meetings, TidyAPI_V1_Meeting } from "types.js";

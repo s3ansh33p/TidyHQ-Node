@@ -75,3 +75,4 @@ export class InvoicesAPI {
     #private;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Invoices, TidyAPI_V1_Invoice, TidyAPI_V1_Payment, TidyAPI_Response, Tidy_V1_InvoiceParams, Tidy_V1_PaymentType } from "types.js";

@@ -110,3 +110,4 @@ export class GroupsAPI {
     } | undefined): Promise<TidyAPI_EmptyResponse>;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Groups, TidyAPI_V1_Group, TidyAPI_Response, TidyAPI_EmptyResponse } from "types.js";

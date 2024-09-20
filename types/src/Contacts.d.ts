@@ -104,3 +104,4 @@ export class ContactsAPI {
     #private;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Contacts, TidyAPI_V1_Contact, TidyAPI_Response, Tidy_V1_ContactParams } from "types.js";

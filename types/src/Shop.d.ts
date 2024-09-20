@@ -88,3 +88,4 @@ export class ShopAPI {
     } | undefined): Promise<TidyAPI_V1_ShopOrder>;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_ShopProducts, TidyAPI_V1_ShopProduct, TidyAPI_V1_ShippingOptions, TidyAPI_V1_ShippingOption, TidyAPI_V1_ShopOrders, TidyAPI_V1_ShopOrder } from "types.js";

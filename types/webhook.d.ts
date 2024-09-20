@@ -54,3 +54,4 @@ declare class TidyHQWebhook {
         signatures: string[];
     } | null;
 }
+import { Tidy_V2_WebhookMessage } from "src/types.js";

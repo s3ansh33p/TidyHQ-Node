@@ -97,3 +97,4 @@ export class TasksAPI {
     #private;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Tasks, TidyAPI_V1_Task, TidyAPI_Response } from "types.js";

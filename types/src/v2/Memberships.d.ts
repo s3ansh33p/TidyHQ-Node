@@ -76,3 +76,4 @@ export class V2_MembershipAPI {
     } | undefined): Promise<TidyAPI_V2_SubscriptionPost>;
 }
 import { Rest } from "../utils/Rest.js";
+import { TidyAPI_V2_Memberships, TidyAPI_V2_Membership, TidyAPI_V2_Subscriptions, TidyAPI_V2_SubscriptionPost, Tidy_V2_PostSubscriptionParams } from "../types.js";

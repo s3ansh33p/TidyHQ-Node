@@ -119,3 +119,4 @@ export class V2_ContactsAPI {
     } | undefined): Promise<TidyAPI_V2_Memberships>;
 }
 import { Rest } from "../utils/Rest.js";
+import { TidyAPI_V2_Contacts, TidyAPI_V2_Contact, TidyAPI_V2_Note, TidyAPI_EmptyResponse, TidyAPI_V2_Memberships, Tidy_V2_ContactFilterEqualsOptions, Tidy_V2_Contact } from "../types.js";

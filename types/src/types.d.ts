@@ -1,6 +1,6 @@
-type AxiosInstance = import("axios").AxiosInstance;
-type AxiosError = import("axios").AxiosError;
-type Tidy_V2_ContactLink = {
+export type AxiosInstance = import("axios").AxiosInstance;
+export type AxiosError = import("axios").AxiosError;
+export type Tidy_V2_ContactLink = {
     /**
      * - Alphanumeric ID associated with the contact this link is towards.
      */
@@ -34,7 +34,7 @@ type Tidy_V2_ContactLink = {
      */
     type: string;
 };
-type Tidy_V2_ContactGroup = {
+export type Tidy_V2_ContactGroup = {
     /**
      * - Alphanumeric ID associated with the group.
      */
@@ -68,7 +68,7 @@ type Tidy_V2_ContactGroup = {
      */
     image: string;
 };
-type Tidy_V2_ContactOrganization = {
+export type Tidy_V2_ContactOrganization = {
     /**
      * - Unique identifier for the organization.
      */
@@ -86,7 +86,7 @@ type Tidy_V2_ContactOrganization = {
      */
     permissions: string[];
 };
-type Tidy_V2_Contact = {
+export type Tidy_V2_Contact = {
     /**
      * - The unique alphanumeric identifier for the contact.
      */
@@ -244,7 +244,7 @@ type Tidy_V2_Contact = {
      */
     notes: Tidy_V2_Note[];
 };
-type Tidy_V2_ContactFilterEqualsOptions = {
+export type Tidy_V2_ContactFilterEqualsOptions = {
     /**
      * - Filter by the first name.
      */
@@ -274,7 +274,7 @@ type Tidy_V2_ContactFilterEqualsOptions = {
      */
     contact_id_number?: string | undefined;
 };
-type Tidy_V2_MatchableContact = {
+export type Tidy_V2_MatchableContact = {
     /**
      * - The unique identifier for the contact.
      */
@@ -292,7 +292,7 @@ type Tidy_V2_MatchableContact = {
      */
     last_name?: string | undefined;
 };
-type Tidy_V2_Membership = {
+export type Tidy_V2_Membership = {
     /**
      * - The unique identifier for the membership.
      */
@@ -354,7 +354,7 @@ type Tidy_V2_Membership = {
      */
     notes: Tidy_V2_Note[];
 };
-type Tidy_V2_Subscription = {
+export type Tidy_V2_Subscription = {
     /**
      * - The unique identifier for the subscription.
      */
@@ -392,7 +392,7 @@ type Tidy_V2_Subscription = {
      */
     variations: Tidy_V2_Variation[];
 };
-type Tidy_V2_Variation = {
+export type Tidy_V2_Variation = {
     /**
      * - The visibility of the variation.
      */
@@ -418,7 +418,7 @@ type Tidy_V2_Variation = {
      */
     question: Tidy_V2_VariationQuestion;
 };
-type Tidy_V2_VariationAnswer = {
+export type Tidy_V2_VariationAnswer = {
     /**
      * - The unique identifier for the answer.
      */
@@ -432,7 +432,7 @@ type Tidy_V2_VariationAnswer = {
      */
     updated_at: string;
 };
-type Tidy_V2_VariationQuestion = {
+export type Tidy_V2_VariationQuestion = {
     /**
      * - The unique identifier for the question.
      */
@@ -454,7 +454,7 @@ type Tidy_V2_VariationQuestion = {
      */
     updated_at: string;
 };
-type Tidy_V2_PricingVariationDestination = {
+export type Tidy_V2_PricingVariationDestination = {
     /**
      * - The unique identifier for the destination.
      */
@@ -472,7 +472,7 @@ type Tidy_V2_PricingVariationDestination = {
      */
     name: string;
 };
-type Tidy_V2_PricingVariationAutofillGroup = {
+export type Tidy_V2_PricingVariationAutofillGroup = {
     /**
      * - The unique identifier for the autofill group.
      */
@@ -486,7 +486,7 @@ type Tidy_V2_PricingVariationAutofillGroup = {
      */
     name: string;
 };
-type Tidy_V2_PostSubscriptionParams = {
+export type Tidy_V2_PostSubscriptionParams = {
     /**
      * - On an individual membership level, change who it belongs to.
      */
@@ -550,7 +550,7 @@ type Tidy_V2_PostSubscriptionParams = {
      */
     end_date?: string | undefined;
 };
-type Tidy_V2_MembershipLevel = {
+export type Tidy_V2_MembershipLevel = {
     /**
      * - The unique identifier for the membership level.
      */
@@ -632,7 +632,7 @@ type Tidy_V2_MembershipLevel = {
      */
     bundle_amounts?: Tidy_V2_MembershipLevelBundleAmount[] | undefined;
 };
-type Tidy_V2_MembershipLevelBundleAmount = {
+export type Tidy_V2_MembershipLevelBundleAmount = {
     /**
      * - The amount for the bundle.
      */
@@ -646,7 +646,7 @@ type Tidy_V2_MembershipLevelBundleAmount = {
      */
     type: string;
 };
-type Tidy_V2_Note = {
+export type Tidy_V2_Note = {
     /**
      * - The unique identifier for the note.
      */
@@ -668,7 +668,7 @@ type Tidy_V2_Note = {
      */
     author: Object;
 };
-type Tidy_V2_Organization = {
+export type Tidy_V2_Organization = {
     /**
      * - The unique identifier for the organization.
      */
@@ -761,7 +761,7 @@ type Tidy_V2_Organization = {
      */
     child_organizations: Tidy_V1_OrganizationLink[];
 };
-type Tidy_V2_OrganizationRole = {
+export type Tidy_V2_OrganizationRole = {
     /**
      * - The unique identifier for the role.
      */
@@ -791,7 +791,7 @@ type Tidy_V2_OrganizationRole = {
      */
     updated_at: string;
 };
-type Tidy_V2_Webhook = {
+export type Tidy_V2_Webhook = {
     /**
      * - The unique identifier for the webhook.
      */
@@ -829,7 +829,7 @@ type Tidy_V2_Webhook = {
      */
     allow_state_changes: boolean;
 };
-type Tidy_V2_WebhookMessage = {
+export type Tidy_V2_WebhookMessage = {
     /**
      * - The unique identifier for the webhook message.
      */
@@ -851,7 +851,7 @@ type Tidy_V2_WebhookMessage = {
      */
     data: Object;
 };
-type Tidy_V1_Category = {
+export type Tidy_V1_Category = {
     /**
      * - The unique identifier for the category.
      */
@@ -875,8 +875,8 @@ type Tidy_V1_Category = {
      */
     created_at: string;
 };
-type Tidy_V1_ContactGender = "female" | "male" | "non_binary" | "undisclosed";
-type Tidy_V1_ContactLink = {
+export type Tidy_V1_ContactGender = "female" | "male" | "non_binary" | "undisclosed";
+export type Tidy_V1_ContactLink = {
     /**
      * - The contact ID of the linked contact.
      */
@@ -886,7 +886,7 @@ type Tidy_V1_ContactLink = {
      */
     relationship_type: string;
 };
-type Tidy_V1_ContactGroup = {
+export type Tidy_V1_ContactGroup = {
     /**
      * - Unique identifier for the group.
      */
@@ -896,7 +896,7 @@ type Tidy_V1_ContactGroup = {
      */
     label: string;
 };
-type Tidy_V1_ContactOrganization = {
+export type Tidy_V1_ContactOrganization = {
     /**
      * - Unique identifier for the organization.
      */
@@ -910,7 +910,7 @@ type Tidy_V1_ContactOrganization = {
      */
     domain_prefix: string;
 };
-type Tidy_V1_Contact = {
+export type Tidy_V1_Contact = {
     /**
      * - Unique identifier for the contact.
      */
@@ -1064,8 +1064,8 @@ type Tidy_V1_Contact = {
      */
     contact_links: Tidy_V1_ContactLink[];
 };
-type Tidy_V1_ContactCustomFields = Object;
-type Tidy_V1_ContactParams = {
+export type Tidy_V1_ContactCustomFields = Object;
+export type Tidy_V1_ContactParams = {
     /**
      * - First name of the contact. Required only on creation.
      */
@@ -1127,8 +1127,8 @@ type Tidy_V1_ContactParams = {
      */
     custom_fields?: Object | undefined;
 };
-type Tidy_V1_CustomFieldType = "string" | "text" | "dropdown" | "boolean" | "date";
-type Tidy_V1_CustomField = {
+export type Tidy_V1_CustomFieldType = "string" | "text" | "dropdown" | "boolean" | "date";
+export type Tidy_V1_CustomField = {
     /**
      * - The unique identifier for the custom field.
      */
@@ -1150,7 +1150,7 @@ type Tidy_V1_CustomField = {
      */
     choices?: Tidy_V1_CustomFieldChoice[] | undefined;
 };
-type Tidy_V1_CustomFieldChoice = {
+export type Tidy_V1_CustomFieldChoice = {
     /**
      * - The unique identifier for the custom field choice.
      */
@@ -1164,10 +1164,10 @@ type Tidy_V1_CustomFieldChoice = {
      */
     created_at: string;
 };
-type Tidy_V1_PaymentType = "cash" | "card" | "cheque" | "bank" | "other";
-type Tidy_V1_PaymentStatus = "paid" | "cancelled";
-type Tidy_V1_FinanceStatus = "activated" | "cancelled";
-type Tidy_V1_Payment = {
+export type Tidy_V1_PaymentType = "cash" | "card" | "cheque" | "bank" | "other";
+export type Tidy_V1_PaymentStatus = "paid" | "cancelled";
+export type Tidy_V1_FinanceStatus = "activated" | "cancelled";
+export type Tidy_V1_Payment = {
     /**
      * - The unique identifier for the payment.
      */
@@ -1189,7 +1189,7 @@ type Tidy_V1_Payment = {
      */
     status: Tidy_V1_PaymentStatus;
 };
-type Tidy_V1_Deposit = {
+export type Tidy_V1_Deposit = {
     /**
      * - The unique identifier for the deposit.
      */
@@ -1239,7 +1239,7 @@ type Tidy_V1_Deposit = {
      */
     payments: Tidy_V1_Payment[];
 };
-type Tidy_V1_DepositParams = {
+export type Tidy_V1_DepositParams = {
     /**
      * - The name of the deposit.
      */
@@ -1261,7 +1261,7 @@ type Tidy_V1_DepositParams = {
      */
     contact_id: number;
 };
-type Tidy_V1_Expense = {
+export type Tidy_V1_Expense = {
     /**
      * - The unique identifier for the expense.
      */
@@ -1323,7 +1323,7 @@ type Tidy_V1_Expense = {
      */
     payments: Tidy_V1_Payment[];
 };
-type Tidy_V1_ExpenseParams = {
+export type Tidy_V1_ExpenseParams = {
     /**
      * - The name of the expense.
      */
@@ -1353,7 +1353,7 @@ type Tidy_V1_ExpenseParams = {
      */
     metadata?: string | undefined;
 };
-type Tidy_V1_Invoice = {
+export type Tidy_V1_Invoice = {
     /**
      * - The unique identifier for the invoice.
      */
@@ -1415,7 +1415,7 @@ type Tidy_V1_Invoice = {
      */
     payments: Tidy_V1_Payment[];
 };
-type Tidy_V1_InvoiceParams = {
+export type Tidy_V1_InvoiceParams = {
     /**
      * - The reference of the invoice. e.g. 'Invoice #1234'
      */
@@ -1453,7 +1453,7 @@ type Tidy_V1_InvoiceParams = {
      */
     metadata?: string | undefined;
 };
-type Tidy_V1_TransactionItem = {
+export type Tidy_V1_TransactionItem = {
     /**
      * - The unique identifier for the item.
      */
@@ -1467,7 +1467,7 @@ type Tidy_V1_TransactionItem = {
      */
     type: "deposit" | "expense" | "invoice";
 };
-type Tidy_V1_Transaction = {
+export type Tidy_V1_Transaction = {
     /**
      * - The unique identifier for the transaction.
      */
@@ -1521,7 +1521,7 @@ type Tidy_V1_Transaction = {
      */
     items: Tidy_V1_TransactionItem[];
 };
-type Tidy_V1_Email = {
+export type Tidy_V1_Email = {
     /**
      * - The unique identifier for the email.
      */
@@ -1579,7 +1579,7 @@ type Tidy_V1_Email = {
      */
     created_at: string;
 };
-type Tidy_V1_Event = {
+export type Tidy_V1_Event = {
     /**
      * - The unique identifier for the event.
      */
@@ -1629,7 +1629,7 @@ type Tidy_V1_Event = {
      */
     archived: boolean;
 };
-type Tidy_V1_EventParams = {
+export type Tidy_V1_EventParams = {
     /**
      * - The name of the event. Required only on creation.
      */
@@ -1663,7 +1663,7 @@ type Tidy_V1_EventParams = {
      */
     category_id?: number | undefined;
 };
-type Tidy_V1_Group = {
+export type Tidy_V1_Group = {
     /**
      * - The unique identifier for the group.
      */
@@ -1689,7 +1689,7 @@ type Tidy_V1_Group = {
      */
     logo_image: string;
 };
-type Tidy_V1_Meeting = {
+export type Tidy_V1_Meeting = {
     /**
      * - The unique identifier for the meeting.
      */
@@ -1751,8 +1751,8 @@ type Tidy_V1_Meeting = {
      */
     public_url: string;
 };
-type Tidy_V1_MeetingTopicCategory = "idea" | "info" | "todo";
-type Tidy_V1_MeetingTopic = {
+export type Tidy_V1_MeetingTopicCategory = "idea" | "info" | "todo";
+export type Tidy_V1_MeetingTopic = {
     /**
      * - The unique identifier for the topic.
      */
@@ -1818,7 +1818,7 @@ type Tidy_V1_MeetingTopic = {
      */
     last_edited_by_id: number;
 };
-type Tidy_V1_MeetingScheduleTopic = {
+export type Tidy_V1_MeetingScheduleTopic = {
     /**
      * - The ID of the member associated with the scheduled meeting topic.
      */
@@ -1848,8 +1848,8 @@ type Tidy_V1_MeetingScheduleTopic = {
      */
     task: Tidy_V1_Task | null;
 };
-type Tidy_V1_MembershipLevelUnitPeriod = "day" | "week" | "month" | "year";
-type Tidy_V1_MembershipLevel = {
+export type Tidy_V1_MembershipLevelUnitPeriod = "day" | "week" | "month" | "year";
+export type Tidy_V1_MembershipLevel = {
     /**
      * - The unique identifier for the membership level.
      */
@@ -1915,7 +1915,7 @@ type Tidy_V1_MembershipLevel = {
      */
     created_at: string;
 };
-type Tidy_V1_BundleAmount = {
+export type Tidy_V1_BundleAmount = {
     /**
      * - The amount for the bundle.
      */
@@ -1929,13 +1929,13 @@ type Tidy_V1_BundleAmount = {
      */
     type: string;
 };
-type Tidy_V1_PricingVariation = {
+export type Tidy_V1_PricingVariation = {
     /**
      * - An array of state-specific pricing variations.
      */
     State: Tidy_V1_PricingVariationState[];
 };
-type Tidy_V1_PricingVariationState = {
+export type Tidy_V1_PricingVariationState = {
     /**
      * - The name of the state or group for this pricing variation.
      */
@@ -1957,7 +1957,7 @@ type Tidy_V1_PricingVariationState = {
      */
     Club: Tidy_V1_PricingVariationClub[];
 };
-type Tidy_V1_PricingVariationClub = {
+export type Tidy_V1_PricingVariationClub = {
     /**
      * - The name of the club for this pricing variation.
      */
@@ -1975,7 +1975,7 @@ type Tidy_V1_PricingVariationClub = {
      */
     autofill_group: Tidy_V1_PricingVariationAutofillGroup;
 };
-type Tidy_V1_PricingVariationDestination = {
+export type Tidy_V1_PricingVariationDestination = {
     /**
      * - The unique identifier for the destination.
      */
@@ -1989,7 +1989,7 @@ type Tidy_V1_PricingVariationDestination = {
      */
     name: string;
 };
-type Tidy_V1_PricingVariationAutofillGroup = {
+export type Tidy_V1_PricingVariationAutofillGroup = {
     /**
      * - The unique identifier for the autofill group.
      */
@@ -1999,7 +1999,7 @@ type Tidy_V1_PricingVariationAutofillGroup = {
      */
     name: string;
 };
-type Tidy_V1_Membership = {
+export type Tidy_V1_Membership = {
     /**
      * - The unique identifier for the membership.
      */
@@ -2053,7 +2053,7 @@ type Tidy_V1_Membership = {
      */
     created_at: string;
 };
-type Tidy_V1_MembershipMember = {
+export type Tidy_V1_MembershipMember = {
     /**
      * - The unique identifier for the contact.
      */
@@ -2063,7 +2063,7 @@ type Tidy_V1_MembershipMember = {
      */
     member_since: string;
 };
-type Tidy_V1_MembershipLevelSummary = {
+export type Tidy_V1_MembershipLevelSummary = {
     /**
      * - The unique identifier for the membership level.
      */
@@ -2081,7 +2081,7 @@ type Tidy_V1_MembershipLevelSummary = {
      */
     auto_renew: boolean;
 };
-type Tidy_V1_Subscription = {
+export type Tidy_V1_Subscription = {
     /**
      * - The unique identifier for the subscription.
      */
@@ -2103,7 +2103,7 @@ type Tidy_V1_Subscription = {
      */
     variations: Tidy_V1_Variation[];
 };
-type Tidy_V1_Variation = {
+export type Tidy_V1_Variation = {
     /**
      * - The question related to the variation.
      */
@@ -2125,7 +2125,7 @@ type Tidy_V1_Variation = {
      */
     autofill_group: Tidy_V1_PricingVariationAutofillGroup;
 };
-type Tidy_V1_OrganizationPublicContact = {
+export type Tidy_V1_OrganizationPublicContact = {
     /**
      * - The name of the contact.
      */
@@ -2143,7 +2143,7 @@ type Tidy_V1_OrganizationPublicContact = {
      */
     phone_number: string;
 };
-type Tidy_V1_OrganizationPlanQuota = {
+export type Tidy_V1_OrganizationPlanQuota = {
     /**
      * - The email quota.
      */
@@ -2160,7 +2160,7 @@ type Tidy_V1_OrganizationPlanQuota = {
         count: Object;
     };
 };
-type Tidy_V1_OrganizationLink = {
+export type Tidy_V1_OrganizationLink = {
     /**
      * - The unique identifier for the organization.
      */
@@ -2170,7 +2170,7 @@ type Tidy_V1_OrganizationLink = {
      */
     name: string;
 };
-type Tidy_V1_Organization = {
+export type Tidy_V1_Organization = {
     /**
      * - The unique identifier for the organization.
      */
@@ -2255,7 +2255,7 @@ type Tidy_V1_Organization = {
      */
     child_organizations: Tidy_V1_OrganizationLink[];
 };
-type Tidy_V1_Task = {
+export type Tidy_V1_Task = {
     /**
      * - The unique identifier for the task.
      */
@@ -2285,7 +2285,7 @@ type Tidy_V1_Task = {
      */
     contact_id: number | null;
 };
-type Tidy_V1_TaskRecurrence = {
+export type Tidy_V1_TaskRecurrence = {
     /**
      * - The type of the recurrence
      */
@@ -2311,7 +2311,7 @@ type Tidy_V1_TaskRecurrence = {
      */
     month: number | null;
 };
-type Tidy_V1_Ticket = {
+export type Tidy_V1_Ticket = {
     /**
      * - The unique identifier for the ticket.
      */
@@ -2353,7 +2353,7 @@ type Tidy_V1_Ticket = {
      */
     created_at: string;
 };
-type Tidy_V1_SoldTicket = {
+export type Tidy_V1_SoldTicket = {
     /**
      * - The ID of the contact who purchased the ticket.
      */
@@ -2371,7 +2371,7 @@ type Tidy_V1_SoldTicket = {
      */
     code: string;
 };
-type Tidy_V1_ShopProductVariant = {
+export type Tidy_V1_ShopProductVariant = {
     /**
      * - The unique identifier for the variant.
      */
@@ -2389,7 +2389,7 @@ type Tidy_V1_ShopProductVariant = {
      */
     created_at: string;
 };
-type Tidy_V1_ShopProduct = {
+export type Tidy_V1_ShopProduct = {
     /**
      * - The unique identifier for the product.
      */
@@ -2447,7 +2447,7 @@ type Tidy_V1_ShopProduct = {
      */
     variants: Tidy_V1_ShopProductVariant[];
 };
-type Tidy_V1_ShippingOption = {
+export type Tidy_V1_ShippingOption = {
     /**
      * - The unique identifier for the shipping option.
      */
@@ -2481,7 +2481,7 @@ type Tidy_V1_ShippingOption = {
      */
     country_codes: string[];
 };
-type Tidy_V1_ShopOrderProduct = {
+export type Tidy_V1_ShopOrderProduct = {
     /**
      * - The unique identifier for the product.
      */
@@ -2495,7 +2495,7 @@ type Tidy_V1_ShopOrderProduct = {
      */
     quantity: number;
 };
-type Tidy_V1_ShopOrder = {
+export type Tidy_V1_ShopOrder = {
     /**
      * - The unique identifier for the shipping order.
      */
@@ -2525,7 +2525,7 @@ type Tidy_V1_ShopOrder = {
      */
     products: Tidy_V1_ShopOrderProduct[];
 };
-type TidyAPI_Data = {
+export type TidyAPI_Data = {
     /**
      * - The message.
      */
@@ -2535,7 +2535,7 @@ type TidyAPI_Data = {
      */
     errors?: Object | undefined;
 };
-type TidyAPI_Response = {
+export type TidyAPI_Response = {
     /**
      * - The payload returned from the request or error information.
      */
@@ -2557,7 +2557,7 @@ type TidyAPI_Response = {
      */
     message?: string | undefined;
 };
-type TidyAPI_EmptyResponse = {
+export type TidyAPI_EmptyResponse = {
     /**
      * - The HTTP status code of the response.
      */
@@ -2575,7 +2575,7 @@ type TidyAPI_EmptyResponse = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Contact = {
+export type TidyAPI_V1_Contact = {
     /**
      * - The contact.
      */
@@ -2597,7 +2597,7 @@ type TidyAPI_V1_Contact = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Contacts = {
+export type TidyAPI_V1_Contacts = {
     /**
      * - The contacts.
      */
@@ -2619,7 +2619,7 @@ type TidyAPI_V1_Contacts = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Categories = {
+export type TidyAPI_V1_Categories = {
     /**
      * - The categories.
      */
@@ -2641,7 +2641,7 @@ type TidyAPI_V1_Categories = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_CustomField = {
+export type TidyAPI_V1_CustomField = {
     /**
      * - The custom field.
      */
@@ -2663,7 +2663,7 @@ type TidyAPI_V1_CustomField = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_CustomFields = {
+export type TidyAPI_V1_CustomFields = {
     /**
      * - The custom fields.
      */
@@ -2685,7 +2685,7 @@ type TidyAPI_V1_CustomFields = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_CustomFieldChoice = {
+export type TidyAPI_V1_CustomFieldChoice = {
     /**
      * - The custom field.
      */
@@ -2707,7 +2707,7 @@ type TidyAPI_V1_CustomFieldChoice = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_CustomFieldChoices = {
+export type TidyAPI_V1_CustomFieldChoices = {
     /**
      * - The custom fields.
      */
@@ -2729,7 +2729,7 @@ type TidyAPI_V1_CustomFieldChoices = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Deposit = {
+export type TidyAPI_V1_Deposit = {
     /**
      * - The deposit.
      */
@@ -2751,7 +2751,7 @@ type TidyAPI_V1_Deposit = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Deposits = {
+export type TidyAPI_V1_Deposits = {
     /**
      * - The deposits.
      */
@@ -2773,7 +2773,7 @@ type TidyAPI_V1_Deposits = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Email = {
+export type TidyAPI_V1_Email = {
     /**
      * - The email.
      */
@@ -2795,7 +2795,7 @@ type TidyAPI_V1_Email = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Emails = {
+export type TidyAPI_V1_Emails = {
     /**
      * - The emails.
      */
@@ -2817,7 +2817,7 @@ type TidyAPI_V1_Emails = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Event = {
+export type TidyAPI_V1_Event = {
     /**
      * - The event.
      */
@@ -2839,7 +2839,7 @@ type TidyAPI_V1_Event = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Events = {
+export type TidyAPI_V1_Events = {
     /**
      * - The events.
      */
@@ -2861,7 +2861,7 @@ type TidyAPI_V1_Events = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Expense = {
+export type TidyAPI_V1_Expense = {
     /**
      * - The expense.
      */
@@ -2883,7 +2883,7 @@ type TidyAPI_V1_Expense = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Expenses = {
+export type TidyAPI_V1_Expenses = {
     /**
      * - The expenses.
      */
@@ -2905,7 +2905,7 @@ type TidyAPI_V1_Expenses = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Group = {
+export type TidyAPI_V1_Group = {
     /**
      * - The group.
      */
@@ -2927,7 +2927,7 @@ type TidyAPI_V1_Group = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Groups = {
+export type TidyAPI_V1_Groups = {
     /**
      * - The groups.
      */
@@ -2949,7 +2949,7 @@ type TidyAPI_V1_Groups = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Invoice = {
+export type TidyAPI_V1_Invoice = {
     /**
      * - The invoice.
      */
@@ -2971,7 +2971,7 @@ type TidyAPI_V1_Invoice = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Invoices = {
+export type TidyAPI_V1_Invoices = {
     /**
      * - The invoices.
      */
@@ -2993,7 +2993,7 @@ type TidyAPI_V1_Invoices = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Meeting = {
+export type TidyAPI_V1_Meeting = {
     /**
      * - The meeting.
      */
@@ -3015,7 +3015,7 @@ type TidyAPI_V1_Meeting = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Meetings = {
+export type TidyAPI_V1_Meetings = {
     /**
      * - The meetings.
      */
@@ -3037,7 +3037,7 @@ type TidyAPI_V1_Meetings = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_MembershipLevel = {
+export type TidyAPI_V1_MembershipLevel = {
     /**
      * - The membership level.
      */
@@ -3059,7 +3059,7 @@ type TidyAPI_V1_MembershipLevel = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_MembershipLevels = {
+export type TidyAPI_V1_MembershipLevels = {
     /**
      * - The membership levels.
      */
@@ -3081,7 +3081,7 @@ type TidyAPI_V1_MembershipLevels = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Membership = {
+export type TidyAPI_V1_Membership = {
     /**
      * - The membership.
      */
@@ -3103,7 +3103,7 @@ type TidyAPI_V1_Membership = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Memberships = {
+export type TidyAPI_V1_Memberships = {
     /**
      * - The memberships.
      */
@@ -3125,7 +3125,7 @@ type TidyAPI_V1_Memberships = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Organization = {
+export type TidyAPI_V1_Organization = {
     /**
      * - The organization.
      */
@@ -3147,7 +3147,7 @@ type TidyAPI_V1_Organization = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Organizations = {
+export type TidyAPI_V1_Organizations = {
     /**
      * - The organizations.
      */
@@ -3169,7 +3169,7 @@ type TidyAPI_V1_Organizations = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_OrganizationContacts = {
+export type TidyAPI_V1_OrganizationContacts = {
     /**
      * - The organizations.
      */
@@ -3191,7 +3191,7 @@ type TidyAPI_V1_OrganizationContacts = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Payment = {
+export type TidyAPI_V1_Payment = {
     /**
      * - The organizations.
      */
@@ -3213,7 +3213,7 @@ type TidyAPI_V1_Payment = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_PricingVariation = {
+export type TidyAPI_V1_PricingVariation = {
     /**
      * - The membership level pricing variations.
      */
@@ -3235,7 +3235,7 @@ type TidyAPI_V1_PricingVariation = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Task = {
+export type TidyAPI_V1_Task = {
     /**
      * - The task.
      */
@@ -3257,7 +3257,7 @@ type TidyAPI_V1_Task = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Tasks = {
+export type TidyAPI_V1_Tasks = {
     /**
      * - The tasks.
      */
@@ -3279,7 +3279,7 @@ type TidyAPI_V1_Tasks = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Ticket = {
+export type TidyAPI_V1_Ticket = {
     /**
      * - The ticket.
      */
@@ -3301,7 +3301,7 @@ type TidyAPI_V1_Ticket = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Tickets = {
+export type TidyAPI_V1_Tickets = {
     /**
      * - The tickets.
      */
@@ -3323,7 +3323,7 @@ type TidyAPI_V1_Tickets = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_SoldTickets = {
+export type TidyAPI_V1_SoldTickets = {
     /**
      * - The sold tickets.
      */
@@ -3345,7 +3345,7 @@ type TidyAPI_V1_SoldTickets = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Transaction = {
+export type TidyAPI_V1_Transaction = {
     /**
      * - The transaction.
      */
@@ -3367,7 +3367,7 @@ type TidyAPI_V1_Transaction = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_Transactions = {
+export type TidyAPI_V1_Transactions = {
     /**
      * - The transactions.
      */
@@ -3389,7 +3389,7 @@ type TidyAPI_V1_Transactions = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_ShopProduct = {
+export type TidyAPI_V1_ShopProduct = {
     /**
      * - The shop product.
      */
@@ -3411,7 +3411,7 @@ type TidyAPI_V1_ShopProduct = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_ShopProducts = {
+export type TidyAPI_V1_ShopProducts = {
     /**
      * - The shop products.
      */
@@ -3433,7 +3433,7 @@ type TidyAPI_V1_ShopProducts = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_ShippingOption = {
+export type TidyAPI_V1_ShippingOption = {
     /**
      * - The shipping option.
      */
@@ -3455,7 +3455,7 @@ type TidyAPI_V1_ShippingOption = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_ShippingOptions = {
+export type TidyAPI_V1_ShippingOptions = {
     /**
      * - The shipping options.
      */
@@ -3477,7 +3477,7 @@ type TidyAPI_V1_ShippingOptions = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_ShopOrder = {
+export type TidyAPI_V1_ShopOrder = {
     /**
      * - The shop order.
      */
@@ -3499,7 +3499,7 @@ type TidyAPI_V1_ShopOrder = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V1_ShopOrders = {
+export type TidyAPI_V1_ShopOrders = {
     /**
      * - The shop orders.
      */
@@ -3521,7 +3521,7 @@ type TidyAPI_V1_ShopOrders = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V2_Contact = {
+export type TidyAPI_V2_Contact = {
     /**
      * - The contact.
      */
@@ -3543,7 +3543,7 @@ type TidyAPI_V2_Contact = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V2_Contacts = {
+export type TidyAPI_V2_Contacts = {
     /**
      * - The contacts.
      */
@@ -3565,7 +3565,7 @@ type TidyAPI_V2_Contacts = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V2_Membership = {
+export type TidyAPI_V2_Membership = {
     /**
      * - The membership.
      */
@@ -3587,7 +3587,7 @@ type TidyAPI_V2_Membership = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V2_Memberships = {
+export type TidyAPI_V2_Memberships = {
     /**
      * - The memberships.
      */
@@ -3609,7 +3609,7 @@ type TidyAPI_V2_Memberships = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V2_Subscription = {
+export type TidyAPI_V2_Subscription = {
     /**
      * - The subscription.
      */
@@ -3631,7 +3631,7 @@ type TidyAPI_V2_Subscription = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V2_Subscriptions = {
+export type TidyAPI_V2_Subscriptions = {
     /**
      * - The subscriptions.
      */
@@ -3653,7 +3653,7 @@ type TidyAPI_V2_Subscriptions = {
      */
     message?: string | undefined;
 };
-type Tidy_V2_SubscriptionPostResponse = {
+export type Tidy_V2_SubscriptionPostResponse = {
     /**
      * - The unique identifier for the subscription.
      */
@@ -3703,7 +3703,7 @@ type Tidy_V2_SubscriptionPostResponse = {
      */
     membership: Tidy_V2_Membership;
 };
-type TidyAPI_V2_SubscriptionPost = {
+export type TidyAPI_V2_SubscriptionPost = {
     /**
      * - The subscription and membership response.
      */
@@ -3725,7 +3725,7 @@ type TidyAPI_V2_SubscriptionPost = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V2_MembershipLevel = {
+export type TidyAPI_V2_MembershipLevel = {
     /**
      * - The membership level.
      */
@@ -3747,7 +3747,7 @@ type TidyAPI_V2_MembershipLevel = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V2_MembershipLevels = {
+export type TidyAPI_V2_MembershipLevels = {
     /**
      * - The membership levels.
      */
@@ -3769,7 +3769,7 @@ type TidyAPI_V2_MembershipLevels = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V2_Note = {
+export type TidyAPI_V2_Note = {
     /**
      * - The note.
      */
@@ -3791,7 +3791,7 @@ type TidyAPI_V2_Note = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V2_Organization = {
+export type TidyAPI_V2_Organization = {
     /**
      * - The organization.
      */
@@ -3813,7 +3813,7 @@ type TidyAPI_V2_Organization = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V2_OrganizationRoles = {
+export type TidyAPI_V2_OrganizationRoles = {
     /**
      * - The roles.
      */
@@ -3835,7 +3835,7 @@ type TidyAPI_V2_OrganizationRoles = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V2_Webhook = {
+export type TidyAPI_V2_Webhook = {
     /**
      * - The webhook.
      */
@@ -3857,7 +3857,7 @@ type TidyAPI_V2_Webhook = {
      */
     message?: string | undefined;
 };
-type TidyAPI_V2_Webhooks = {
+export type TidyAPI_V2_Webhooks = {
     /**
      * - The webhooks.
      */

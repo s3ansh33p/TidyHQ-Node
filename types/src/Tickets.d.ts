@@ -93,3 +93,4 @@ export class TicketsAPI {
     } | undefined): Promise<TidyAPI_Response>;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Tickets, TidyAPI_V1_Ticket, TidyAPI_V1_SoldTickets, TidyAPI_Response } from "types.js";

@@ -57,3 +57,4 @@ export class V2_OrganizationAPI {
     } | undefined): Promise<TidyAPI_V2_OrganizationRoles>;
 }
 import { Rest } from "../utils/Rest.js";
+import { TidyAPI_V2_Organization, TidyAPI_V2_Contacts, TidyAPI_V2_OrganizationRoles } from "../types.js";

@@ -75,3 +75,4 @@ export class MembershipsAPI {
     #private;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Memberships, TidyAPI_V1_Membership } from "types.js";

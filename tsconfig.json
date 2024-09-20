@@ -9,12 +9,13 @@
         "strict": true,
         "declaration": true,
         "declarationDir": "types",
+        "emitDeclarationOnly": true,
         "outDir": "dist",
         "baseUrl": ".",
         "paths": {
             "*": ["node_modules/*"]
         }
     },
-    "exclude": ["docs", "node_modules"],
+    "exclude": ["docs", "node_modules", "post-build.js"],
     "include": ["**/*.js"]
 }

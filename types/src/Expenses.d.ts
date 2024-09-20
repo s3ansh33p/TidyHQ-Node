@@ -75,3 +75,4 @@ export class ExpensesAPI {
     #private;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Expenses, TidyAPI_V1_Expense, TidyAPI_V1_Payment, TidyAPI_Response, Tidy_V1_ExpenseParams, Tidy_V1_PaymentType } from "types.js";

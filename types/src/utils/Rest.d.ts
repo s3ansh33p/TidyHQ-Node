@@ -58,3 +58,4 @@ export class Rest {
     patch(path: string, data?: Object, accessToken?: string): Promise<TidyAPI_Response>;
     #private;
 }
+import { TidyAPI_Response } from "../types.js";

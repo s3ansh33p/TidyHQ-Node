@@ -38,3 +38,4 @@ export class TransactionsAPI {
     } | undefined): Promise<TidyAPI_V1_Transaction>;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_Transactions, TidyAPI_V1_Transaction } from "types.js";

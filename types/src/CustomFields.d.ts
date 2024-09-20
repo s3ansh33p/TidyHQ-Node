@@ -121,3 +121,4 @@ export class CustomFieldsAPI {
     #private;
 }
 import { Rest } from "./utils/Rest.js";
+import { TidyAPI_V1_CustomFields, TidyAPI_V1_CustomField, TidyAPI_Response, TidyAPI_V1_CustomFieldChoices, TidyAPI_V1_CustomFieldChoice, Tidy_V1_CustomFieldType } from "types.js";
