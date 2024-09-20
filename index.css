@@ -1,0 +1,7 @@
+.params td, .params th, .props td, .props th, th, td {
+    padding: 0.5rem 1rem!important;
+}
+
+.details .details-item-container {
+    padding: 0.5rem 1rem!important;
+}
