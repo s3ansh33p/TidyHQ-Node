@@ -1,7 +1,7 @@
 {
   "name": "tidyhq",
   "version": "1.0.0",
-  "description": "Interact with the TidyHQ",
+  "description": "Interact with TidyHQ",
   "main": "index.js",
   "types": "./types/index.d.ts",
   "scripts": {
