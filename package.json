@@ -1,6 +1,6 @@
 {
   "name": "tidyhq",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Interact with TidyHQ",
   "main": "index.js",
   "types": "./types/index.d.ts",
