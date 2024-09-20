@@ -13,7 +13,7 @@ Refer to the [TidyHQ V1 API Documentation](https://dev.tidyhq.com/) and [TidyHQ 
 
 ### Setup
 ```js
-const TidyHQ = require("../TidyHQ-Node");
+const TidyHQ = require("tidyhq");
 const ACCESS_TOKEN="<your token>"
 const thq = new TidyHQ(ACCESS_TOKEN);
 ```

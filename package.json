@@ -1,18 +1,23 @@
 {
   "name": "tidyhq",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Interact with TidyHQ",
   "main": "index.js",
   "types": "./types/index.d.ts",
   "scripts": {
     "docs": "jsdoc -c jsdoc.json --verbose",
-    "build": "rm -rf types/* dist/* && tsc  --noEmit false --emitDeclarationOnly true",
+    "build": "rm -rf types/* dist/* && tsc  --noEmit false --emitDeclarationOnly true && ./post-build.js",
     "test": "tsc"
   },
+  "keywords": [
+    "tidyhq",
+    "tidy"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/s3ansh33p/TidyHQ-Node.git"
   },
+  "homepage": "https://s3ansh33p.github.io/TidyHQ-Node/",
   "files": [
     "src",
     "types",
